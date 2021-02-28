@@ -5,13 +5,13 @@
 </h1>
 <br>
 
-## O que a plataforma é capaz de fazer :checkered_flag:
+## :rocket: O que a plataforma é capaz de fazer 
 
-:trophy: Cuida da gestão permitindo que você ganhe tempo para focar no seu negócio.
+- Cuida da gestão permitindo que você ganhe tempo para focar no seu negócio.
 
-:trophy: Um software para casa de repouso auxilia em cadastro de cliente, controle financeiro e estoque e demais funções para melhor funcionamento.
+- Um software para casa de repouso auxilia em cadastro de cliente, controle financeiro e estoque e demais funções para melhor funcionamento.
 
-:trophy: Ainda completos relatórios que auxilia na sua  gestão. 
+- Ainda completos relatórios que auxilia na sua  gestão. 
 
 ## :computer: Tecnologias
 - JavaFX
