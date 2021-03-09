@@ -1,9 +1,21 @@
 # SeniorLiving
 
-## O que a plataforma é capaz de fazer :checkered_flag:
+<h1 align="center">
+  <img width="120px" src="logo.svg" alt="logo" >
+</h1>
+<br>
 
-:trophy: Cuida da gestão permitindo que você ganha tempo para focar no seu negócio
+## :rocket: O que a plataforma é capaz de fazer 
 
-:trophy: Um software para casa de repouso auxilia em cadastro de cliente, controle financeiro e estoque e demais funções para melhor funcionamento.
+- Cuida da gestão permitindo que você ganhe tempo para focar no seu negócio.
 
-:trophy: Ainda completos relatórios que auxilia na sua  gestão. 
+- Um software para casa de repouso auxilia em cadastro de cliente, controle financeiro e estoque e demais funções para melhor funcionamento.
+
+- Ainda completos relatórios que auxilia na sua  gestão. 
+
+## :computer: Tecnologias
+- JavaFX
+- MySQL
+
+
+
