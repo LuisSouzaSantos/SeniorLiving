@@ -164,7 +164,7 @@ public class PersonDaoJDBC implements PersonDao {
 					"SELECT person.*,department.Name as DepName "
 					+ "FROM person INNER JOIN department "
 					+ "ON person.DepartmentId = department.Id "
-					+ "ORDER BY Name");
+					+ "ORDER BY Id");
 			
 			rs = st.executeQuery();
 			
@@ -204,7 +204,7 @@ public class PersonDaoJDBC implements PersonDao {
 					+ "FROM person INNER JOIN department "
 					+ "ON person.DepartmentId = department.Id "
 					+ "WHERE DepartmentId = ? "
-					+ "ORDER BY Name");
+					+ "ORDER BY Id");
 			
 			st.setInt(1, department.getId());
 			

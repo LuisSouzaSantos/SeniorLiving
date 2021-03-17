@@ -1,4 +1,4 @@
-package gui;
+package gui.controllers;
 
 import java.net.URL;
 import java.time.Instant;

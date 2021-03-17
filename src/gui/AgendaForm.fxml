@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.AgendaFormController">
+   <children>
+      <TextField fx:id="id" editable="false" layoutX="250.0" layoutY="36.0" />
+      <TextField fx:id="fullname" layoutX="250.0" layoutY="80.0" />
+      <DatePicker fx:id="initiation" layoutX="250.0" layoutY="124.0" />
+     
+      <Label layoutX="117.0" layoutY="40.0" text="Id" />
+      <Label layoutX="117.0" layoutY="84.0" text="Nome" />
+      <Label layoutX="117.0" layoutY="128.0" text="Data Início" />
+      <Label layoutX="117.0" layoutY="172.0" text="Data Final" />
+      <HBox layoutX="345.0" layoutY="309.0" prefHeight="50.0" prefWidth="158.0" spacing="6.0">
+         <children>
+            <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
+            <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Voltar" />
+         </children>
+      </HBox>
+      <DatePicker fx:id="termination" layoutX="250.0" layoutY="168.0" />
+      <Label layoutX="117.0" layoutY="215.0" text="Notes" />
+      <TextArea fx:id="notes" layoutX="250.0" layoutY="205.0" prefHeight="89.0" prefWidth="193.0" />
+   </children>
+</AnchorPane>

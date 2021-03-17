@@ -1,4 +1,4 @@
-package gui;
+package gui.controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,84 +26,103 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Department;
-import model.services.DepartmentService;
+import model.entities.Agenda;
+import model.services.AgendaService;
 
-public class SignUPList implements Initializable, DataChangeListener {
+public class AgendaListController implements Initializable, DataChangeListener {
 
-	private DepartmentService service;
-
-	@FXML
-	private TableView<Department> tableViewDepartment;
+	private AgendaService service;
 
 	@FXML
-	private TableColumn<Department, Integer> tableColumnId;
+	private TableView<Agenda> tableViewAgenda;
 
 	@FXML
-	private TableColumn<Department, String> tableColumnName;
+	private TableColumn<Agenda, Integer> tableColumnId;
 
 	@FXML
-	private TableColumn<Department, Department> tableColumnEDIT;
+	private TableColumn<Agenda, String> tableColumnFullname;
+	
+	
+//	private TableColumn<Agenda, String> tableColumnNotes;
+	
+	
+//	private TableColumn<Agenda, Date> tableColumnInitiaton;
+
+	
+//	private TableColumn<Agenda, Date> tableColumnTermination;
+
+	@FXML
+	private TableColumn<Agenda, Agenda> tableColumnEDIT;
 	
 	@FXML
-	private TableColumn<Department, Department> tableColumnREMOVE;
+	private TableColumn<Agenda, Agenda> tableColumnREMOVE;
 
 	@FXML
 	private Button btNew;
 
-	private ObservableList<Department> obsList;
+	private ObservableList<Agenda> obsList;
 
-	public void setDepartmentService(DepartmentService service) {
+	public void setAgendaService(AgendaService service) {
 		this.service = service;
 	}
 
 	@FXML
 	private void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		Department obj = new Department();
-		createDialogForm(obj, "/gui/DepartmentForm.fxml", parentStage);
+		Agenda obj = new Agenda();
+		createDialogForm(obj, "/gui/AgendaForm.fxml", parentStage);
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		
+		tableColumnFullname.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+	//	tableColumnNotes.setCellValueFactory(new PropertyValueFactory<>("notes"));
+	//	tableColumnInitiaton.setCellValueFactory(new PropertyValueFactory<>("initiation"));
+	//	Utils.formatTableColumnDate(tableColumnInitiaton, "dd/MM/yyyy");
+	//	tableColumnTermination.setCellValueFactory(new PropertyValueFactory<>("termination"));
+	//	Utils.formatTableColumnDate(tableColumnTermination, "dd/MM/yyyy");
+				
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewDepartment.prefHeightProperty().bind(stage.heightProperty());
+		tableViewAgenda.prefHeightProperty().bind(stage.heightProperty());
 	}
 
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Service was null");
 		}
-		List<Department> list = service.findALL();
+		List<Agenda> list = service.findALL();
 		obsList = FXCollections.observableArrayList(list);
-		tableViewDepartment.setItems(obsList);
+		tableViewAgenda.setItems(obsList);
 		initEditButtons();
 		initRemoveButtons();
 	}
 
-	private void createDialogForm(Department obj, String absoluteName, Stage parentStage) {
+	private void createDialogForm(Agenda obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
-			DepartmentFormController controller = loader.getController();
-			controller.setDepartment(obj);
-			controller.setDepartmentSevice(new DepartmentService());
+			AgendaFormController controller = loader.getController();
+			
+			controller.setAgenda(obj);
+			controller.setAgendaSevice(new AgendaService());
+			controller.loadAssociateObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Enter Department data");
+			dialogStage.setTitle("Agenda");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
+			Image anotherIcon = new Image("/gui/images/icon.png");
+			dialogStage.getIcons().add(anotherIcon);
 			dialogStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -119,11 +138,11 @@ public class SignUPList implements Initializable, DataChangeListener {
 
 	private void initEditButtons() {
 		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEDIT.setCellFactory(param -> new TableCell<Department, Department>() {
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Agenda, Agenda>() {
 			private final Button button = new Button("Editar");
 
 			@Override
-			protected void updateItem(Department obj, boolean empty) {
+			protected void updateItem(Agenda obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
@@ -131,18 +150,18 @@ public class SignUPList implements Initializable, DataChangeListener {
 				}
 				setGraphic(button);
 				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/DepartmentForm.fxml", Utils.currentStage(event)));
+						event -> createDialogForm(obj, "/gui/AgendaForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
 
 	private void initRemoveButtons() {
 		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnREMOVE.setCellFactory(param -> new TableCell<Department, Department>() {
+		tableColumnREMOVE.setCellFactory(param -> new TableCell<Agenda, Agenda>() {
 			private final Button button = new Button("Excluir");
 
 			@Override
-			protected void updateItem(Department obj, boolean empty) {
+			protected void updateItem(Agenda obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
@@ -154,7 +173,7 @@ public class SignUPList implements Initializable, DataChangeListener {
 		});
 	}
 
-	protected void removeEntity(Department obj) {
+	protected void removeEntity(Agenda obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
 		
 		if (result.get() == ButtonType.OK) {

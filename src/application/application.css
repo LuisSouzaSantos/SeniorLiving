@@ -1,1 +1,5 @@
 /* JavaFX CSS */
+
+.button {
+	-fx-font: 10px "Arial"
+}

@@ -54,7 +54,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM department ORDER BY Name");
+				"SELECT * FROM department ORDER BY Id");
 			rs = st.executeQuery();
 
 			List<Department> list = new ArrayList<>();

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="174.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DepartmentFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="174.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.DepartmentFormController">
    <children>
       <GridPane layoutX="14.0" layoutY="25.0" prefHeight="85.0" prefWidth="456.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="25.0">
         <columnConstraints>
@@ -25,21 +25,21 @@
         </rowConstraints>
          <children>
             <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
-            <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtName" prefHeight="13.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="labelErrorName" textFill="#e12d09" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <padding>
                   <Insets left="5.0" />
                </padding>
             </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
-                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Voltar" />
-               </children>
-            </HBox>
             <Label text="Id" />
             <Label text="Nome" GridPane.rowIndex="1" />
          </children>
       </GridPane>
+      <HBox layoutX="70.0" layoutY="117.0" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
+         <children>
+            <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
+            <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Voltar" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
