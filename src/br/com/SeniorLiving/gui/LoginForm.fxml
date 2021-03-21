@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="640.0" styleClass="text-field" stylesheets="@../img/estilo.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.LoginController">
+    <children>
+      <Pane prefHeight="720.0" prefWidth="640.0" style="-fx-background-color: #3a3a3a; -fx-border-radius: 0;">
+         <children>
+            <TextField fx:id="textEmail" focusTraversable="false" layoutX="110.0" layoutY="306.0" prefHeight="3.0" prefWidth="404.0" promptText="Digite seu login" style="-fx-background-color: rgba(58,58,58,0.3);" styleClass="text-field" stylesheets="@../img/estilo.css">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <Line endX="100.0" layoutX="415.0" layoutY="350.0" opacity="0.41" smooth="false" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
+            <Line endX="100.0" layoutX="213.0" layoutY="350.0" opacity="0.38" smooth="false" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
+            <Text fill="WHITE" layoutX="107.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="106.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <PasswordField fx:id="textPassword" focusTraversable="false" layoutX="110.0" layoutY="422.0" prefHeight="25.0" prefWidth="407.0" promptText="Digite sua senha" style="-fx-background-color: rgba(58,58,58,0.3);">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </PasswordField>
+            <Button fx:id="btLogar" layoutX="109.0" layoutY="525.0" mnemonicParsing="false" onAction="#fazerLogin" prefHeight="46.0" prefWidth="410.0" stylesheets="@../img/estilo.css" text="LOGAR" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Line endX="100.0" layoutX="213.0" layoutY="463.0" opacity="0.38" smooth="false" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
+            <Line endX="100.0" layoutX="415.0" layoutY="463.0" opacity="0.41" smooth="false" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
+            <Line endX="100.0" layoutX="323.0" layoutY="93.0" opacity="0.5" scaleX="2.7" startX="-100.0" stroke="#b2b2b2" />
+            <Line endX="100.0" layoutX="323.0" layoutY="635.0" opacity="0.5" scaleX="2.7" startX="-100.0" stroke="#b2b2b2" />
+            <Line endX="100.0" layoutX="52.0" layoutY="364.0" opacity="0.5" rotate="90.0" scaleX="2.7" startX="-100.0" stroke="#b2b2b2" />
+            <Line endX="100.0" layoutX="594.0" layoutY="364.0" opacity="0.5" rotate="90.0" scaleX="2.7" startX="-100.0" stroke="#b2b2b2" />
+            <Text fill="WHITE" layoutX="288.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" textAlignment="RIGHT">
+               <font>
+                  <Font name="Montserrat-Regular" size="25.0" />
+               </font>
+            </Text>
+            <Button fx:id="btFechar" layoutX="584.0" layoutY="-22.0" mnemonicParsing="false" onAction="#fechar" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#ff8800">
+               <font>
+                  <Font name="Calibri Bold" size="41.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children></Pane>
+    </children>
+</AnchorPane>

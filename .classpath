@@ -9,5 +9,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX11"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mysqlConnector"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mysql23"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ireport"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

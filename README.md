@@ -1,7 +1,7 @@
 # SeniorLiving
 
 <h1 align="center">
-  <img width="120px" src="/gui/images/logo.svg" alt="logo" >
+  <img width="120px" src="/br/com/SeniorLiving/images/logo.svg" alt="logo" >
 </h1>
 <br>
 
@@ -16,6 +16,4 @@
 ## :computer: Tecnologias
 - JavaFX
 - MySQL
-
-
-
+- IReport
