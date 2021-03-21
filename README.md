@@ -1,7 +1,11 @@
 # SeniorLiving
 
 <h1 align="center">
+<<<<<<< HEAD
   <img width="120px" src="/br/com/SeniorLiving/images/logo.svg" alt="logo" >
+=======
+  <img width="120px" src="/src/gui/images/logo.svg" alt="logo" >
+>>>>>>> f4e11a7bd455edb78e6a106dd397b151c27a1922
 </h1>
 <br>
 
@@ -17,3 +21,9 @@
 - JavaFX
 - MySQL
 - IReport
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> f4e11a7bd455edb78e6a106dd397b151c27a1922
