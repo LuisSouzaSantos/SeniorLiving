@@ -14,8 +14,8 @@ import com.mysql.jdbc.Statement;
 import br.com.SeniorLiving.db.DB;
 import br.com.SeniorLiving.db.DbException;
 import br.com.SeniorLiving.model.dao.PersonDao;
-import br.com.SeniorLiving.model.entities.Department;
-import br.com.SeniorLiving.model.entities.Person;
+import br.com.ftt.ec6.seniorLiving.model.entities.Department;
+import br.com.ftt.ec6.seniorLiving.model.entities.Person;
 
 public class PersonDaoJDBC implements PersonDao {
 

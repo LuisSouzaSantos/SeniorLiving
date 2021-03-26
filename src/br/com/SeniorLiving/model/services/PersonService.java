@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.SeniorLiving.model.dao.DaoFactory;
 import br.com.SeniorLiving.model.dao.PersonDao;
-import br.com.SeniorLiving.model.entities.Person;
+import br.com.ftt.ec6.seniorLiving.model.entities.Person;
 
 public class PersonService {
 	

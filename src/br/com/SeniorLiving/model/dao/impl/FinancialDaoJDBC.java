@@ -11,7 +11,7 @@ import com.mysql.jdbc.Statement;
 
 import br.com.SeniorLiving.db.DB;
 import br.com.SeniorLiving.db.DbException;
-import br.com.SeniorLiving.model.entities.Financial;
+import br.com.ftt.ec6.seniorLiving.model.entities.Financial;
 
 public class FinancialDaoJDBC {
 

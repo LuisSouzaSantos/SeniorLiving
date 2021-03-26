@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.SeniorLiving.model.dao.DaoFactory;
 import br.com.SeniorLiving.model.dao.DepartmentDao;
-import br.com.SeniorLiving.model.entities.Department;
+import br.com.ftt.ec6.seniorLiving.model.entities.Department;
 
 public class DepartmentService {
 	

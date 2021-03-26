@@ -2,7 +2,7 @@ package br.com.SeniorLiving.model.dao;
 
 import java.util.List;
 
-import br.com.SeniorLiving.model.entities.Agenda;
+import br.com.ftt.ec6.seniorLiving.model.entities.Agenda;
 
 public interface AgendaDao {
 	
