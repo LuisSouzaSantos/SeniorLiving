@@ -6,12 +6,14 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserListController">
    <children>
-      <Label prefHeight="27.0" prefWidth="373.0" text="Cadastro Usuários">
+      <Label prefHeight="27.0" prefWidth="373.0" text="Cadastro Administrador Local">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -20,18 +22,26 @@
          </padding>
       </Label>
       <ToolBar prefHeight="29.0" prefWidth="373.0">
-        <items>
-          <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" text="Novo" />
-        </items>
+         <items>
+            <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="28.0" prefWidth="113.0" text="Novo">
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/baseline_add_black_18dp.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </items>
       </ToolBar>
-      <TableView fx:id="tableViewUser" prefHeight="234.0" prefWidth="373.0">
+      <TableView fx:id="tableViewUser" prefHeight="234.0" prefWidth="373.0" stylesheets="@../application/application.css">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
           <TableColumn fx:id="tableColumnName" prefWidth="75.0" text="Nome" />
           <TableColumn fx:id="tableColumnEmail" prefWidth="112.0" text="Email" />
           
-            <TableColumn fx:id="tableColumnEDIT" prefWidth="71.0" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="64.0" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="58.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="60.0" />
         </columns>
       </TableView>
    </children>

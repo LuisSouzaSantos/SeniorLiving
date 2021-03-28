@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="222.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.FinancialFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.FinancialFormController">
    <children>
       <GridPane layoutX="14.0" layoutY="25.0" prefHeight="260.0" prefWidth="456.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="25.0">
         <columnConstraints>
@@ -38,17 +38,23 @@
                </padding>
             </Label>
             <Label text="Id" />
-            <Label text="Descrição" GridPane.rowIndex="1" />
-            <Label text="Valor" GridPane.rowIndex="2" />
+            <Label text="Produto" GridPane.rowIndex="1" />
+            <Label text="Valor Unitário" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorEmail" textFill="#fc0808" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorBirthDate" textFill="#f80707" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorBaseSalary" textFill="#f50707" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <children>
                   <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
                   <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Voltar" />
                </children>
             </HBox>
+            <Label text="Quantidade" GridPane.rowIndex="4" />
+            <Label text="Vencimento" GridPane.rowIndex="5" />
+            <TextField fx:id="txtQnt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtVencimento" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Valor Total" GridPane.rowIndex="3" />
+            <TextField fx:id="txtValorTotal" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>

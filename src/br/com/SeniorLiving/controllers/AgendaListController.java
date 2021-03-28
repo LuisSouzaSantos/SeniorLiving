@@ -168,6 +168,11 @@ public class AgendaListController implements Initializable, DataChangeListener {
 					return;
 				}
 				setGraphic(button);
+				
+				//Image img = new Image(getClass().getResourceAsStream("/br/com/SeniorLiving/images/round_delete_black_18dp"));
+		       // ImageView imgView = new ImageView(img);
+		       // button.setGraphic(imgView);
+		        
 				button.setOnAction(event -> removeEntity(obj));
 			}
 		});

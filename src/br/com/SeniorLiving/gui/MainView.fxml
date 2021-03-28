@@ -17,30 +17,54 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Cadastro">
                   <items>
-                        <MenuItem fx:id="menuItemAgenda" mnemonicParsing="false" onAction="#onMenuItemAgendaAction" text="Agenda" />
-                        <MenuItem fx:id="menuItemDepartment" mnemonicParsing="false" onAction="#onMenuItemDepartmentAction" text="Departamentos" />
-                    <MenuItem fx:id="menuItemPerson" mnemonicParsing="false" onAction="#onMenuItemPersonAction" text="Funcionários e Pacientes" />
-                        <MenuItem fx:id="menuItemUser" mnemonicParsing="false" onAction="#onMenuItemUserAction" text="Usuários" />
-                        <MenuItem fx:id="menuItemFinancial" mnemonicParsing="false" onAction="#onMenuItemFinancialAction" text="Despesas" />
-                        <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#onMenuItemLoginAction" text="Login" />
+                        <MenuItem fx:id="menuItemUser" mnemonicParsing="false" onAction="#onMenuItemUserAction" text="Administrador Local" />
+                        <MenuItem fx:id="menuItemAgenda" mnemonicParsing="false" onAction="#onMenuItemAgendaAction" text="Casa de Repouso" />
+                    <MenuItem fx:id="menuItemPerson" mnemonicParsing="false" onAction="#onMenuItemPersonAction" text="Pacientes" />
+                        <MenuItem fx:id="menuItemDepartment" mnemonicParsing="false" onAction="#onMenuItemDepartmentAction" text="Produtos" />
+                        <MenuItem fx:id="menuItemFinancial" mnemonicParsing="false" onAction="#onMenuItemFinancialAction" text="Solidário/Curador" />
+                        <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#onMenuItemLoginAction" text="Sair" />
                   </items>
+                     <graphic>
+                        <ImageView fitHeight="58.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/8757f9dcd7ee1a446b58e54fd21220c4.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">
                   <items>
                     <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#onMenuItemAboutAction" text="Sobre" />
                   </items>
+                     <graphic>
+                        <ImageView fitHeight="61.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/images.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Relatório">
+                     <items>
+                        <MenuItem fx:id="menuItemRelatorio" mnemonicParsing="false" onAction="#onMenuItemRelatorioAction" text="Gerar Relatório" />
+                     </items>
+                     <graphic>
+                        <ImageView fitHeight="67.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/graph-report--v2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Menu>
               </menus>
             </MenuBar>
             <HBox prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="35.0" prefHeight="100.0" prefWidth="200.0">
+            <HBox layoutX="10.0" layoutY="35.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="269.0" fitWidth="252.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="115.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="309.0" fitWidth="452.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/old-age-senior.png" />
+                        <Image url="@../images/11d512a1711392741d61311723ad2283.jpg" />
                      </image>
                   </ImageView>
                </children>

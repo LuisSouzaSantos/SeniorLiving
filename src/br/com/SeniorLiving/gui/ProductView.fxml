@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="891.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="rootPane" layoutX="35.0" layoutY="24.0" prefHeight="108.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+         <effect>
+            <DropShadow color="#c9c9c9" />
+         </effect>
+         <children>
+            <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="115.0" prefWidth="112.0" style="-fx-background-color: #e2e2e2;" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="39.0" layoutX="37.0" layoutY="38.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../src/round_group_black_36dp.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <VBox layoutX="148.0" layoutY="10.0" prefHeight="133.0" prefWidth="181.0">
+               <children>
+                  <Label fx:id="groupName" prefHeight="27.0" prefWidth="157.0" text="Group name" textFill="#838383">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Class" prefHeight="24.0" prefWidth="163.0" text="Class" textFill="#797979" />
+                  <Label fx:id="price" prefHeight="28.0" prefWidth="174.0" text="45 $" textFill="#00bf69">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="status" prefHeight="25.0" prefWidth="112.0" promptText="Status" style="-fx-background-color: #f2f2f2; -fx-background-radius: 50px;" />
+               </children>
+            </VBox>
+            <Separator layoutX="329.0" layoutY="10.0" opacity="0.54" orientation="VERTICAL" prefHeight="115.0" prefWidth="8.0" />
+            <VBox layoutX="345.0" layoutY="5.0" prefHeight="115.0" prefWidth="174.0">
+               <children>
+                  <Label prefHeight="32.0" prefWidth="167.0" text="Earned This month" textFill="#6f6f6f">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="earnedThisMonth" prefHeight="23.0" prefWidth="174.0" text="0 $" textFill="#8a8a8a">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="32.0" prefWidth="167.0" text="Enrolled This month" textFill="#6f6f6f">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="enrolledThisMonth" prefHeight="23.0" prefWidth="174.0" text="0" textFill="#8a8a8a">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox layoutX="546.0" layoutY="5.0" prefHeight="115.0" prefWidth="174.0">
+               <children>
+                  <Label prefHeight="32.0" prefWidth="167.0" text="Total students" textFill="#6f6f6f">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalStudent" prefHeight="23.0" prefWidth="174.0" text="0 " textFill="#8a8a8a">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Separator layoutX="515.0" layoutY="5.0" opacity="0.54" orientation="VERTICAL" prefHeight="115.0" prefWidth="8.0" />
+            <JFXButton fx:id="manage" layoutX="710.0" layoutY="14.0" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #ff4444; -fx-background-radius: 50px;" text="Manage" textFill="WHITE" />
+            <Label fx:id="materialName" alignment="CENTER" layoutX="710.0" layoutY="92.0" prefHeight="28.0" prefWidth="112.0" style="-fx-border-color: #c7c7c7; -fx-border-radius: 50px;" text="Material name" textFill="#6f6f6f">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

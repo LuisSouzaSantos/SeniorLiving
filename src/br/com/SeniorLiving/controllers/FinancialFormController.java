@@ -42,6 +42,15 @@ public class FinancialFormController implements Initializable {
 	private TextField txtAmount;
 	
 	@FXML
+	private TextField txtQnt;
+	
+	@FXML
+	private TextField txtVencimento;
+	
+	@FXML
+	private TextField txtValorTotal;
+	
+	@FXML
 	private Button btSave;
 
 	@FXML

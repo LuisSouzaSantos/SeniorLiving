@@ -25,7 +25,7 @@
          </children>
       </HBox>
       <DatePicker fx:id="termination" layoutX="250.0" layoutY="168.0" />
-      <Label layoutX="117.0" layoutY="215.0" text="Notes" />
+      <Label layoutX="117.0" layoutY="215.0" text="Obs." />
       <TextArea fx:id="notes" layoutX="250.0" layoutY="205.0" prefHeight="89.0" prefWidth="193.0" />
    </children>
 </AnchorPane>

@@ -51,6 +51,8 @@ public class MainViewController implements Initializable{
 	@FXML
 	private MenuItem menuItemAbout;
 	
+	@FXML
+	private MenuItem menuItemRelatorio;
 	
 	@FXML
 	private void onMenuItemPersonAction() {
@@ -102,6 +104,12 @@ public class MainViewController implements Initializable{
 	private void onMenuItemAboutAction() {
 		loadView("/br/com/SeniorLiving/gui/About.fxml", x -> {});
 	}
+	
+	@FXML
+	private void onMenuItemRelatorioAction() {
+		loadView("/br/com/SeniorLiving/gui/Report.fxml", x -> {});
+	}
+	
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
