@@ -11,7 +11,7 @@ import java.util.List;
 import br.com.SeniorLiving.db.DB;
 import br.com.SeniorLiving.db.DbException;
 import br.com.SeniorLiving.db.DbIntegrityException;
-import br.com.SeniorLiving.model.entities.User;
+import br.com.ftt.ec6.seniorLiving.model.entities.User;
 
 public class UserJDBC {
 

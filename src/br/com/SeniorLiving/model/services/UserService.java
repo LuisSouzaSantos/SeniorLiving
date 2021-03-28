@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.SeniorLiving.model.dao.DaoFactory;
 import br.com.SeniorLiving.model.dao.impl.UserJDBC;
-import br.com.SeniorLiving.model.entities.User;
+import br.com.ftt.ec6.seniorLiving.model.entities.User;
 
 public class UserService {
 	

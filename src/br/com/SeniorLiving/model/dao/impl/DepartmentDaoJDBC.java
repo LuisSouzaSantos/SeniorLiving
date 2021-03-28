@@ -12,7 +12,7 @@ import br.com.SeniorLiving.db.DB;
 import br.com.SeniorLiving.db.DbException;
 import br.com.SeniorLiving.db.DbIntegrityException;
 import br.com.SeniorLiving.model.dao.DepartmentDao;
-import br.com.SeniorLiving.model.entities.Department;
+import br.com.ftt.ec6.seniorLiving.model.entities.Department;
 
 public class DepartmentDaoJDBC implements DepartmentDao {
 
