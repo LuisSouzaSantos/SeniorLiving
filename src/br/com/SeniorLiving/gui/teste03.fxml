@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="231.0" fitWidth="504.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../Downloads/image-senior.png" />
+            <Image url="@../images/image-senior.png" />
          </image>
       </ImageView>
       <AnchorPane layoutX="497.0" layoutY="29.0" prefHeight="404.0" prefWidth="266.0" style="-fx-border-color: #c2c2c2; -fx-border-radius: 50px;">
