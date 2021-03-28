@@ -1,3 +1,11 @@
+.jfx-snackbar-content{
+    -fx-background-color: #56dc8a;
+}
+.jfx-snackbar-toast{
+    -fx-alignment: center;
+    -fx-text-fill: #f4fffc;
+}
+
 .table-cell {	  
     -fx-padding: 0.8em 0em 0.5em 0.3em;
     -fx-border-color: transparent -fx-box-border transparent transparent;  
