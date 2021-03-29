@@ -2,9 +2,9 @@ package br.com.SeniorLiving.model.services;
 
 import java.util.List;
 
-import br.com.SeniorLiving.model.dao.AgendaDao;
-import br.com.SeniorLiving.model.dao.DaoFactory;
-import br.com.ftt.ec6.seniorLiving.model.entities.Agenda;
+import br.com.ftt.ec6.seniorLiving.DAO.AgendaDao;
+import br.com.ftt.ec6.seniorLiving.DAO.DaoFactory;
+import br.com.ftt.ec6.seniorLiving.entities.Agenda;
 
 public class AgendaService {
 

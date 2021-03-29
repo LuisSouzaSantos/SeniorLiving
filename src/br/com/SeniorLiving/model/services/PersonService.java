@@ -2,9 +2,9 @@ package br.com.SeniorLiving.model.services;
 
 import java.util.List;
 
-import br.com.SeniorLiving.model.dao.DaoFactory;
-import br.com.SeniorLiving.model.dao.PersonDao;
-import br.com.ftt.ec6.seniorLiving.model.entities.Person;
+import br.com.ftt.ec6.seniorLiving.DAO.DaoFactory;
+import br.com.ftt.ec6.seniorLiving.DAO.PersonDao;
+import br.com.ftt.ec6.seniorLiving.entities.Person;
 
 public class PersonService {
 	

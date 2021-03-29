@@ -8,11 +8,11 @@ import java.util.ResourceBundle;
 
 import br.com.SeniorLiving.application.Main;
 import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
-import br.com.SeniorLiving.controllers.util.Alerts;
-import br.com.SeniorLiving.controllers.util.Utils;
 import br.com.SeniorLiving.db.DbIntegrityException;
 import br.com.SeniorLiving.model.services.UserService;
-import br.com.ftt.ec6.seniorLiving.model.entities.User;
+import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.utils.Alerts;
+import br.com.ftt.ec6.seniorLiving.utils.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

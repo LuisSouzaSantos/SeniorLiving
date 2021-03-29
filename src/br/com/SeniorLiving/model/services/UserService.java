@@ -2,13 +2,13 @@ package br.com.SeniorLiving.model.services;
 
 import java.util.List;
 
-import br.com.SeniorLiving.model.dao.DaoFactory;
-import br.com.SeniorLiving.model.dao.impl.UserJDBC;
-import br.com.ftt.ec6.seniorLiving.model.entities.User;
+import br.com.ftt.ec6.seniorLiving.DAO.DaoFactory;
+import br.com.ftt.ec6.seniorLiving.DAO.impl.UserDAOImpl;
+import br.com.ftt.ec6.seniorLiving.entities.User;
 
 public class UserService {
 	
-private UserJDBC dao = DaoFactory.createUserDao();
+private UserDAOImpl dao = DaoFactory.createUserDao();
 
 public List<User> findALL() {
 	return dao.findAll();

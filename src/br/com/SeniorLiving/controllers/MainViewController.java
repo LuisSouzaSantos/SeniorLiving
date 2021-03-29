@@ -6,13 +6,13 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 import br.com.SeniorLiving.application.Main;
-import br.com.SeniorLiving.controllers.util.Alerts;
-import br.com.SeniorLiving.controllers.util.Utils;
 import br.com.SeniorLiving.model.services.AgendaService;
 import br.com.SeniorLiving.model.services.DepartmentService;
 import br.com.SeniorLiving.model.services.FinancialService;
 import br.com.SeniorLiving.model.services.PersonService;
 import br.com.SeniorLiving.model.services.UserService;
+import br.com.ftt.ec6.seniorLiving.utils.Alerts;
+import br.com.ftt.ec6.seniorLiving.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

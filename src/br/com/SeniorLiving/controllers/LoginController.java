@@ -1,93 +1,71 @@
 package br.com.SeniorLiving.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.SeniorLiving.controllers.util.Alerts;
-import br.com.SeniorLiving.controllers.util.Constraints;
-import br.com.SeniorLiving.controllers.util.Utils;
-import br.com.SeniorLiving.model.services.UserService;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javax.security.auth.login.LoginException;
 
+import br.com.SeniorLiving.application.Main;
+import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
+import br.com.ftt.ec6.seniorLiving.utils.Constraints;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
-    
-    @FXML
-    private TextField textEmail;
-    
-    @FXML
-    private PasswordField textPassword;
-    
-    @FXML
-	private Button btLogar;
 
 	@FXML
-	private Button btFechar;
+	private TextField textEmail;
+	@FXML
+	private PasswordField textPassword;
+	@FXML
+	private Button btLogar;
 	
-	private UserService service;
-
-    
 	@Override
-    public void initialize(URL url, ResourceBundle db) {
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		initializeNodes();
-    }
-    private void initializeNodes() {
-		Constraints.setTextFieldMaxLength(textEmail, 30);
-		Constraints.setTextFieldMaxLength(textPassword, 30);		
 	}
-    
-    public void setUserSevice(UserService service) {
-		this.service = service;
-	}    
-        
-    public void fazerLogin(){  
-       
-    String email = textEmail.getText().toString();
-    String password = textPassword.getText().toString();
-        
-    boolean logar = service.logar(email, password);
-    
-    try {
-    	if(logar == true)
-    	{    		
-                infoBox("Login Successfull",null,"Success" );
-                System.out.println(email);
-				System.out.println(password);                
-        }
-    	else
-    		infoBox("Please enter correct Email and Password", null, "Failed");    	
-
-       }
-        catch(Exception e){
-			Alerts.showAlert("Error", null, e.getMessage(), AlertType.ERROR);
-        }
-        
-    }
-    
-    public static void infoBox(String infoMessage, String headerText, String title){
-        Alert alert = new Alert(AlertType.CONFIRMATION);
+	
+	public void performLogin() throws LoginException, IOException {
+		String email = textEmail.getText();
+		String password = textPassword.getText();
+		
+		LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
+		loginServiceImpl.performLogin(email, password);
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/SeniorLiving/gui/MainView.fxml"));
+		ScrollPane scrollPane = loader.load();
+		MainViewController mainViewController = loader.getController();
+		Scene futureScene = new Scene(scrollPane);
+		
+		Stage newStage = new Stage();
+		newStage.setScene(futureScene);
+		
+		Main.changeStage(newStage);
+		Main.getCurrentStage().close();
+	}
+	
+	private void initializeNodes() {
+		Constraints.setTextFieldMaxLength(textEmail, 255);
+		Constraints.setTextFieldMaxLength(textPassword, 255);
+	}
+	
+	public static void infoBox(String infoMessage, String headerText, String title){
+        Alert alert = new Alert(AlertType.ERROR);
         alert.setContentText(infoMessage);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.showAndWait();
     } 
-    
-    @FXML
-	public void onBtCloseAction(ActionEvent event) {
-		Utils.currentStage(event).close();
-	} 
-    
+	
+
 }
-
-
-
-
- 
-    

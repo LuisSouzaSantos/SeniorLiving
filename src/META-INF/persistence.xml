@@ -7,9 +7,9 @@
     <persistence-unit name="SeniorLiving" transaction-type="RESOURCE_LOCAL">
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="{{}}"/>
-            <property name="javax.persistence.jdbc.user" value="{{}}"/>
-            <property name="javax.persistence.jdbc.password" value="{{}}"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://seniorliving.c6qekmvgljlr.sa-east-1.rds.amazonaws.com:3306/seniorLiving"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="wxLv6WDZDemczfcPKcG9"/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <property name="hibernate.show_sql" value="true"/>

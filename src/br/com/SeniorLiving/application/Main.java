@@ -2,43 +2,39 @@ package br.com.SeniorLiving.application;
 	
 import java.io.IOException;
 
-import javax.persistence.EntityManager;
-
-import br.com.ftt.ec6.seniorLiving.db.Database;
-import br.com.ftt.ec6.seniorLiving.model.entities.Accommodation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
 public class Main extends Application {
 	
 	private static Scene mainScene;
+	private static Stage lastStage;
+	private static Stage currentStage;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/SeniorLiving/gui/teste03.fxml"));
+			AnchorPane scrollPane = loader.load();
 			
-			Accommodation accommodation = new Accommodation();
+//			scrollPane.setFitToHeight(true);
+//			scrollPane.setFitToWidth(true);
 			
-			EntityManager entityManager = Database.getConnection(accommodation);
-			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/SeniorLiving/gui/MainView.fxml"));
-			ScrollPane scrollPane = loader.load();
-			
-			scrollPane.setFitToHeight(true);
-			scrollPane.setFitToWidth(true);
 			
 			mainScene = new Scene(scrollPane);
+			currentStage = primaryStage;
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Senior Living");
 			
 			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
             primaryStage.getIcons().add(anotherIcon);
-                       
+            
+            setCurrentStage(primaryStage);
 			primaryStage.show();
 		}
 		catch (IOException e) {
@@ -46,8 +42,36 @@ public class Main extends Application {
 		}
 	}
 	
+	public static void changeStage(Stage futureStage) {
+		Stage currentStage = getCurrentStage();
+		
+		if(currentStage != null) {
+			setLastStage(currentStage);
+		}
+		
+		setCurrentStage(futureStage);
+		getLasStage().close();
+		getCurrentStage().showAndWait();;
+	}
+	
+	public static void setLastStage(Stage stage) {
+		lastStage = stage;
+	}
+	
+	public static void setCurrentStage(Stage stage) {
+		currentStage = stage;
+	}
+	
+	public static Stage getLasStage() {
+		return lastStage;
+	}
+	
 	public static Scene getMainScene() {
 		return mainScene;
+	}
+	
+	public static Stage getCurrentStage() {
+		return currentStage;
 	}
 	
 	public static void main(String[] args) {

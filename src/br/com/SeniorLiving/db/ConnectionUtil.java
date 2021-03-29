@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import javax.persistence.EntityManager;
 
 import br.com.ftt.ec6.seniorLiving.db.Database;
-import br.com.ftt.ec6.seniorLiving.model.entities.Elderly;
+import br.com.ftt.ec6.seniorLiving.entities.Elderly;
 
 //import net.sf.jasperreports.engine.JRException;
 //import net.sf.jasperreports.engine.JasperFillManager;

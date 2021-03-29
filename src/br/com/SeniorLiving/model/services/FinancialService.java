@@ -2,9 +2,9 @@ package br.com.SeniorLiving.model.services;
 
 import java.util.List;
 
-import br.com.SeniorLiving.model.dao.DaoFactory;
-import br.com.SeniorLiving.model.dao.impl.FinancialDaoJDBC;
-import br.com.ftt.ec6.seniorLiving.model.entities.Financial;
+import br.com.ftt.ec6.seniorLiving.DAO.DaoFactory;
+import br.com.ftt.ec6.seniorLiving.DAO.impl.FinancialDaoJDBC;
+import br.com.ftt.ec6.seniorLiving.entities.Financial;
 
 public class FinancialService {
 
