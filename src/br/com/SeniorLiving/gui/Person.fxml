@@ -14,7 +14,7 @@
 
 <VBox prefHeight="378.0" prefWidth="548.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="549.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="549.0">
          <children>
             <GridPane layoutX="31.0" layoutY="27.0" prefHeight="354.0" prefWidth="500.0" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="27.0">
                <columnConstraints>
@@ -41,17 +41,15 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField fx:id="txtId" editable="false" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtEstadoCivil" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <DatePicker fx:id="dpBirthDate" prefHeight="25.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <TextField fx:id="txtBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="txtPerfil" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label fx:id="labelErrorName" textFill="#e12d09" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
                   </Label>
-                  <Label text="Id" />
                   <Label text="Nome" GridPane.rowIndex="1" />
                   <Label text="Estado Civil" GridPane.rowIndex="2" />
                   <Label text="Data Nascimento" GridPane.rowIndex="6" />
@@ -62,37 +60,38 @@
                   <Label fx:id="labelErrorBaseSalary" textFill="#f50707" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <Label text="RG" GridPane.rowIndex="4" />
                   <Label text="CPF" GridPane.rowIndex="5" />
-                  <TextField fx:id="txtEmail1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="txtEmail2" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="txtRg" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtCpf" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="Email" GridPane.rowIndex="9" />
                   <Label text="Rua" GridPane.rowIndex="10" />
                   <Label text="Estado" GridPane.rowIndex="12" />
                   <Label text="Nacionalidade" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtEmail3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtEmail11" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <TextField fx:id="txtEmail12" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <TextField fx:id="txtEmail13" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <TextField fx:id="txtEmail14" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <TextField fx:id="txtNacionalidade" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtTelefone" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <TextField fx:id="txtRua" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <TextField fx:id="txtNumero" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                   <Label text="Número" GridPane.rowIndex="11">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="txtEmail141" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                  <TextField fx:id="txtEstado" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                   <Label text="Cep" GridPane.rowIndex="13">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Label>
                   <Label text="Ponto de Referência" GridPane.rowIndex="14" />
-                  <TextField fx:id="txtEmail142" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                  <TextField fx:id="txtEmail143" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                  <TextField fx:id="txtCep" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                  <TextField fx:id="txtReferencia" GridPane.columnIndex="1" GridPane.rowIndex="14" />
                </children>
             </GridPane>
-            <HBox layoutX="374.0" layoutY="377.0" prefHeight="38.0" prefWidth="200.0" spacing="6.0">
+            <HBox layoutX="374.0" layoutY="377.0" prefHeight="38.0" prefWidth="200.0" spacing="6.0" />
+            <HBox layoutX="167.0" layoutY="394.0" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
                <children>
-                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
-                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Voltar" />
+                  <Button fx:id="btSave1" alignment="CENTER" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="27.0" prefWidth="100.0" style="-fx-border-radius: 50px; -fx-background-color: transparent; -fx-border-color: #c2c2c2;" text="Salvar" />
+                  <Button fx:id="btCancel1" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBtCancelAction" prefHeight="27.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #c2c2c2; -fx-border-radius: 50px;" text="Voltar" />
                </children>
             </HBox>
          </children>
