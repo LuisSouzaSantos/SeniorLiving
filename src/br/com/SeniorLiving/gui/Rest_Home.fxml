@@ -38,7 +38,6 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
                   <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -48,7 +47,6 @@
                         <Insets left="5.0" />
                      </padding>
                   </Label>
-                  <Label text="Id" />
                   <Label text="Razão Social" GridPane.rowIndex="1" />
                   <Label text="Estado Civil" GridPane.rowIndex="2" />
                   <Label text="Número" GridPane.rowIndex="6" />
@@ -67,14 +65,15 @@
                   <TextField fx:id="txtEmail21" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <TextField fx:id="txtBaseSalary1" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <TextField fx:id="txtBaseSalary2" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                     <children>
+                        <Button fx:id="btSave1" alignment="CENTER" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="27.0" prefWidth="100.0" style="-fx-border-radius: 50px; -fx-background-color: transparent; -fx-border-color: #c2c2c2;" text="Salvar" />
+                        <Button fx:id="btCancel1" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBtCancelAction" prefHeight="27.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #c2c2c2; -fx-border-radius: 50px;" text="Voltar" />
+                     </children>
+                  </HBox>
                </children>
             </GridPane>
-            <HBox layoutX="335.0" layoutY="345.0" prefHeight="38.0" prefWidth="200.0" spacing="6.0">
-               <children>
-                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
-                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Voltar" />
-               </children>
-            </HBox>
+            <HBox layoutX="335.0" layoutY="345.0" prefHeight="38.0" prefWidth="200.0" spacing="6.0" />
          </children>
       </AnchorPane>
    </children>

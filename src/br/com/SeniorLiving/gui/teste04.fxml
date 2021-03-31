@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="203.0" />
+      <BorderPane prefHeight="400.0" prefWidth="203.0" style="-fx-background-color: #4a5796;">
+         <top>
+            <VBox prefHeight="394.0" prefWidth="215.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="95.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true" />
+                  <JFXButton fx:id="btPapel" prefHeight="90.0" prefWidth="199.0" text="Papel                 " textFill="#f5f4f4" textOverrun="CLIP">
+                     <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Teste02/SeniorLiving/src/br/com/SeniorLiving/images/papel%20(2).png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btUsuario" layoutX="10.0" layoutY="115.0" prefHeight="87.0" prefWidth="200.0" text="Usuário             " textFill="#f5f4f4">
+                     <graphic>
+                        <ImageView fitHeight="57.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Teste02/SeniorLiving/src/br/com/SeniorLiving/images/user%20(2).png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btCRepouso" layoutX="10.0" layoutY="180.0" prefHeight="76.0" prefWidth="200.0" text="Casa de Repouso" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="59.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Teste02/SeniorLiving/src/br/com/SeniorLiving/images/casarepouso.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </top>
+      </BorderPane>
+      <AnchorPane prefHeight="50.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="162.0" layoutX="12.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Teste02/SeniorLiving/src/br/com/SeniorLiving/images/seniorLiving.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button fx:id="btFechar" layoutX="735.0" layoutY="-24.0" mnemonicParsing="false" onAction="#onBtCloseAction" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#ff8800">
+         <font>
+            <Font name="Calibri Bold" size="41.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>
