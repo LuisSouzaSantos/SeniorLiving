@@ -25,6 +25,7 @@ public class User extends BaseConfig {
 	private Long id;
 	private String email;
 	private String password;
+	private boolean active;
 
 	@ManyToMany
 	@JoinTable(
@@ -57,6 +58,14 @@ public class User extends BaseConfig {
 		this.password = password;
 	}
 	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	public List<Role> getRoleList() {
 		return roleList;
 	}

@@ -38,8 +38,8 @@ public class Elderly extends BaseConfig {
 	private Person curator;
 	
 	@ManyToOne
-	@JoinColumn(name = "sysmpathetic_id")
-	private Person sysmpathetic;
+	@JoinColumn(name = "sympathetic_id")
+	private Person sympathetic;
 	
 	@ManyToOne
 	@JoinColumn(name = "accommodation_id")
@@ -128,12 +128,12 @@ public class Elderly extends BaseConfig {
 		this.curator = curator;
 	}
 	
-	public Person getSysmpathetic() {
-		return sysmpathetic;
+	public Person getSympathetic() {
+		return sympathetic;
 	}
 	
-	public void setSysmpathetic(Person sysmpathetic) {
-		this.sysmpathetic = sysmpathetic;
+	public void setSympathetic(Person sympathetic) {
+		this.sympathetic = sympathetic;
 	}
 	
 	public Accommodation getAccommodation() {

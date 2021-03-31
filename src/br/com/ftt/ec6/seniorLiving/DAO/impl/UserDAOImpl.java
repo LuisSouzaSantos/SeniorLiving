@@ -37,6 +37,25 @@ public class UserDAOImpl implements UserDAO{
 		this.entityManager.persist(user);
 		return user;
 	}
+	
+	@Override
+	public User update(User user) {
+		this.entityManager.persist(user);
+		return user;
+	}
+	
+	@Override
+	public void delete(Long id) {
+		try {
+			this.entityManager.createQuery(removeUserById(), User.class)
+						.setParameter("id", id)
+						.executeUpdate();
+		}catch(RuntimeException e) {}
+	}
+	
+	private String removeUserById() {
+		return "DELETE from User u where u.id = :id";
+	}
 
 	private String findUserByEmailQuery() {
 		return "SELECT u from User u where u.email = :email";
@@ -45,5 +64,7 @@ public class UserDAOImpl implements UserDAO{
 	private void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
+
+
 	
 }

@@ -42,6 +42,21 @@ public class RestHome extends BaseConfig {
 			joinColumns = @JoinColumn(name="rest_home_id"),
 			inverseJoinColumns = @JoinColumn(name="user_id"))
 	private List<User> userList;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "rest_home_type",
+			joinColumns = @JoinColumn(name="rest_home_id"),
+			inverseJoinColumns = @JoinColumn(name="type_id"))
+	private List<Type> typeList;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "rest_home_accommodation",
+			joinColumns = @JoinColumn(name="rest_home_id"),
+			inverseJoinColumns = @JoinColumn(name="accommodation_id"))
+	private List<Accommodation> accommodationList;
+	
 
 	public Long getId() {
 		return id;
@@ -121,6 +136,22 @@ public class RestHome extends BaseConfig {
 
 	public void setUserList(List<User> userList) {
 		this.userList = userList;
+	}
+
+	public List<Type> getTypeList() {
+		return typeList;
+	}
+
+	public void setTypeList(List<Type> typeList) {
+		this.typeList = typeList;
+	}
+
+	public List<Accommodation> getAccommodationList() {
+		return accommodationList;
+	}
+
+	public void setAccommodationList(List<Accommodation> accommodationList) {
+		this.accommodationList = accommodationList;
 	}
 
 	@Override
