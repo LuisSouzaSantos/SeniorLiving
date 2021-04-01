@@ -2,9 +2,9 @@ package br.com.SeniorLiving.controllers;
 
 import java.io.IOException;
 
-import br.com.SeniorLiving.controllers.util.Alerts;
-import br.com.SeniorLiving.controllers.util.Utils;
 import br.com.SeniorLiving.model.services.UserService;
+import br.com.ftt.ec6.seniorLiving.utils.Alerts;
+import br.com.ftt.ec6.seniorLiving.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

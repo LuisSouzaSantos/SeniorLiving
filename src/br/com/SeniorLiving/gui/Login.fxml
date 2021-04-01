@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -9,48 +10,82 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.LoginController">
    <children>
-      <AnchorPane layoutX="190.0" layoutY="-26.0" prefHeight="450.0" prefWidth="312.0" style="-fx-background-color: blue;">
+      <AnchorPane layoutX="466.0" layoutY="32.0" prefHeight="404.0" prefWidth="266.0">
          <children>
-            <ImageView fitHeight="430.0" fitWidth="317.0" layoutX="-1.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../Downloads/4416afc2f3da215aadd0f88fdc2b6b3e.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="115.0" fitWidth="126.0" layoutX="81.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../Downloads/elderly-person.png" />
-               </image>
-            </ImageView>
-            <Text fill="#e1cbcb" layoutX="71.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senior Living" textAlignment="CENTER" wrappingWidth="171.0">
+            <AnchorPane layoutX="2.0" layoutY="14.0" prefHeight="389.0" prefWidth="273.0" style="-fx-background-radius: 50px; -fx-background-color: white;">
+               <children>
+                  <TextField fx:id="txtEmail" alignment="CENTER" focusTraversable="false" layoutX="11.0" layoutY="153.0" prefHeight="33.0" prefWidth="251.0" promptText="Email" style="-fx-background-color: white; -fx-border-color: #c2c2c2;" styleClass="text-field" stylesheets="@SeniorLiving/src/br/com/SeniorLiving/img/estilo.css">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+                  <PasswordField fx:id="txtPassword" alignment="CENTER" focusTraversable="false" layoutX="11.0" layoutY="207.0" prefHeight="33.0" prefWidth="251.0" promptText="Senha" style="-fx-border-color: #c2c2c2; -fx-background-color: white;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </PasswordField>
+                  <Button fx:id="btLogar" layoutX="22.0" layoutY="316.0" mnemonicParsing="false" onAction="#performLogin" prefHeight="33.0" prefWidth="222.0" style="-fx-background-radius: 50px; -fx-background-color: blue;" text="Sign In" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Text fill="#322890" layoutX="-491.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Olá, faça seu login">
+                     <font>
+                        <Font name="Calibri" size="24.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="33.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/seniorLiving.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="74.0" layoutX="94.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/elderly-person.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="468.0" prefWidth="407.0" style="-fx-background-color: #4a5796;">
+         <children>
+            <Text fill="#dadada" layoutX="59.0" layoutY="151.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Ser idoso é acumular experiências e sabedorias que devem ser compartilhadas! &quot;" textAlignment="CENTER" wrappingWidth="273.0">
                <font>
-                  <Font name="Leelawadee UI" size="24.0" />
+                  <Font name="Times New Roman Italic" size="21.0" />
                </font>
             </Text>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="541.0" layoutY="62.0">
-         <children>
-            <Text fill="#322890" layoutX="36.0" layoutY="6.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Olá, faça seu login">
+            <Text layoutX="14.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0.0">
                <font>
-                  <Font name="Calibri" size="24.0" />
+                  <Font size="9.0" />
                </font>
             </Text>
-            <TextField fx:id="textEmail" alignment="CENTER" layoutY="70.0" prefHeight="41.0" prefWidth="228.0" promptText="Usuario" />
-         </children>
-      </AnchorPane>
-      <Button layoutX="9.0" layoutY="133.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="171.0" style="-fx-background-color: transparent; -fx-text-fill: black;" text="Login" />
-      <Button fx:id="btnCadastrar" contentDisplay="CENTER" layoutX="8.0" layoutY="187.0" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="32.0" prefWidth="171.0" style="-fx-background-color: transparent; -fx-text-fill: black;" text="Cadastre-se" />
-      <AnchorPane layoutX="618.0" layoutY="292.0">
-         <children>
-            <ImageView fx:id="login" fitHeight="32.0" fitWidth="33.0" layoutX="22.0" onMouseClicked="#Login" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="205.0" fitWidth="302.0" layoutX="44.0" layoutY="192.0">
                <image>
-                  <Image url="@../../../../Downloads/png-transparent-blue-arrow-icon-bullet-computer-icons-arrow-symbol-arrow-blue-angle-text.png" />
+                  <Image url="@../images/repouso.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <PasswordField fx:id="textPassword" alignment="CENTER" layoutX="541.0" layoutY="212.0" prefHeight="41.0" prefWidth="228.0" promptText="Senha" />
+      <Button fx:id="btFechar" layoutX="734.0" layoutY="-17.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#ff8800">
+         <font>
+            <Font name="Calibri Bold" size="41.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

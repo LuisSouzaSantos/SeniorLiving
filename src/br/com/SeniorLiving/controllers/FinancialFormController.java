@@ -8,13 +8,13 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
-import br.com.SeniorLiving.controllers.util.Alerts;
-import br.com.SeniorLiving.controllers.util.Constraints;
-import br.com.SeniorLiving.controllers.util.Utils;
 import br.com.SeniorLiving.db.DbException;
 import br.com.SeniorLiving.model.exceptions.ValidationException;
 import br.com.SeniorLiving.model.services.FinancialService;
-import br.com.ftt.ec6.seniorLiving.model.entities.Financial;
+import br.com.ftt.ec6.seniorLiving.entities.Financial;
+import br.com.ftt.ec6.seniorLiving.utils.Alerts;
+import br.com.ftt.ec6.seniorLiving.utils.Constraints;
+import br.com.ftt.ec6.seniorLiving.utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

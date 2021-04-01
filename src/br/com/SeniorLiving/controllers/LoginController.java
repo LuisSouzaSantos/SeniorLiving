@@ -1,93 +1,85 @@
 package br.com.SeniorLiving.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.SeniorLiving.controllers.util.Alerts;
-import br.com.SeniorLiving.controllers.util.Constraints;
-import br.com.SeniorLiving.controllers.util.Utils;
-import br.com.SeniorLiving.model.services.UserService;
-import javafx.event.ActionEvent;
+import javax.security.auth.login.LoginException;
+
+import br.com.SeniorLiving.application.Main;
+import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
+import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+public class LoginController extends Controller implements Initializable {
 
-public class LoginController implements Initializable {
-    
-    @FXML
-    private TextField textEmail;
-    
-    @FXML
-    private PasswordField textPassword;
-    
-    @FXML
+	@FXML
+	private TextField txtEmail;
+	@FXML
+	private PasswordField txtPassword;
+	@FXML
 	private Button btLogar;
-
 	@FXML
 	private Button btFechar;
 	
-	private UserService service;
-
-    
 	@Override
-    public void initialize(URL url, ResourceBundle db) {
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		initializeNodes();
-    }
-    private void initializeNodes() {
-		Constraints.setTextFieldMaxLength(textEmail, 30);
-		Constraints.setTextFieldMaxLength(textPassword, 30);		
 	}
-    
-    public void setUserSevice(UserService service) {
-		this.service = service;
-	}    
-        
-    public void fazerLogin(){  
-       
-    String email = textEmail.getText().toString();
-    String password = textPassword.getText().toString();
-        
-    boolean logar = service.logar(email, password);
-    
-    try {
-    	if(logar == true)
-    	{    		
-                infoBox("Login Successfull",null,"Success" );
-                System.out.println(email);
-				System.out.println(password);                
-        }
-    	else
-    		infoBox("Please enter correct Email and Password", null, "Failed");    	
-
-       }
-        catch(Exception e){
-			Alerts.showAlert("Error", null, e.getMessage(), AlertType.ERROR);
-        }
-        
-    }
-    
-    public static void infoBox(String infoMessage, String headerText, String title){
-        Alert alert = new Alert(AlertType.CONFIRMATION);
+	
+	public void performLogin() throws LoginException, IOException {
+		try {
+			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { throw new Exception("Email não pode estar em branco"); } 
+			
+			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { throw new Exception("Senha não pode estar em branco"); } 
+			
+			String email = txtEmail.getText();
+			String password = txtPassword.getText();
+			
+			LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
+			User userLogged = loginServiceImpl.performLogin(email, password);
+			setUserLogged(userLogged);
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/SeniorLiving/gui/PrincipalMenu.fxml"));
+			AnchorPane anchorPane = loader.load();
+			PrincipalMenuController principalViewController = loader.getController();
+			Scene futureScene = new Scene(anchorPane);
+			
+			Stage newStage = new Stage();
+			newStage.setScene(futureScene);
+			
+			Main.changeStage(newStage);
+			Main.getCurrentStage().close();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+			
+	}
+	
+	private void initializeNodes() {
+		Constraints.setTextFieldMaxLength(txtEmail, 255);
+		Constraints.setTextFieldMaxLength(txtPassword, 255);
+	}
+	
+	public static void infoBox(String infoMessage, String headerText, String title){
+        Alert alert = new Alert(AlertType.ERROR);
         alert.setContentText(infoMessage);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.showAndWait();
     } 
-    
-    @FXML
-	public void onBtCloseAction(ActionEvent event) {
-		Utils.currentStage(event).close();
-	} 
-    
+	
+
 }
-
-
-
-
- 
-    
