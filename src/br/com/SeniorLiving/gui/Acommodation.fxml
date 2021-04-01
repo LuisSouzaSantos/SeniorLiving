@@ -27,10 +27,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Id" />
                   <Label text="Nome" GridPane.rowIndex="1" />
                   <Label text="Descrição" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
                   <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="txtDescricao" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <HBox prefHeight="38.0" prefWidth="200.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
