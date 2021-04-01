@@ -12,7 +12,7 @@ import br.com.ftt.ec6.seniorLiving.utils.BCrypt;
 public class LoginServiceImpl implements LoginService {
 	
 	@Override
-	public void performLogin(String email, String password) throws LoginException {
+	public User performLogin(String email, String password) throws LoginException {
 		if(email == null || email.trim().isEmpty()) { throw new LoginException("Email inválido"); }
 		
 		if(password == null || password.trim().isBlank()) { throw new LoginException("Senha inválida"); }
@@ -26,6 +26,8 @@ public class LoginServiceImpl implements LoginService {
 		if(user.isActive() == false) { throw new LoginException("Usuário desabilitado"); }
 		
 		if(BCrypt.checkpw(password, user.getPassword()) == false) { throw new LoginException("Email ou Senha inválida"); }
+		
+		return user;
 	}
 	
 }

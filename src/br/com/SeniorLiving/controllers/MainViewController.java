@@ -6,11 +6,6 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 import br.com.SeniorLiving.application.Main;
-import br.com.SeniorLiving.model.services.AgendaService;
-import br.com.SeniorLiving.model.services.DepartmentService;
-import br.com.SeniorLiving.model.services.FinancialService;
-import br.com.SeniorLiving.model.services.PersonService;
-import br.com.SeniorLiving.model.services.UserService;
 import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;
 import javafx.event.ActionEvent;
@@ -20,15 +15,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class MainViewController implements Initializable{
+public class MainViewController extends Controller implements Initializable{
 	
 	@FXML
 	private MenuItem menuItemPerson;
@@ -54,29 +49,29 @@ public class MainViewController implements Initializable{
 	@FXML
 	private MenuItem menuItemRelatorio;
 	
-	@FXML
-	private void onMenuItemPersonAction() {
-		loadView ("/br/com/SeniorLiving/gui/PersonList.fxml", (PersonListController controller) -> {
-			controller.setPersonService(new PersonService());
-			controller.updateTableView();
-		});
-	}
+//	@FXML
+//	private void onMenuItemPersonAction() {
+//		loadView ("/br/com/SeniorLiving/gui/PersonList.fxml", (PersonListController controller) -> {
+//			controller.setPersonService(new PersonService());
+//			controller.updateTableView();
+//		});
+//	}
 	
-	@FXML
-	private void onMenuItemDepartmentAction() {
-		loadView("/br/com/SeniorLiving/gui/DepartmentList.fxml", (DepartmentListController controller) -> {
-			controller.setDepartmentService(new DepartmentService());
-			controller.updateTableView();
-		});
-	}
+//	@FXML
+//	private void onMenuItemDepartmentAction() {
+//		loadView("/br/com/SeniorLiving/gui/DepartmentList.fxml", (DepartmentListController controller) -> {
+//			controller.setDepartmentService(new DepartmentService());
+//			controller.updateTableView();
+//		});
+//	}
 	
-	@FXML
-	private void onMenuItemUserAction() {
-		loadView("/br/com/SeniorLiving/gui/UserList.fxml", (UserListController controller) -> {
-			controller.setUserService(new UserService());
-			controller.updateTableView();
-		});
-	}
+//	@FXML
+//	private void onMenuItemUserAction() {
+//		loadView("/br/com/SeniorLiving/gui/UserList.fxml", (UserListController controller) -> {
+//			controller.setUserService(new UserService());
+//			controller.updateTableView();
+//		});
+//	}
 	
 	@FXML
 	private void onMenuItemLoginAction() {
@@ -84,21 +79,21 @@ public class MainViewController implements Initializable{
 		
 	}
 		
-	@FXML
-	private void onMenuItemAgendaAction() {
-		loadView("/br/com/SeniorLiving/gui/AgendaList.fxml", (AgendaListController controller) -> {
-			controller.setAgendaService(new AgendaService());
-			controller.updateTableView();
-		});
-	}
+//	@FXML
+//	private void onMenuItemAgendaAction() {
+//		loadView("/br/com/SeniorLiving/gui/AgendaList.fxml", (AgendaListController controller) -> {
+//			controller.setAgendaService(new AgendaService());
+//			controller.updateTableView();
+//		});
+//	}
 	
-	@FXML
-	private void onMenuItemFinancialAction() {
-		loadView("/br/com/SeniorLiving/gui/FinancialControlList.fxml", (FinancialListController controller) -> {
-			controller.setFinancialService(new FinancialService());
-			controller.updateTableView();
-		});
-	}
+//	@FXML
+//	private void onMenuItemFinancialAction() {
+//		loadView("/br/com/SeniorLiving/gui/FinancialControlList.fxml", (FinancialListController controller) -> {
+//			controller.setFinancialService(new FinancialService());
+//			controller.updateTableView();
+//		});
+//	}
 	
 	@FXML
 	private void onMenuItemAboutAction() {
@@ -112,9 +107,7 @@ public class MainViewController implements Initializable{
 	
 	
 	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-	
-	}
+	public void initialize(URL url, ResourceBundle rb) { }
 	
 	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {

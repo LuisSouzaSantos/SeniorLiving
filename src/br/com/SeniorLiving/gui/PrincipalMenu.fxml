@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
@@ -11,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.PrincipalMenuController">
    <children>
       <AnchorPane layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="797.0">
          <children>
@@ -20,7 +19,7 @@
                   <VBox prefHeight="432.0" prefWidth="204.0" BorderPane.alignment="CENTER">
                      <children>
                         <ImageView fitHeight="103.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true" />
-                        <JFXButton fx:id="btPessoal" prefHeight="61.0" prefWidth="199.0" text="Pessoal                  " textFill="#f5f4f4" textOverrun="CLIP">
+                        <Button fx:id="btPerson" prefHeight="61.0" prefWidth="199.0" text="Pessoal                  " textFill="#f5f4f4" textOverrun="CLIP">
                            <graphic>
                               <ImageView fitHeight="28.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -28,8 +27,8 @@
                                  </image>
                               </ImageView>
                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="btIdoso" layoutX="10.0" layoutY="115.0" prefHeight="57.0" prefWidth="200.0" text="Idoso                  " textFill="#f5f4f4">
+                        </Button>
+                        <Button fx:id="btElderly" layoutX="10.0" layoutY="115.0" prefHeight="57.0" prefWidth="200.0" text="Idoso                  " textFill="#f5f4f4">
                            <graphic>
                               <ImageView fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -37,8 +36,8 @@
                                  </image>
                               </ImageView>
                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="btProduto" layoutX="10.0" layoutY="180.0" prefHeight="63.0" prefWidth="200.0" text="Produtos             " textFill="WHITE">
+                        </Button>
+                        <Button fx:id="btProduct" layoutX="10.0" layoutY="180.0" prefHeight="63.0" prefWidth="200.0" text="Produtos             " textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="45.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -46,8 +45,8 @@
                                  </image>
                               </ImageView>
                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="btFaturamento" layoutX="10.0" layoutY="214.0" prefHeight="62.0" prefWidth="200.0" text="Faturamento      " textFill="WHITE">
+                        </Button>
+                        <Button fx:id="btBilling" layoutX="10.0" layoutY="214.0" prefHeight="62.0" prefWidth="200.0" text="Faturamento      " textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -55,8 +54,8 @@
                                  </image>
                               </ImageView>
                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="btAcomodacao" layoutX="10.0" layoutY="256.0" prefHeight="57.0" prefWidth="200.0" text="Acomodação    " textFill="WHITE">
+                        </Button>
+                        <Button fx:id="btAccommodation" layoutX="10.0" layoutY="256.0" prefHeight="57.0" prefWidth="200.0" text="Acomodação    " textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="38.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -64,8 +63,8 @@
                                  </image>
                               </ImageView>
                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="btTipo" layoutX="10.0" layoutY="294.0" prefHeight="53.0" prefWidth="200.0" text="Tipo                " textFill="WHITE">
+                        </Button>
+                        <Button fx:id="btType" layoutX="10.0" layoutY="294.0" prefHeight="53.0" prefWidth="200.0" text="Tipo                " textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -73,7 +72,34 @@
                                  </image>
                               </ImageView>
                            </graphic>
-                        </JFXButton>
+                        </Button>
+                        <Button fx:id="btUser" layoutX="10.0" layoutY="294.0" prefHeight="53.0" prefWidth="200.0" text="Usu�rio                " textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Teste02/SeniorLiving/src/br/com/SeniorLiving/images/tipo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btRole" layoutX="10.0" layoutY="294.0" prefHeight="53.0" prefWidth="200.0" text="Pap�is                " textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Teste02/SeniorLiving/src/br/com/SeniorLiving/images/tipo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btRestHome" layoutX="10.0" layoutY="294.0" prefHeight="53.0" prefWidth="200.0" text="Casa de Repouso                " textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Teste02/SeniorLiving/src/br/com/SeniorLiving/images/tipo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </VBox>
                </bottom>
@@ -87,7 +113,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Button fx:id="btFechar" layoutX="735.0" layoutY="-24.0" mnemonicParsing="false" onAction="#onBtCloseAction" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#ff8800">
+            <Button fx:id="btFechar" layoutX="735.0" layoutY="-24.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#ff8800">
                <font>
                   <Font name="Calibri Bold" size="41.0" />
                </font>

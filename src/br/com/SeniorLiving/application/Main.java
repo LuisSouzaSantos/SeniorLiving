@@ -2,10 +2,6 @@ package br.com.SeniorLiving.application;
 	
 import java.io.IOException;
 
-import javax.persistence.EntityManager;
-
-import br.com.ftt.ec6.seniorLiving.db.Database;
-import br.com.ftt.ec6.seniorLiving.entities.Accommodation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,15 +20,8 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			Accommodation accommodation = new Accommodation();
-			EntityManager entityManager = Database.getConnection();
-			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/SeniorLiving/gui/teste03.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/SeniorLiving/gui/Login.fxml"));
 			AnchorPane scrollPane = loader.load();
-			
-//			scrollPane.setFitToHeight(true);
-//			scrollPane.setFitToWidth(true);
-			
 			
 			mainScene = new Scene(scrollPane);
 			currentStage = primaryStage;

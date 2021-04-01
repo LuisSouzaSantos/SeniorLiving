@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javax.security.auth.login.LoginException;
 
 import br.com.SeniorLiving.application.Main;
+import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import javafx.fxml.FXML;
@@ -19,16 +20,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class LoginController implements Initializable {
+public class LoginController extends Controller implements Initializable {
 
 	@FXML
-	private TextField textEmail;
+	private TextField txtEmail;
 	@FXML
-	private PasswordField textPassword;
+	private PasswordField txtPassword;
 	@FXML
 	private Button btLogar;
+	@FXML
+	private Button btFechar;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -36,27 +40,37 @@ public class LoginController implements Initializable {
 	}
 	
 	public void performLogin() throws LoginException, IOException {
-		String email = textEmail.getText();
-		String password = textPassword.getText();
-		
-		LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
-		loginServiceImpl.performLogin(email, password);
-		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/SeniorLiving/gui/MainView.fxml"));
-		ScrollPane scrollPane = loader.load();
-		MainViewController mainViewController = loader.getController();
-		Scene futureScene = new Scene(scrollPane);
-		
-		Stage newStage = new Stage();
-		newStage.setScene(futureScene);
-		
-		Main.changeStage(newStage);
-		Main.getCurrentStage().close();
+		try {
+			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { throw new Exception("Email não pode estar em branco"); } 
+			
+			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { throw new Exception("Senha não pode estar em branco"); } 
+			
+			String email = txtEmail.getText();
+			String password = txtPassword.getText();
+			
+			LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
+			User userLogged = loginServiceImpl.performLogin(email, password);
+			setUserLogged(userLogged);
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/SeniorLiving/gui/PrincipalMenu.fxml"));
+			AnchorPane anchorPane = loader.load();
+			PrincipalMenuController principalViewController = loader.getController();
+			Scene futureScene = new Scene(anchorPane);
+			
+			Stage newStage = new Stage();
+			newStage.setScene(futureScene);
+			
+			Main.changeStage(newStage);
+			Main.getCurrentStage().close();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+			
 	}
 	
 	private void initializeNodes() {
-		Constraints.setTextFieldMaxLength(textEmail, 255);
-		Constraints.setTextFieldMaxLength(textPassword, 255);
+		Constraints.setTextFieldMaxLength(txtEmail, 255);
+		Constraints.setTextFieldMaxLength(txtPassword, 255);
 	}
 	
 	public static void infoBox(String infoMessage, String headerText, String title){

@@ -1,5 +1,6 @@
 package br.com.ftt.ec6.seniorLiving.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,12 +10,26 @@ import br.com.ftt.ec6.seniorLiving.DAO.impl.UserDAOImpl;
 import br.com.ftt.ec6.seniorLiving.db.Database;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.service.RoleService;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.utils.BCrypt;
 
 public class UserServiceImpl implements UserService {
 	
 	//TO DO: Regras para inserir email e senha
+	
+	
+	private static UserServiceImpl instance;
+	
+	private UserServiceImpl() {}
+	
+	public static UserServiceImpl getInstance() {
+		if(instance == null) {
+			instance = new UserServiceImpl();
+		}
+		return instance;
+	}
+	
 	@Override
 	public User save(String email, String password, List<Role> roleList) throws LoginException {
 		if(email == null || email.trim().isEmpty()) { throw new LoginException("Email inválido"); } 
