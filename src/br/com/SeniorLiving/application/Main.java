@@ -2,6 +2,7 @@ package br.com.SeniorLiving.application;
 	
 import java.io.IOException;
 
+import br.com.SeniorLiving.controllers.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,7 +21,9 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/SeniorLiving/gui/Login.fxml"));
+			LoginController loginController = new LoginController();
+			
+			FXMLLoader loader = loginController.getFXMLLoader();
 			AnchorPane scrollPane = loader.load();
 			
 			mainScene = new Scene(scrollPane);
