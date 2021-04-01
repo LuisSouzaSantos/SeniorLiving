@@ -17,7 +17,7 @@
          <children>
             <AnchorPane layoutX="2.0" layoutY="14.0" prefHeight="389.0" prefWidth="273.0" style="-fx-background-radius: 50px; -fx-background-color: white;">
                <children>
-                  <TextField fx:id="txtEmail" alignment="CENTER" focusTraversable="false" layoutX="11.0" layoutY="153.0" prefHeight="33.0" prefWidth="251.0" promptText="Email" style="-fx-background-color: white; -fx-border-color: #c2c2c2;" styleClass="text-field" stylesheets="@SeniorLiving/src/br/com/SeniorLiving/img/estilo.css">
+                  <TextField fx:id="txtEmail" alignment="CENTER" focusTraversable="false" layoutX="11.0" layoutY="153.0" prefHeight="33.0" prefWidth="251.0" promptText="Email" style="-fx-background-color: white; -fx-border-color: #c2c2c2;" styleClass="text-field">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -33,7 +33,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </PasswordField>
-                  <Button fx:id="btLogar" layoutX="22.0" layoutY="316.0" mnemonicParsing="false" onAction="#performLogin" prefHeight="33.0" prefWidth="222.0" style="-fx-background-radius: 50px; -fx-background-color: blue;" text="Sign In" textFill="WHITE">
+                  <Button fx:id="btLogar" layoutX="22.0" layoutY="316.0" mnemonicParsing="false" onAction="#performLogin" prefHeight="33.0" prefWidth="222.0" style="-fx-background-radius: 50px; -fx-background-color: #4a5796;" text="Sign In" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -67,7 +67,7 @@
                   <Font name="Times New Roman Italic" size="21.0" />
                </font>
             </Text>
-            <Text layoutX="14.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0.0">
+            <Text fill="#FFFFFF" layoutX="14.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0.0">
                <font>
                   <Font size="9.0" />
                </font>
@@ -79,7 +79,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Button fx:id="btFechar" layoutX="734.0" layoutY="-17.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#ff8800">
+      <Button fx:id="btFechar" layoutX="734.0" layoutY="-17.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#4a5796">
          <font>
             <Font name="Calibri Bold" size="41.0" />
          </font>
