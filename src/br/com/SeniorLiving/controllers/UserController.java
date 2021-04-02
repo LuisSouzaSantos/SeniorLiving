@@ -9,9 +9,8 @@ import java.util.Set;
 
 import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
 import br.com.SeniorLiving.db.DbException;
-import br.com.SeniorLiving.model.exceptions.ValidationException;
-import br.com.SeniorLiving.model.services.UserService;
 import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;

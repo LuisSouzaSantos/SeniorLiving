@@ -31,8 +31,8 @@ public class Main extends Application {
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Senior Living");
 			
-			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-            primaryStage.getIcons().add(anotherIcon);
+			Image icon = new Image("/br/com/SeniorLiving/images/icon.png");
+            primaryStage.getIcons().add(icon);
             
             setCurrentStage(primaryStage);
 			primaryStage.show();
