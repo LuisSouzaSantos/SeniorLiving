@@ -15,7 +15,7 @@
 
 <VBox prefHeight="648.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.PersonListController">
    <children>
-      <Label prefHeight="27.0" prefWidth="373.0" text="CADASTRO DE PESSOA">
+      <Label prefHeight="27.0" prefWidth="373.0" text="IDOSO">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -47,19 +47,14 @@
         <columns>
           <TableColumn fx:id="tableColumnName" prefWidth="87.0" text="Nome" />
             <TableColumn fx:id="tableColumnEmail" prefWidth="94.0" text="Estado Civil" />
-            <TableColumn fx:id="tableColumnBirthDate" prefWidth="82.0" text="Nacionalidade" />
-            <TableColumn fx:id="tableColumnBaseSalary" prefWidth="82.0" text="Função" />
-            <TableColumn fx:id="tableColumnEDIT" minWidth="5.0" prefWidth="67.0" text="RG" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="54.0" text="CPF" />
-            <TableColumn prefWidth="47.0" text="Data de Nascimento" />
-            <TableColumn prefWidth="46.0" text="Telefone" />
-            <TableColumn prefWidth="51.0" text="Email" />
-            <TableColumn prefWidth="44.0" text="Rua" />
-            <TableColumn prefWidth="51.0" text="Numero" />
-            <TableColumn prefWidth="73.0" text="Estado" />
-            <TableColumn prefWidth="75.0" text="CEP" />
-            <TableColumn prefWidth="91.0" text="Bairro" />
-            <TableColumn prefWidth="91.0" text="Ações" />
+            <TableColumn fx:id="tableColumnBirthDate" prefWidth="102.0" text="Nacionalidade" />
+            <TableColumn fx:id="tableColumnEDIT" minWidth="5.0" prefWidth="85.0" text="RG" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="69.0" text="CPF" />
+            <TableColumn prefWidth="103.0" text="Data de Nascimento" />
+            <TableColumn minWidth="0.0" prefWidth="118.0" text="Telefone" />
+            <TableColumn prefWidth="79.0" text="Curador" />
+            <TableColumn prefWidth="148.0" text="Solidário" />
+            <TableColumn prefWidth="150.0" text="Ações" />
         </columns>
       </TableView>
    </children>

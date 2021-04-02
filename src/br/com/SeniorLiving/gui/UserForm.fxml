@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="251.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="251.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
    <children>
       <GridPane layoutX="47.0" layoutY="29.0" prefHeight="193.0" prefWidth="300.0" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="29.0">
         <columnConstraints>
@@ -42,8 +42,8 @@
             <Label text="Nome" GridPane.rowIndex="2" />
             <Label text="Email" />
             <Label text="Senha" GridPane.rowIndex="4" />
-            <ComboBox fx:id="cbPermissao" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Permissão" GridPane.rowIndex="6" />
+            <ComboBox fx:id="cbPermissao" prefHeight="27.0" prefWidth="232.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="Papel" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </children>
