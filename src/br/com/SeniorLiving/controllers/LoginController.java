@@ -53,9 +53,10 @@ public class LoginController extends Controller implements Initializable {
 			User userLogged = loginServiceImpl.performLogin(email, password);
 			setUserLogged(userLogged);
 			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/SeniorLiving/gui/PrincipalMenu.fxml"));
+			MenuController menuController = new MenuController();
+			FXMLLoader loader = menuController.getFXMLLoader();
 			AnchorPane anchorPane = loader.load();
-			PrincipalMenuController principalViewController = loader.getController();
+			loader.getController();
 			Scene futureScene = new Scene(anchorPane);
 			
 			Stage newStage = new Stage();

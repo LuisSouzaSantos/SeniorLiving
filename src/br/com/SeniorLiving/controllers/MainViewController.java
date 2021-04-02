@@ -158,4 +158,9 @@ public class MainViewController extends Controller implements Initializable{
 			}
 		}
 
+		@Override
+		public FXMLLoader getFXMLLoader() {
+			return null;
+		}
+
 }

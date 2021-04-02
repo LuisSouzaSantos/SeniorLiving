@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.PrincipalMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminGeralController">
    <children>
       <AnchorPane layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="797.0">
          <children>
@@ -22,12 +22,12 @@
             </Button>
             <AnchorPane layoutX="8.0" prefHeight="431.0" prefWidth="207.0" style="-fx-background-color: #4a5796;">
                <children>
-                  <Button layoutX="18.0" layoutY="143.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Papel" />
-                  <Button layoutX="18.0" layoutY="190.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Usuário" />
-                  <Button layoutX="18.0" layoutY="235.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Casa de Repouso" />
-                  <Button layoutX="18.0" layoutY="282.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Sobre" />
+                  <Button fx:id="roleButton" layoutX="18.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#roleButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Papel" />
+                  <Button fx:id="userButton" layoutX="18.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#userButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Usuário" />
+                  <Button fx:id="restHomeButton" layoutX="18.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#restHomeButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Casa de Repouso" />
+                  <Button fx:id="aboutButton" layoutX="18.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#aboutButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Sobre" />
                   <Text fill="WHITE" layoutX="14.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0.0" />
-                  <Button layoutX="18.0" layoutY="328.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Logout" />
+                  <Button fx:id="logoutButton" layoutX="18.0" layoutY="328.0" mnemonicParsing="false" onMouseClicked="#logoutButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Logout" />
                   <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/logos.png" />
