@@ -5,22 +5,31 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javax.security.auth.login.LoginException;
+import javax.swing.JOptionPane;
 
 import br.com.SeniorLiving.application.Main;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
+import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Constraints;
+import br.com.ftt.ec6.seniorLiving.utils.Utils;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LoginController extends Controller implements Initializable {
 
@@ -42,9 +51,9 @@ public class LoginController extends Controller implements Initializable {
 	
 	public void performLogin() throws LoginException, IOException {
 		try {
-			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { throw new Exception("Email não pode estar em branco"); } 
+			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) {     infoBox("Email não pode estar em branco");}			
 			
-			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { throw new Exception("Senha não pode estar em branco"); } 
+			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { infoBox( "Senha não pode estar em branco");}	
 			
 			String email = txtEmail.getText();
 			String password = txtPassword.getText();
@@ -61,6 +70,10 @@ public class LoginController extends Controller implements Initializable {
 			
 			Stage newStage = new Stage();
 			newStage.setScene(futureScene);
+			//newStage.initStyle(StageStyle.TRANSPARENT);
+
+			Image icon = new Image("/br/com/SeniorLiving/images/icon.png");
+			newStage.getIcons().add(icon);
 			
 			Main.changeStage(newStage);
 			Main.getCurrentStage().close();
@@ -75,11 +88,13 @@ public class LoginController extends Controller implements Initializable {
 		Constraints.setTextFieldMaxLength(txtPassword, 255);
 	}
 	
-	public static void infoBox(String infoMessage, String headerText, String title){
+	
+	    
+	    public static void infoBox(String infoMessage ){//String headerText, String title
         Alert alert = new Alert(AlertType.ERROR);
         alert.setContentText(infoMessage);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
+       // alert.setTitle(title);
+       // alert.setHeaderText(headerText);
         alert.showAndWait();
     }
 
@@ -88,5 +103,11 @@ public class LoginController extends Controller implements Initializable {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
 	} 
 	
-
+	@FXML
+	public void onBtCloseAction(ActionEvent event) {
+		Utils.currentStage(event).close();
+		Platform.exit();
+        System.exit(0);
+	}
+	
 }

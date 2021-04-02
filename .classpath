@@ -9,9 +9,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mysqlConnector"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mysql23"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ireport"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JPA"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL"/>
-	<classpathentry kind="lib" path="C:/Users/212719040/Desktop/SeniorLiving/SeniorLivingFx/lib/Screen/jfoenix-8.0.10.jar"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
