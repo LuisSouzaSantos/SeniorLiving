@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="399.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="399.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="526.0">
          <children>
@@ -24,7 +24,6 @@
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="112.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -65,8 +64,6 @@
                   <ComboBox fx:id="cbAcomodacao" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                   <Label text="Solidario" GridPane.rowIndex="9" />
                   <Label text="Acomodação" GridPane.rowIndex="10" />
-                  <Label text="Casa de Repouso" GridPane.rowIndex="11" />
-                  <ComboBox fx:id="cbCasaRepouso" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                   <Label text="Nacionalidade" GridPane.rowIndex="3" />
                   <TextField fx:id="txtNacionalidade" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>

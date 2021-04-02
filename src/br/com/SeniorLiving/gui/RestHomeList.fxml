@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserListController">
+<VBox prefHeight="480.0" prefWidth="932.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserListController">
    <children>
-      <Label prefHeight="27.0" prefWidth="373.0" text="Cadastro Administrador Local">
+      <Label prefHeight="27.0" prefWidth="373.0" text="Casa de Repouso">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -36,11 +36,15 @@
       </ToolBar>
       <TableView fx:id="tableViewUser" prefHeight="279.0" prefWidth="800.0" stylesheets="@../application/application.css">
         <columns>
-          <TableColumn fx:id="tableColumnName" prefWidth="185.0" text="Nome" />
-          <TableColumn fx:id="tableColumnEmail" prefWidth="262.0" text="Email" />
-          
-            <TableColumn fx:id="tableColumnEDIT" prefWidth="189.0" text="Ativo" />
-            <TableColumn prefWidth="163.0" text="Ações" />
+          <TableColumn fx:id="tableColumnName" prefWidth="116.0" text="Razão Sócial" />
+            <TableColumn prefWidth="107.0" text="CNPJ" />
+            <TableColumn prefWidth="137.0" text="Mês de Faturamento" />
+            <TableColumn minWidth="0.0" prefWidth="91.0" text="Rua" />
+            <TableColumn prefWidth="108.0" text="Número" />
+            <TableColumn prefWidth="115.0" text="Estado" />
+            <TableColumn prefWidth="116.0" text="CEP" />
+            <TableColumn prefWidth="66.0" text="Bairro" />
+            <TableColumn prefWidth="75.0" text="Ações" />
         </columns>
       </TableView>
    </children>
