@@ -9,28 +9,27 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class AccommodationController extends Controller implements Initializable {
+public class TypeController extends Controller implements Initializable {
 
-	private final static String UI_PATH = "/br/com/SeniorLiving/gui/AcommodationList.fxml";
-
-	@FXML
-	private TextField txtName;
+	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Type.fxml";
 	
 	@FXML
-	private TextField txtDescricao;
+	private TextField txtName;
 	
 	@FXML
 	private Button btSave;
 	
 	@FXML
-	private Button btCancel;
-	
+	private Button btCancel;	
+
 	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		initializeNodes();
 	}
 	
 	private void initializeNodes() {
+		//Constraints.setTextFieldMaxLength(txtEmail, 255);
+		//Constraints.setTextFieldMaxLength(txtPassword, 255);
 	}
 
 

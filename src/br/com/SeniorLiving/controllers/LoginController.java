@@ -16,6 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -42,9 +45,9 @@ public class LoginController extends Controller implements Initializable {
 	
 	public void performLogin() throws LoginException, IOException {
 		try {
-			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { throw new Exception("Email não pode estar em branco"); } 
+			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { infoBox("Email não pode estar em branco"); } 
 			
-			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { throw new Exception("Senha não pode estar em branco"); } 
+			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { infoBox("Senha não pode estar em branco"); } 
 			
 			String email = txtEmail.getText();
 			String password = txtPassword.getText();
@@ -61,13 +64,14 @@ public class LoginController extends Controller implements Initializable {
 			
 			Stage newStage = new Stage();
 			newStage.setScene(futureScene);
+			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+			newStage.getIcons().add(anotherIcon);
 			
 			Main.changeStage(newStage);
 			Main.getCurrentStage().close();
 		} catch (Exception e) {
 			e.getMessage();
-		}
-			
+		}			
 	}
 	
 	private void initializeNodes() {
@@ -75,18 +79,23 @@ public class LoginController extends Controller implements Initializable {
 		Constraints.setTextFieldMaxLength(txtPassword, 255);
 	}
 	
-	public static void infoBox(String infoMessage, String headerText, String title){
+	public static void infoBox(String infoMessage){
         Alert alert = new Alert(AlertType.ERROR);
         alert.setContentText(infoMessage);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
+        //alert.setTitle(title);
+        //alert.setHeaderText(headerText);
         alert.showAndWait();
     }
 
 	@Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
-	} 
-	
+	} 	
 
+	@FXML
+	public void pressedAction(KeyEvent ke) throws LoginException, IOException {
+		if(ke.getCode().equals(KeyCode.ENTER)){
+			performLogin();
+		}
+	}
 }

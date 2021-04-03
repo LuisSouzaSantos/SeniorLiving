@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import br.com.SeniorLiving.application.Main;
 import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
 import br.com.SeniorLiving.db.DbIntegrityException;
-import br.com.SeniorLiving.model.services.UserService;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;
@@ -35,7 +34,7 @@ import javafx.stage.Stage;
 
 public class UserListController implements Initializable, DataChangeListener {
 
-	private UserService service;
+	//private UserService service;
 
 	@FXML
 	private TableView<User> tableViewUser;
@@ -60,15 +59,12 @@ public class UserListController implements Initializable, DataChangeListener {
 
 	private ObservableList<User> obsList;
 
-	public void setUserService(UserService service) {
-		this.service = service;
-	}
-
+	
 	@FXML
 	private void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		User obj = new User();
-		createDialogForm(obj, "/br/com/SeniorLiving/gui/UserForm.fxml", parentStage);
+		//createDialogForm(obj, "/br/com/SeniorLiving/gui/UserForm.fxml", parentStage);
 	}
 
 	@Override
@@ -82,46 +78,11 @@ public class UserListController implements Initializable, DataChangeListener {
 		tableViewUser.prefHeightProperty().bind(stage.heightProperty());
 	}
 
-	public void updateTableView() {
-		if (service == null) {
-			throw new IllegalStateException("Service was null");
-		}
-		List<User> list = service.findALL();
-		obsList = FXCollections.observableArrayList(list);
-		tableViewUser.setItems(obsList);
-		initEditButtons();
-		initRemoveButtons();
-	}
-
-	private void createDialogForm(User obj, String absoluteName, Stage parentStage) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			Pane pane = loader.load();
-
-			UserController controller = loader.getController();
-			controller.setUser(obj);
-			controller.setUserSevice(new UserService());
-			controller.subscribeDataChangeListener(this);
-			controller.updateFormData();
-
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Enter User data");
-			dialogStage.setScene(new Scene(pane));
-			dialogStage.setResizable(false);
-			dialogStage.initOwner(parentStage);
-			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-            dialogStage.getIcons().add(anotherIcon);
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.showAndWait();
-		} catch (IOException e) {
-			e.printStackTrace();
-			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
-		}
-	}
+	
 
 	@Override
 	public void onDataChanged() {
-		updateTableView();
+		//updateTableView();
 
 	}
 
@@ -138,8 +99,8 @@ public class UserListController implements Initializable, DataChangeListener {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(
-						event -> createDialogForm(obj, "/br/com/SeniorLiving/gui/UserForm.fxml", Utils.currentStage(event)));
+				//button.setOnAction(
+						//event -> createDialogForm(obj, "/br/com/SeniorLiving/gui/UserForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
@@ -157,26 +118,8 @@ public class UserListController implements Initializable, DataChangeListener {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> removeEntity(obj));
+				//button.setOnAction(event -> removeEntity(obj));
 			}
 		});
-	}
-
-	protected void removeEntity(User obj) {
-		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
-		
-		if (result.get() == ButtonType.OK) {
-			if (service == null) {
-				throw new IllegalStateException("Service was null");
-			}
-			try  {
-				service.remove(obj);
-				updateTableView();
-			}
-			catch (DbIntegrityException e) {
-				Alerts.showAlert("Error removint object", null, e.getMessage(), AlertType.ERROR);
-			}
-		}
-	
 	}
 }

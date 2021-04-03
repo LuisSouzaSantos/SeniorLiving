@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.AccommodationController">
+<VBox prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserListController">
    <children>
-      <Label prefHeight="27.0" prefWidth="373.0" text="Acomodação">
+      <Label prefHeight="27.0" prefWidth="373.0" text="Produtos">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -24,7 +24,7 @@
       <ToolBar prefHeight="29.0" prefWidth="373.0">
          <items>
             <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="28.0" prefWidth="113.0" text="Novo">
-                 <graphic>
+               <graphic>
                   <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/baseline_add_black_18dp.png" />
@@ -34,11 +34,10 @@
             </Button>
          </items>
       </ToolBar>
-      <TableView fx:id="tableViewAccomodation" prefHeight="279.0" prefWidth="800.0" stylesheets="@../application/application.css">
+      <TableView fx:id="tableViewProduct" prefHeight="279.0" prefWidth="800.0" stylesheets="@../application/application.css">
         <columns>
-          <TableColumn fx:id="tableColumnName" prefWidth="215.0" text="Nome" />
-            <TableColumn prefWidth="285.0" text="Descrição" />
-            <TableColumn prefWidth="300.0" text="Ações" />
+          <TableColumn fx:id="tableColumnName" prefWidth="513.0" text="Nome" />
+            <TableColumn prefWidth="286.0" text="Ações" />
         </columns>
       </TableView>
    </children>

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="361.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="361.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ReportController">
    <children>
       <AnchorPane prefHeight="30.0" prefWidth="310.0" style="-fx-background-color: lightgray;">
          <children>
@@ -45,32 +45,32 @@
                   <Font name="Arial Bold" size="17.0" />
                </font>
             </Text>
-            <JFXComboBox prefHeight="25.0" prefWidth="197.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXButton prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: lightblue;" text="Gerar Relatório" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <JFXComboBox fx:id="txtElderly" prefHeight="25.0" prefWidth="197.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXButton fx:id="btReport" onAction="#reportAction" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: lightblue;" text="Gerar Relatório" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </JFXButton>
          </children>
       </GridPane>
-      <TableView prefHeight="69.0" prefWidth="504.0">
+      <TableView fx:id="tableViewReport" prefHeight="69.0" prefWidth="504.0">
         <columns>
-          <TableColumn prefWidth="324.0" text="Serviço " />
-          <TableColumn prefWidth="179.0" text="Valor" />
+          <TableColumn fx:id="tableColumnService" prefWidth="324.0" text="Serviço " />
+          <TableColumn fx:id="tableColumnValues" prefWidth="179.0" text="Valor" />
         </columns>
       </TableView>
-      <TableView prefHeight="65.0" prefWidth="504.0">
+      <TableView fx:id="tbAcommodation" prefHeight="65.0" prefWidth="504.0">
         <columns>
-          <TableColumn prefWidth="325.0" text="Acomodação" />
-          <TableColumn prefWidth="178.0" text="Valor " />
+          <TableColumn fx:id="tableColumnAccomodation" prefWidth="325.0" text="Acomodação" />
+          <TableColumn fx:id="tableColumnValues" prefWidth="178.0" text="Valor " />
         </columns>
       </TableView>
-      <TableView prefHeight="76.0" prefWidth="504.0">
+      <TableView fx:id="tbProduct" prefHeight="76.0" prefWidth="504.0">
         <columns>
-          <TableColumn prefWidth="160.0" text="Produtos" />
-          <TableColumn prefWidth="94.0" text="Quantidade" />
-            <TableColumn prefWidth="99.0" text="Vl. Unitário" />
-            <TableColumn prefWidth="150.0" text="Valor" />
+          <TableColumn fx:id="tableColumnProduct" prefWidth="160.0" text="Produtos" />
+          <TableColumn fx:id="tableColumnQnt" prefWidth="94.0" text="Quantidade" />
+            <TableColumn fx:id="tableColumnUnitario" prefWidth="99.0" text="Vl. Unitário" />
+            <TableColumn fx:id="tableColumnValues3" prefWidth="150.0" text="Valor" />
         </columns>
       </TableView>
    </children>

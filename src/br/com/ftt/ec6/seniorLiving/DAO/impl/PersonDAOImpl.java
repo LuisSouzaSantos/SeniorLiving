@@ -20,13 +20,11 @@ public class PersonDAOImpl implements PersonDAO {
 		return instance;
 	}
 
-	@Override
 	public Person save(Person person) {
 		entityManager.persist(person);
 		return person;
 	}
 
-	@Override
 	public void delete(Long id) {
 		try {
 			this.entityManager.createQuery(removePersonById(), Person.class)

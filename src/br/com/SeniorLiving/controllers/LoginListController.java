@@ -2,7 +2,6 @@ package br.com.SeniorLiving.controllers;
 
 import java.io.IOException;
 
-import br.com.SeniorLiving.model.services.UserService;
 import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;
 import javafx.event.ActionEvent;
@@ -35,7 +34,7 @@ public class LoginListController{
 
 			LoginController controller = loader.getController();
 			//controller.setUser(obj);
-			controller.setUserSevice(new UserService());
+			//controller.setUserSevice(new UserService());
 			//controller.subscribeDataChangeListener(this);
 			//controller.updateFormData();
 

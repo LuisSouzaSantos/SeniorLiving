@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="378.0" prefWidth="548.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="378.0" prefWidth="548.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="378.0" prefWidth="549.0">
          <children>
@@ -41,9 +41,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="txtRazaoSocial" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtCnpj" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtEstado" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label fx:id="labelErrorName" textFill="#e12d09" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <padding>
                         <Insets left="5.0" />
@@ -58,26 +58,26 @@
                   <Label fx:id="labelErrorBaseSalary" textFill="#f50707" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <Label GridPane.rowIndex="4" />
                   <Label prefHeight="21.0" prefWidth="22.0" text="Rua" GridPane.rowIndex="5" />
-                  <TextField fx:id="txtEmail2" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="txtRua" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="CEP" GridPane.rowIndex="8" />
                   <Label text="Bairro" GridPane.rowIndex="9" />
                   <Label text="Administrador" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtEmail21" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <TextField fx:id="txtBaseSalary1" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <TextField fx:id="txtBaseSalary2" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <TextField fx:id="txtNumero" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtCep" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <TextField fx:id="txtBairro" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
                      <children>
-                        <Button fx:id="btSave1" alignment="CENTER" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="27.0" prefWidth="100.0" style="-fx-border-radius: 50px; -fx-background-color: transparent; -fx-border-color: #c2c2c2;" text="Salvar" />
-                        <Button fx:id="btCancel1" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBtCancelAction" prefHeight="27.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #c2c2c2; -fx-border-radius: 50px;" text="Voltar" />
+                        <Button fx:id="btSave" alignment="CENTER" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="27.0" prefWidth="100.0" style="-fx-border-radius: 50px; -fx-background-color: transparent; -fx-border-color: #c2c2c2;" text="Salvar" />
+                        <Button fx:id="btCancel" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBtCancelAction" prefHeight="27.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #c2c2c2; -fx-border-radius: 50px;" text="Voltar" />
                      </children>
                   </HBox>
-                  <MenuButton mnemonicParsing="false" prefHeight="27.0" prefWidth="214.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <MenuButton fx:id="cbAdm" mnemonicParsing="false" prefHeight="27.0" prefWidth="214.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Action 1" />
                       <MenuItem mnemonicParsing="false" text="Action 2" />
                     </items>
                   </MenuButton>
-                  <DatePicker prefHeight="27.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="dtFaturamento" prefHeight="27.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Mês de Faturamento" GridPane.rowIndex="4" />
                </children>
             </GridPane>

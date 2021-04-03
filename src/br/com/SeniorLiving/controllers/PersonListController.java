@@ -10,9 +10,6 @@ import java.util.ResourceBundle;
 import br.com.SeniorLiving.application.Main;
 import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
 import br.com.SeniorLiving.db.DbIntegrityException;
-import br.com.SeniorLiving.model.services.DepartmentService;
-import br.com.SeniorLiving.model.services.PersonService;
-import br.com.ftt.ec6.seniorLiving.entities.Department;
 import br.com.ftt.ec6.seniorLiving.entities.Person;
 import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;
@@ -37,9 +34,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class PersonListController implements Initializable, DataChangeListener {
+public class PersonListController extends Controller implements Initializable {
 
-	private PersonService service;
+	//private PersonService service;
 
 	@FXML
 	private TableView<Person> tableViewPerson;
@@ -48,17 +45,18 @@ public class PersonListController implements Initializable, DataChangeListener {
 	private TableColumn<Person, Integer> tableColumnId;
 
 	@FXML
-	private TableColumn<Person, String> tableColumnName;
-	
-	@FXML
-	private TableColumn<Department, String> tableColumnEmail;
-	
-	@FXML
-	private TableColumn<Department, Date> tableColumnBirthDate;
+	private TableColumn<Person, String> tableColumnName;	
 
 	@FXML
-	private TableColumn<Department, Double> tableColumnBaseSalary;
+	private TableColumn<Person, Integer> tableColumnState;
 
+	@FXML
+	private TableColumn<Person, String> tableColumnNacionality;
+	
+	@FXML
+	private TableColumn<Person, String> tableColumnFunction;
+	
+	
 	@FXML
 	private TableColumn<Person, Person> tableColumnEDIT;
 	
@@ -74,11 +72,16 @@ public class PersonListController implements Initializable, DataChangeListener {
 	@FXML
 	private Button btSearch;
 	
+
+	private final static String UI_PATH = "/br/com/SeniorLiving/gui/PersonList.fxml";
+	
 	private ObservableList<Person> obsList;
 
-	public void setPersonService(PersonService service) {
-		this.service = service;
-	}
+	@Override
+	public FXMLLoader getFXMLLoader() {
+	return new FXMLLoader(getClass().getResource(UI_PATH));
+
+}
 
 	@FXML
 	private void onBtNewAction(ActionEvent event) {
@@ -89,40 +92,28 @@ public class PersonListController implements Initializable, DataChangeListener {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+		initializeNodes();
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-		tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
-		Utils.formatTableColumnDate(tableColumnBirthDate, "dd/MM/yyyy");
-		tableColumnBaseSalary.setCellValueFactory(new PropertyValueFactory<>("baseSalary"));
-		Utils.formatTableColumnDouble(tableColumnBaseSalary, 2);
+		
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewPerson.prefHeightProperty().bind(stage.heightProperty());
 	}
 
-	public void updateTableView() {
-		if (service == null) {
-			throw new IllegalStateException("Service was null");
-		}
-		List<Person> list = service.findALL();
-		obsList = FXCollections.observableArrayList(list);
-		tableViewPerson.setItems(obsList);
-		initEditButtons();
-		initRemoveButtons();
+	private void initializeNodes() {
 	}
-
+	
 	private void createDialogForm(Person obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
 			PersonFormController controller = loader.getController();
-			controller.setPerson(obj);
-			controller.setServices(new PersonService(), new DepartmentService());
-			controller.loadAssociateObjects();
-			controller.subscribeDataChangeListener(this);
-			controller.updateFormData();
+			//controller.setPerson(obj);
+			//controller.setServices(new PersonService(), new DepartmentService());
+			//controller.loadAssociateObjects();
+			//controller.subscribeDataChangeListener(this);
+			//controller.updateFormData();
 
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Enter Person data");
@@ -138,13 +129,6 @@ public class PersonListController implements Initializable, DataChangeListener {
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
 	}
-
-	@Override
-	public void onDataChanged() {
-		updateTableView();
-
-	}
-
 	private void initEditButtons() {
 		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnEDIT.setCellFactory(param -> new TableCell<Person, Person>() {
@@ -177,26 +161,8 @@ public class PersonListController implements Initializable, DataChangeListener {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> removeEntity(obj));
+				//button.setOnAction(event -> removeEntity(obj));
 			}
 		});
-	}
-
-	protected void removeEntity(Person obj) {
-		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
-		
-		if (result.get() == ButtonType.OK) {
-			if (service == null) {
-				throw new IllegalStateException("Service was null");
-			}
-			try  {
-				service.remove(obj);
-				updateTableView();
-			}
-			catch (DbIntegrityException e) {
-				Alerts.showAlert("Error removint object", null, e.getMessage(), AlertType.ERROR);
-			}
-		}
-	
 	}
 }

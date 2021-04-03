@@ -34,9 +34,9 @@
             </Button>
          </items>
       </ToolBar>
-      <TableView fx:id="tableViewUser" prefHeight="279.0" prefWidth="800.0" stylesheets="@../application/application.css">
+      <TableView fx:id="tableViewRestHome" prefHeight="279.0" prefWidth="800.0" stylesheets="@../application/application.css">
         <columns>
-          <TableColumn fx:id="tableColumnName" prefWidth="116.0" text="Razão Sócial" />
+          <TableColumn fx:id="tableColumnName" prefWidth="116.0" text="Razão Social" />
             <TableColumn prefWidth="107.0" text="CNPJ" />
             <TableColumn prefWidth="137.0" text="Mês de Faturamento" />
             <TableColumn minWidth="0.0" prefWidth="91.0" text="Rua" />

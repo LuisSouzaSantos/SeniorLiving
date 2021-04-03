@@ -43,11 +43,11 @@
             </Button>
         </items>
       </ToolBar>
-      <TableView fx:id="tableViewPerson" prefHeight="545.0" prefWidth="902.0" stylesheets="@../application/application.css">
+      <TableView fx:id="tableViewElderly" prefHeight="545.0" prefWidth="902.0" stylesheets="@../application/application.css">
         <columns>
           <TableColumn fx:id="tableColumnName" prefWidth="87.0" text="Nome" />
-            <TableColumn fx:id="tableColumnEmail" prefWidth="94.0" text="Estado Civil" />
-            <TableColumn fx:id="tableColumnBirthDate" prefWidth="102.0" text="Nacionalidade" />
+            <TableColumn fx:id="tableColumnState" prefWidth="94.0" text="Estado Civil" />
+            <TableColumn fx:id="tableColumnNacionality" prefWidth="102.0" text="Nacionalidade" />
             <TableColumn fx:id="tableColumnEDIT" minWidth="5.0" prefWidth="85.0" text="RG" />
             <TableColumn fx:id="tableColumnREMOVE" prefWidth="69.0" text="CPF" />
             <TableColumn prefWidth="103.0" text="Data de Nascimento" />

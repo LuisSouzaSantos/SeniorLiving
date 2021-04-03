@@ -70,8 +70,8 @@
             </GridPane>
             <AnchorPane fx:id="txtNome" layoutX="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="526.0">
                <children>
-                  <Button fx:id="btCancel1" alignment="CENTER" contentDisplay="RIGHT" layoutX="263.0" layoutY="353.0" mnemonicParsing="false" onAction="#onBtCancelAction" prefHeight="27.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #c2c2c2; -fx-border-radius: 50px;" text="Voltar" />
-                  <Button fx:id="btSave1" alignment="CENTER" layoutX="131.0" layoutY="353.0" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="27.0" prefWidth="116.0" style="-fx-border-radius: 50px; -fx-background-color: transparent; -fx-border-color: #c2c2c2;" text="Salvar" />
+                  <Button fx:id="btCancel" alignment="CENTER" contentDisplay="RIGHT" layoutX="263.0" layoutY="353.0" mnemonicParsing="false" onAction="#onBtCancelAction" prefHeight="27.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #c2c2c2; -fx-border-radius: 50px;" text="Voltar" />
+                  <Button fx:id="btSave" alignment="CENTER" layoutX="131.0" layoutY="353.0" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="27.0" prefWidth="116.0" style="-fx-border-radius: 50px; -fx-background-color: transparent; -fx-border-color: #c2c2c2;" text="Salvar" />
                </children>
             </AnchorPane>
          </children>
