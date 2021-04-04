@@ -13,5 +13,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JPA"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL"/>
 	<classpathentry kind="lib" path="C:/Users/212719040/Desktop/SeniorLiving/SeniorLivingFx/lib/Screen/jfoenix-8.0.10.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Mail"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -5,7 +5,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -13,6 +16,28 @@
    <children>
       <AnchorPane layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="797.0">
          <children>
+            <GridPane fx:id="gridPane" layoutX="90.0" layoutY="106.0" prefHeight="246.0" prefWidth="637.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="365.0" minWidth="10.0" prefWidth="268.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="475.0" minWidth="10.0" prefWidth="106.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="475.0" minWidth="10.0" prefWidth="266.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="105.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="219.0" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="5.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <AnchorPane layoutX="8.0" prefHeight="50.0" prefWidth="792.0" style="-fx-background-color: #4a5796;">
+               <children>
+                  <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logos.png" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="usernameMenu" fill="WHITE" layoutX="55.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuário: {username}" />
+               </children>
+            </AnchorPane>
             <Button fx:id="btFechar" layoutX="735.0" layoutY="-24.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#ff8800">
                <font>
                   <Font name="Calibri Bold" size="41.0" />
@@ -21,37 +46,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <AnchorPane layoutX="8.0" prefHeight="50.0" prefWidth="792.0" style="-fx-background-color: #4a5796;">
-               <children>
-                  <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/logos.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="WHITE" layoutX="55.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User: 082190041" />
-               </children>
-            </AnchorPane>
-            <Pane fx:id="adminGeneralMenuPane" layoutX="172.0" layoutY="120.0" onMouseClicked="#enterInAdminGeralMenu" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4A5796;">
-               <children>
-                  <ImageView fitHeight="80.0" fitWidth="150.0" layoutX="62.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@user.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="WHITE" layoutX="59.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN_GERAL" />
-               </children>
-            </Pane>
-            <Pane fx:id="enterInAdminLocalMenuPane" layoutX="446.0" layoutY="122.0" onMouseClicked="#enterInAdminLocalMenu" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4A5796;">
-               <children>
-                  <ImageView fitHeight="80.0" fitWidth="150.0" layoutX="61.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@user.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="WHITE" layoutX="63.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN_LOCAL" />
-               </children>
-            </Pane>
          </children>
       </AnchorPane>
+      <Pane layoutX="226.0" layoutY="-231.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="50.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/user.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="89.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

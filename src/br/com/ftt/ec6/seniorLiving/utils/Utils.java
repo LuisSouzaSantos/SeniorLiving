@@ -1,6 +1,9 @@
 package br.com.ftt.ec6.seniorLiving.utils;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -115,5 +118,21 @@ public class Utils {
 		}
 		
 	}
+	
+    public static File getFile(String resource) throws URISyntaxException {
+        ClassLoader classLoader = new Utils().getClass().getClassLoader();
+        
+        URL is = null;
+        
+        is = classLoader.getResource(resource);
+        if (is != null) { return new File(is.toURI()); }
+        is = classLoader.getResource("/"+resource);
+        if (is != null) { return new File(is.toURI()); }
+        is = classLoader.getResource("resources/"+resource);
+        if (is != null) { return new File(is.toURI()); }
+        is = classLoader.getResource("/resources/"+resource);
+        
+        return new File(is.toURI());
+    }
 
 }

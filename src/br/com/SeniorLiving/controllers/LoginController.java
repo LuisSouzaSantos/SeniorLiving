@@ -65,7 +65,7 @@ public class LoginController extends Controller implements Initializable {
 			Main.changeStage(newStage);
 			Main.getCurrentStage().close();
 		} catch (Exception e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 			
 	}
