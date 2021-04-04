@@ -16,11 +16,12 @@ public class Main extends Application {
 	private static Scene mainScene;
 	private static Stage lastStage;
 	private static Stage currentStage;
+	private static Stage stage;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			
+			stage = primaryStage;
 			LoginController loginController = new LoginController();
 			
 			FXMLLoader loader = loginController.getFXMLLoader();
@@ -30,6 +31,7 @@ public class Main extends Application {
 			currentStage = primaryStage;
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Senior Living");
+			primaryStage.setResizable(false);
 			
 			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
             primaryStage.getIcons().add(anotherIcon);
@@ -40,6 +42,10 @@ public class Main extends Application {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void changeScene(Scene scene) {
+		stage.setScene(scene);
 	}
 	
 	public static void changeStage(Stage futureStage) {

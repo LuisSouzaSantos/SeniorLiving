@@ -96,6 +96,7 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
 		newStage.getIcons().add(anotherIcon);
 		
+	//	Main.changeScene(new Scene (newStage));
 		Main.changeStage(newStage);
 		Main.getCurrentStage().close();
 	}

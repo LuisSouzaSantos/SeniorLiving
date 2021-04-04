@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="742.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.RoleListController">
+<VBox fillWidth="false" prefHeight="400.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.RoleListController">
    <children>
       <Label prefHeight="27.0" prefWidth="373.0" text="PAPEL">
          <font>
@@ -23,7 +23,7 @@
             <Insets left="5.0" top="5.0" />
          </padding>
       </Label>
-      <ToolBar prefHeight="38.0" prefWidth="726.0">
+      <ToolBar prefHeight="38.0" prefWidth="771.0">
         <items>
             <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="28.0" prefWidth="113.0" stylesheets="@../application/application.css" text="Novo">
                <graphic>

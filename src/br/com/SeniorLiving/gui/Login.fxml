@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSnackbar?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,9 +17,12 @@
    <children>
       <AnchorPane layoutX="466.0" layoutY="32.0" prefHeight="404.0" prefWidth="266.0">
          <children>
-            <AnchorPane layoutX="2.0" layoutY="14.0" prefHeight="389.0" prefWidth="273.0" style="-fx-background-radius: 50px; -fx-background-color: white;">
+            <AnchorPane fx:id="signinPane" layoutX="-7.0" prefHeight="416.0" prefWidth="296.0" style="-fx-background-color: #fff; -fx-background-radius: 50px;">
+               <effect>
+                  <DropShadow color="#868686" />
+               </effect>
                <children>
-                  <TextField fx:id="txtEmail" alignment="CENTER" focusTraversable="false" layoutX="11.0" layoutY="153.0" onKeyPressed="#pressedAction" prefHeight="33.0" prefWidth="251.0" promptText="Email" style="-fx-background-color: white; -fx-border-color: #c2c2c2;" styleClass="text-field">
+                  <TextField fx:id="txtEmail" alignment="CENTER" focusTraversable="false" layoutX="23.0" layoutY="173.0" onKeyPressed="#pressedAction" prefHeight="33.0" prefWidth="251.0" promptText="Email" style="-fx-background-color: white; -fx-border-color: #c2c2c2;" styleClass="text-field">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -24,7 +30,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <PasswordField fx:id="txtPassword" alignment="CENTER" focusTraversable="false" layoutX="11.0" layoutY="207.0" onKeyPressed="#pressedAction" prefHeight="33.0" prefWidth="251.0" promptText="Senha" style="-fx-border-color: #c2c2c2; -fx-background-color: white;">
+                  <PasswordField fx:id="txtPassword" alignment="CENTER" focusTraversable="false" layoutX="23.0" layoutY="227.0" onKeyPressed="#pressedAction" prefHeight="33.0" prefWidth="251.0" promptText="Senha" style="-fx-border-color: #c2c2c2; -fx-background-color: white;">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -32,7 +38,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </PasswordField>
-                  <Button fx:id="btLogar" layoutX="22.0" layoutY="316.0" mnemonicParsing="false" onAction="#performLogin" prefHeight="33.0" prefWidth="222.0" style="-fx-background-radius: 50px; -fx-background-color: #4a5796;" text="Sign In" textFill="WHITE">
+                  <Button fx:id="btLogar" layoutX="34.0" layoutY="336.0" mnemonicParsing="false" onAction="#performLogin" prefHeight="33.0" prefWidth="222.0" style="-fx-background-radius: 50px; -fx-background-color: #4a5796;" text="Sign In" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -40,32 +46,23 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Text fill="#322890" layoutX="-491.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Olá, faça seu login">
-                     <font>
-                        <Font name="Calibri" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="33.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="45.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/seniorLiving.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="89.0" fitWidth="74.0" layoutX="94.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="89.0" fitWidth="74.0" layoutX="106.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/elderly-person.png" />
                      </image>
                   </ImageView>
+                  <JFXSnackbar layoutX="87.0" layoutY="384.0" />
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="468.0" prefWidth="407.0" style="-fx-background-color: #4a5796;">
          <children>
-            <Text fill="#dadada" layoutX="59.0" layoutY="151.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Ser idoso é acumular experiências e sabedorias que devem ser compartilhadas! &quot;" textAlignment="CENTER" wrappingWidth="273.0">
-               <font>
-                  <Font name="Times New Roman Italic" size="21.0" />
-               </font>
-            </Text>
             <Text fill="#FFFFFF" layoutX="14.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0.0">
                <font>
                   <Font size="9.0" />
@@ -76,6 +73,11 @@
                   <Image url="@../images/repouso.png" />
                </image>
             </ImageView>
+            <Label alignment="CENTER" layoutX="45.0" layoutY="112.0" prefHeight="122.0" prefWidth="317.0" text="&quot;Ser idoso é acumular experiências e sabedorias que devem ser compartilhadas! &quot;" textAlignment="CENTER" textFill="#d3cece" wrapText="true">
+               <font>
+                  <Font name="System Italic" size="21.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <Button fx:id="btFechar" layoutX="734.0" layoutY="-17.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#4a5796">

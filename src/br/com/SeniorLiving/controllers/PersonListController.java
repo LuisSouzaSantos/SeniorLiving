@@ -42,9 +42,6 @@ public class PersonListController extends Controller implements Initializable {
 	private TableView<Person> tableViewPerson;
 
 	@FXML
-	private TableColumn<Person, Integer> tableColumnId;
-
-	@FXML
 	private TableColumn<Person, String> tableColumnName;	
 
 	@FXML

@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 
 import javax.security.auth.login.LoginException;
 
+import com.jfoenix.controls.JFXSnackbar;
+
 import br.com.SeniorLiving.application.Main;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
@@ -13,6 +15,7 @@ import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -38,9 +41,14 @@ public class LoginController extends Controller implements Initializable {
 	@FXML
 	private Button btFechar;
 	
+	@FXML private AnchorPane rootPane;
+	private JFXSnackbar snackbar;
+	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
+		snackbar = new JFXSnackbar(rootPane);
+		//snackbar.show("Carregando...", 5000);
 	}
 	
 	public void performLogin() throws LoginException, IOException {
@@ -98,4 +106,14 @@ public class LoginController extends Controller implements Initializable {
 			performLogin();
 		}
 	}
+	
+	public JFXSnackbar showSnackBar(String message,AnchorPane pane){
+        JFXSnackbar jfxSnackbar=new JFXSnackbar(pane);
+     //   jfxSnackbar.setAlignment(Pos.BOTTOM_RIGHT);
+      //  jfxSnackbar.setPrefHeight(40);
+        jfxSnackbar.setPrefWidth(pane.getWidth()-40);
+      //  jfxSnackbar.show(message,2000);
+
+        return jfxSnackbar;
+    }
 }

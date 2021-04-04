@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import br.com.SeniorLiving.application.Main;
 import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
 import br.com.SeniorLiving.db.DbException;
+import br.com.ftt.ec6.seniorLiving.entities.Product;
 import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;
@@ -19,8 +21,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class FinancialFormController implements Initializable {
 
@@ -29,30 +35,21 @@ public class FinancialFormController implements Initializable {
 	//private FinancialService service;
 
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
-
-	@FXML
-	private TextField txtId;
-
-	@FXML
-	private TextField txtDescription;
-
-	@FXML
-	private TextField txtAmount;
 	
 	@FXML
-	private TextField txtQnt;
-	
-	@FXML
-	private TextField txtVencimento;
-	
-	@FXML
-	private TextField txtValorTotal;
-	
-	@FXML
-	private Button btSave;
+	private TableView<Product> tableViewReport;
 
 	@FXML
-	private Button btCancel;
+	private TableColumn<Product, String> tableColumnService;
+
+	@FXML
+	private TableColumn<Product, String> tableColumnValues;
+	
+	@FXML
+	private TextField txtElderly;
+	
+	@FXML
+	private Button btReport;
 
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Report.fxml";
@@ -83,14 +80,17 @@ public class FinancialFormController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle db) {
 		initializeNodes();
-
+		tableColumnService.setCellValueFactory(new PropertyValueFactory<>("Serviço"));
+		tableColumnValues.setCellValueFactory(new PropertyValueFactory<>("Valor"));
+				
+		Stage stage = (Stage) Main.getMainScene().getWindow();
+		tableViewReport.prefHeightProperty().bind(stage.heightProperty());
 	}
-
+	
 	private void initializeNodes() {
-		Constraints.setTextFieldInteger(txtId);
-		Constraints.setTextFieldMaxLength(txtDescription, 100);
-		Constraints.setTextFieldDouble(txtAmount);
 	}
+
+
 
 	
 	private void setErrorMessages(Map<String, String> errors) {

@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -24,7 +23,7 @@ public class MenuController extends Controller implements  Initializable {
 	private Pane enterInAdminLocalMenuPane;
 	
 	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		initializeNodes();
 	}
 	
@@ -41,8 +40,6 @@ public class MenuController extends Controller implements  Initializable {
 		
 		Stage newStage = new Stage();
 		newStage.setScene(futureScene);
-		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-        newStage.getIcons().add(anotherIcon);
 		
 		Main.changeStage(newStage);
 		Main.getCurrentStage().close();
@@ -58,8 +55,6 @@ public class MenuController extends Controller implements  Initializable {
 		
 		Stage newStage = new Stage();
 		newStage.setScene(futureScene);
-		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-        newStage.getIcons().add(anotherIcon);
 		
 		Main.changeStage(newStage);
 		Main.getCurrentStage().close();
