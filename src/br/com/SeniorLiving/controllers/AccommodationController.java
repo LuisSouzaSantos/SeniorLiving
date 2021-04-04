@@ -36,7 +36,6 @@ public class AccommodationController extends Controller implements Initializable
 
 	@Override
 	public FXMLLoader getFXMLLoader() {
-	return new FXMLLoader(getClass().getResource(UI_PATH));
-
-}
+		return new FXMLLoader(getClass().getResource(UI_PATH));
+	}
 }

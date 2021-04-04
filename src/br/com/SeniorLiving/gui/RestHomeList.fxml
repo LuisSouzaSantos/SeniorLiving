@@ -23,7 +23,7 @@
       </Label>
       <ToolBar prefHeight="29.0" prefWidth="373.0">
          <items>
-            <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="28.0" prefWidth="113.0" text="Novo">
+            <Button fx:id="btNew" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Novo">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -82,6 +82,10 @@ public class LoginController extends Controller implements Initializable {
 		}			
 	}
 	
+	public void performLogout() {
+		userLogged = null;
+	}
+	
 	private void initializeNodes() {
 		Constraints.setTextFieldMaxLength(txtEmail, 255);
 		Constraints.setTextFieldMaxLength(txtPassword, 255);

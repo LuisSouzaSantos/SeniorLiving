@@ -12,7 +12,7 @@
          <children>
             <AnchorPane layoutX="8.0" prefHeight="431.0" prefWidth="207.0" style="-fx-background-color: #4a5796;">
                <children>
-                  <Button layoutX="19.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#acommodationButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Acomodação" />
+                  <Button layoutX="19.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#accommodationButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Acomodação" />
                   <Button layoutX="19.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#typeButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Tipo" />
                   <Button layoutX="19.0" layoutY="183.0" mnemonicParsing="false" onMouseClicked="#productButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Produto" />
                   <Button layoutX="18.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#personButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Pessoa" />
@@ -29,7 +29,7 @@
                   <Button layoutX="18.0" layoutY="263.0" mnemonicParsing="false" onMouseClicked="#elderlyButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Idoso" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="215.0" layoutY="3.0" prefHeight="431.0" prefWidth="584.0" />
+            <AnchorPane fx:id="containerToScreen" layoutX="215.0" layoutY="3.0" prefHeight="431.0" prefWidth="584.0" />
          </children>
       </AnchorPane>
    </children>

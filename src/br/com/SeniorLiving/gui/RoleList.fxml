@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fillWidth="false" prefHeight="400.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.RoleListController">
+<VBox fillWidth="false" prefHeight="430.0" prefWidth="580.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.RoleListController">
    <children>
       <Label prefHeight="27.0" prefWidth="373.0" text="PAPEL">
          <font>

@@ -78,7 +78,7 @@ public class PersonListController extends Controller implements Initializable {
 	public FXMLLoader getFXMLLoader() {
 	return new FXMLLoader(getClass().getResource(UI_PATH));
 
-}
+	}
 
 	@FXML
 	private void onBtNewAction(ActionEvent event) {

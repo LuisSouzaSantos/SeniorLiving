@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="648.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.PersonListController">
+<VBox prefHeight="648.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.ElderlyListController">
    <children>
       <Label prefHeight="27.0" prefWidth="373.0" text="IDOSO">
          <font>
@@ -25,7 +25,7 @@
       </Label>
       <ToolBar prefHeight="29.0" prefWidth="373.0">
         <items>
-            <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="28.0" prefWidth="113.0" text="Novo">
+            <Button fx:id="btNew" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Novo">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -36,7 +36,7 @@
             </Button>
             <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="54.0" />
             <TextField fx:id="textSearch" prefHeight="25.0" prefWidth="453.0" />
-            <Button fx:id="btSearch" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="25.0" prefWidth="150.0" text="Buscar">
+            <Button fx:id="btSearch" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Buscar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

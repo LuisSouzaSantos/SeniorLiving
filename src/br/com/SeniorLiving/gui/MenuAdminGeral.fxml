@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminGeralController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminGeralController">
    <children>
       <AnchorPane fx:id="Ap" layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="797.0">
          <children>
@@ -27,7 +27,7 @@
                   <Text fill="WHITE" layoutX="46.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role: ADMIN_GERAL" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="pane" layoutX="216.0" prefHeight="431.0" prefWidth="583.0" />
+            <AnchorPane fx:id="containerToScreen" layoutX="216.0" prefHeight="431.0" prefWidth="583.0" />
          </children>
       </AnchorPane>
    </children>
