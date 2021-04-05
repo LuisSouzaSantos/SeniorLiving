@@ -31,6 +31,8 @@ public class Main extends Application {
 			currentStage = primaryStage;
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Senior Living");
+			primaryStage.setMaxHeight(500);
+			primaryStage.setMaxWidth(800);
 			primaryStage.setResizable(false);
 			
 			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");

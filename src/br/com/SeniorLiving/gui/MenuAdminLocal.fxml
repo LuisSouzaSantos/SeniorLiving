@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminLocalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminLocalController">
    <children>
       <AnchorPane layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="797.0">
          <children>
@@ -27,9 +27,10 @@
                   <Text fill="WHITE" layoutX="46.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role: ADMIN_LOCAL" />
                   <Button layoutX="18.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#reportButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Faturamento" />
                   <Button layoutX="18.0" layoutY="263.0" mnemonicParsing="false" onMouseClicked="#elderlyButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Idoso" />
+                  <Text fx:id="txtVoltar" fill="#eeeaea" layoutX="155.0" layoutY="27.0" onMouseClicked="#voltarAction" strokeType="OUTSIDE" strokeWidth="0.0" text="Voltar" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="containerToScreen" layoutX="215.0" layoutY="3.0" prefHeight="431.0" prefWidth="584.0" />
+            <AnchorPane fx:id="containerToScreen" layoutX="215.0" layoutY="3.0" prefHeight="431.0" prefWidth="1000.0" />
          </children>
       </AnchorPane>
    </children>

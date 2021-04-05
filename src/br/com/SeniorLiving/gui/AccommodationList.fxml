@@ -13,7 +13,7 @@
 
 <VBox prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.AccommodationController">
    <children>
-      <Label prefHeight="27.0" prefWidth="373.0" text="Acomodação">
+      <Label prefHeight="27.0" prefWidth="373.0" text="ACOMODAÇÃO">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -23,7 +23,7 @@
       </Label>
       <ToolBar prefHeight="29.0" prefWidth="373.0">
          <items>
-            <Button fx:id="btNew" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Novo">
+            <Button fx:id="btNew" mnemonicParsing="false" prefHeight="28.0" prefWidth="125.0" text="Novo">
                  <graphic>
                   <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>

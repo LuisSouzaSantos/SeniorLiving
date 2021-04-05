@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuController">
    <children>
       <AnchorPane layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="797.0">
          <children>
@@ -35,7 +35,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="150.0" layoutX="62.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@user.png" />
+                        <Image url="@../images/user.png" />
                      </image>
                   </ImageView>
                   <Text fill="WHITE" layoutX="59.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN_GERAL" />
@@ -43,9 +43,9 @@
             </Pane>
             <Pane fx:id="enterInAdminLocalMenuPane" layoutX="446.0" layoutY="122.0" onMouseClicked="#enterInAdminLocalMenu" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4A5796;">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="150.0" layoutX="61.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="80.0" fitWidth="150.0" layoutX="61.0" layoutY="38.0" onMouseClicked="#enterInAdminLocalMenu" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@user.png" />
+                        <Image url="@../images/user.png" />
                      </image>
                   </ImageView>
                   <Text fill="WHITE" layoutX="63.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN_LOCAL" />

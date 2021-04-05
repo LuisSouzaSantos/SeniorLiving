@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -27,6 +28,9 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 	
 	@FXML
 	private AnchorPane containerToScreen;
+	
+	@FXML 
+	private TextField txtVoltar;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -134,38 +138,32 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		Main.changeStage(newStage);
 		Main.getCurrentStage().close();
 	}
-	
-	private void loadPane(String page, String Controller){
-	    
-	    try {
-	        // important: note the changes to the way the FXML is loaded,
-	        // using an FXMLLoader instance and the no-arg, instance load()
-	        // method, instead of the static load(URL) method:
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource(page+".fxml"));
-	        
-
-	       // Controller menuAdminGeralController = new Controller();
-			//FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
-			AnchorPane anchorPane = loader.load();
-			loader.getController();
-			Scene futureScene = new Scene(anchorPane);
-			
-			Stage newStage = new Stage();
-			newStage.setScene(futureScene);
-			
-			Main.changeStage(newStage);
-			Main.getCurrentStage().close();
-			
-	    } catch (IOException ex) {
-	    	JOptionPane.showMessageDialog(null, "Erro");
-	        //Logger.getLogger(sidebarController.class.getName()).log(Level.SEVERE, null, ex);
-	    }
-	    
-	}
 
 	@Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
+	}
+	
+	@FXML
+	public void voltarAction(MouseEvent event) {
+	try {
+		MenuController menuController = new MenuController();
+		FXMLLoader loader = menuController.getFXMLLoader();
+		AnchorPane anchorPane = loader.load();
+		loader.getController();
+		Scene futureScene = new Scene(anchorPane);
+		
+		Stage newStage = new Stage();
+		newStage.setScene(futureScene);
+		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+		newStage.getIcons().add(anotherIcon);
+		
+		Main.changeStage(newStage);
+		Main.getCurrentStage().close();
+	} catch (Exception e) {
+		e.getMessage();
+	}			
+	
 	}
 }
 	

@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="480.0" prefWidth="932.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.RestHomeController">
+<VBox prefHeight="431.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.RestHomeController">
    <children>
-      <Label prefHeight="27.0" prefWidth="373.0" text="Casa de Repouso">
+      <Label prefHeight="27.0" prefWidth="373.0" text="CASA DE REPOUSO">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -23,7 +23,7 @@
       </Label>
       <ToolBar prefHeight="29.0" prefWidth="373.0">
          <items>
-            <Button fx:id="btNew" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Novo">
+            <Button fx:id="btNew" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" text="Novo">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -36,15 +36,10 @@
       </ToolBar>
       <TableView fx:id="tableViewRestHome" prefHeight="279.0" prefWidth="800.0" stylesheets="@../application/application.css">
         <columns>
-          <TableColumn fx:id="tableColumnName" prefWidth="116.0" text="Razão Social" />
-            <TableColumn prefWidth="107.0" text="CNPJ" />
-            <TableColumn prefWidth="137.0" text="Mês de Faturamento" />
-            <TableColumn minWidth="0.0" prefWidth="91.0" text="Rua" />
-            <TableColumn prefWidth="108.0" text="Número" />
-            <TableColumn prefWidth="115.0" text="Estado" />
-            <TableColumn prefWidth="116.0" text="CEP" />
-            <TableColumn prefWidth="66.0" text="Bairro" />
-            <TableColumn prefWidth="75.0" text="Ações" />
+          <TableColumn fx:id="tableColumnName" prefWidth="246.0" text="Razão Social" />
+            <TableColumn prefWidth="187.0" text="CNPJ" />
+            <TableColumn prefWidth="168.0" text="Mês de Faturamento" />
+            <TableColumn minWidth="0.0" prefWidth="186.0" text="Ações" />
         </columns>
       </TableView>
    </children>

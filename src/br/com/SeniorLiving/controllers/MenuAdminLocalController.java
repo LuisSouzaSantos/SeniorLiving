@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,9 @@ public class MenuAdminLocalController extends Controller implements Initializabl
 	@FXML
 	private AnchorPane containerToScreen;
 	
+	@FXML 
+	private TextField txtVoltar;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {		
 		initializeNodes();

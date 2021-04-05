@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="800.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.FinancialListController">
+<VBox prefHeight="431.0" prefWidth="790.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.FinancialListController">
    <children>
       <Label prefHeight="27.0" prefWidth="373.0" text="Cadastro Solidário / Cuidador">
          <font>
