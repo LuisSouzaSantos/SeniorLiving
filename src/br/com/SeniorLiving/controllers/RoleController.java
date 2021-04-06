@@ -4,11 +4,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class RoleController  implements Initializable {
+public class RoleController extends Controller implements Initializable {
+	
+
+	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Role.fxml";
 	
 	@FXML
 	private TextField txtName;
@@ -25,5 +29,10 @@ public class RoleController  implements Initializable {
 	}
 	
 	private void initializeNodes() {
+	}
+	
+	@Override
+	public FXMLLoader getFXMLLoader() {
+		return new FXMLLoader(getClass().getResource(UI_PATH));	
 	}
 }

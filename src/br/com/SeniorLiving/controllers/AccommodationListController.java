@@ -5,25 +5,24 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.SeniorLiving.application.Main;
+import br.com.ftt.ec6.seniorLiving.entities.Accommodation;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
-import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AcommodationListController extends Controller implements Initializable {
+public class AccommodationListController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/AcommodationList.fxml";
 	
@@ -34,13 +33,17 @@ public class AcommodationListController extends Controller implements Initializa
 	private TableColumn<Role, String> tableColumnName;
 	
 	@FXML
+	private TableColumn<Role, String> tableColumnDescription;
+	
+	@FXML
 	private Button btNew;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("Nome"));
-				
+		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("Descrição"));
+		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewAccomodation.prefHeightProperty().bind(stage.heightProperty());
 	}
@@ -48,33 +51,13 @@ public class AcommodationListController extends Controller implements Initializa
 	private void initializeNodes() {
 	}
 
-
 	@FXML
-	private void onBtNewAction() {
-		//Stage parentStage = Utils.currentStage(event);
-	//	Role obj = new Role();
-		//createDialogForm("/br/com/SeniorLiving/gui/Accomodation.fxml", parentStage);
-	}
-	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			Pane pane = loader.load();
-			
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Senior Living");
-			dialogStage.setScene(new Scene(pane));
-			dialogStage.setResizable(false);
-
-			dialogStage.initOwner(parentStage);
-			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-            dialogStage.getIcons().add(anotherIcon);
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.showAndWait();
-		} catch (IOException e) {
-			e.printStackTrace();
-			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
-		}
+	public void onBtNewAction() throws IOException{
+		
+		//AccommodationController menuAdminGeralController = new AccommodationController();
+		//FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
+		//VBox vBox = loader.load();
+		//loader.getController();
 	}
 
 	@Override

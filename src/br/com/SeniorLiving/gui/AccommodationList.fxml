@@ -37,7 +37,7 @@
       <TableView fx:id="tableViewAccomodation" prefHeight="279.0" prefWidth="800.0" stylesheets="@../application/application.css">
         <columns>
           <TableColumn fx:id="tableColumnName" prefWidth="215.0" text="Nome" />
-            <TableColumn prefWidth="285.0" text="Descrição" />
+            <TableColumn fx:id="tableColumnDescription" prefWidth="285.0" text="Descrição" />
             <TableColumn prefWidth="300.0" text="Ações" />
         </columns>
       </TableView>

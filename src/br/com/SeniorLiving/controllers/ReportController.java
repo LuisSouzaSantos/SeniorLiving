@@ -34,35 +34,12 @@ public class ReportController extends Controller implements Initializable {
 	@FXML
 	private TableColumn<Role, String> tableColumnValues;
 	
-	@FXML
-	private TableColumn<Role, String> tableColumnAccomodation;	
-
-	@FXML
-	private TableColumn<Role, String> tableColumnValues2; //Segunda Coluna
-
-	@FXML
-	private TableColumn<Role, String> tableColumnProduct;
-	
-	@FXML
-	private TableColumn<Role, String> tableColumnQnt;
-	
-	@FXML
-	private TableColumn<Role, String> tableColumnValues3; //Terceira Coluna
-	
-	@FXML
-	private TableColumn<Role, String> tableColumnUnitario;
-	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
 		tableColumnService.setCellValueFactory(new PropertyValueFactory<>("Serviço"));
 		tableColumnValues.setCellValueFactory(new PropertyValueFactory<>("Valor"));
-		tableColumnAccomodation.setCellValueFactory(new PropertyValueFactory<>("Acomodação"));
-		tableColumnValues2.setCellValueFactory(new PropertyValueFactory<>("Valor"));
-		tableColumnProduct.setCellValueFactory(new PropertyValueFactory<>("Produto"));
-		tableColumnQnt.setCellValueFactory(new PropertyValueFactory<>("Quantidade"));
-		tableColumnValues3.setCellValueFactory(new PropertyValueFactory<>("Valor"));
-		tableColumnUnitario.setCellValueFactory(new PropertyValueFactory<>("ValorUnitario"));
+		
 				
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewReport.prefHeightProperty().bind(stage.heightProperty());

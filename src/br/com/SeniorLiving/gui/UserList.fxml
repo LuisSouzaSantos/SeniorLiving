@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
+<VBox prefHeight="431.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
    <children>
       <Label prefHeight="27.0" prefWidth="373.0" text="USUÁRIO ADMINISTRADOR LOCAL">
          <font>
@@ -34,7 +34,7 @@
             </Button>
          </items>
       </ToolBar>
-      <TableView fx:id="tableViewUser" prefHeight="279.0" prefWidth="800.0" stylesheets="@../application/application.css">
+      <TableView fx:id="tableViewUser" prefHeight="279.0" prefWidth="778.0" stylesheets="@../application/application.css">
         <columns>
           <TableColumn fx:id="tableColumnName" prefWidth="185.0" text="Nome" />
           <TableColumn fx:id="tableColumnEmail" prefWidth="262.0" text="Email" />

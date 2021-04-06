@@ -15,7 +15,7 @@
 
 <VBox prefHeight="431.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.PersonListController">
    <children>
-      <Label prefHeight="27.0" prefWidth="373.0" text="CADASTRO DE PESSOA">
+      <Label prefHeight="27.0" prefWidth="373.0" text="PESSOA">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

@@ -4,11 +4,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminGeralController">
    <children>
-      <AnchorPane fx:id="Ap" layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="1000.0">
+      <AnchorPane fx:id="Ap" layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="1020.0">
          <children>
             <AnchorPane layoutX="8.0" prefHeight="431.0" prefWidth="207.0" style="-fx-background-color: #4a5796;">
                <children>
@@ -25,10 +26,13 @@
                   </ImageView>
                   <Text fill="WHITE" layoutX="55.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User: 082190041" />
                   <Text fill="WHITE" layoutX="46.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role: ADMIN_GERAL" />
+                  <Text fx:id="btVoltar" fill="#eeeaea" layoutX="154.0" layoutY="29.0" onMouseClicked="#voltarAction" strokeType="OUTSIDE" strokeWidth="0.0" text="Voltar">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Text>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="containerToScreen" layoutX="216.0" prefHeight="431.0" prefWidth="21.0" />
-            <Text fill="#eeeaea" layoutX="165.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Voltar" />
+            <AnchorPane fx:id="containerToScreen" layoutX="216.0" prefHeight="431.0" prefWidth="803.0" />
          </children>
       </AnchorPane>
    </children>

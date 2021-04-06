@@ -38,6 +38,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </PasswordField>
+                  
                   <Button fx:id="btLogar" layoutX="34.0" layoutY="336.0" mnemonicParsing="false" onAction="#performLogin" prefHeight="33.0" prefWidth="222.0" style="-fx-background-radius: 50px; -fx-background-color: #4a5796;" text="Sign In" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />

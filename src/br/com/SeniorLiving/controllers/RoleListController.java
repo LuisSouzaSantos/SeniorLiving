@@ -20,7 +20,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -56,33 +59,22 @@ public class RoleListController extends Controller implements Initializable {
 	}
 			
 		
-	@FXML
-	private void onBtNewAction(ActionEvent event) {
-		Stage parentStage = Utils.currentStage(event);
-	//	Role obj = new Role();
-		createDialogForm("/br/com/SeniorLiving/gui/Role.fxml", parentStage);
-	}
-	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			Pane pane = loader.load();
-			
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Senior Living");
-			dialogStage.setScene(new Scene(pane));
-			dialogStage.setResizable(false);
-
-			dialogStage.initOwner(parentStage);
-			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-            dialogStage.getIcons().add(anotherIcon);
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.showAndWait();
-		} catch (IOException e) {
-			e.printStackTrace();
-			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
-		}
-	}
+	/*private void onBtNewAction(MouseEvent event) throws IOException {
+		RoleController roleController = new RoleController();
+		FXMLLoader loader = roleController.getFXMLLoader();
+		AnchorPane anchorPane = loader.load();
+		loader.getController();
+		
+		Scene futureScene = new Scene(anchorPane);
+		Stage newStage = new Stage();
+		newStage.setScene(futureScene);
+		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+		newStage.getIcons().add(anotherIcon);
+		
+		Main.changeStage(newStage);
+	//	Main.getCurrentStage().close();
+		
+	}*/
 	
 	@Override
 	public FXMLLoader getFXMLLoader() {

@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -40,6 +41,8 @@ public class MenuController extends Controller implements  Initializable {
 		
 		Stage newStage = new Stage();
 		newStage.setScene(futureScene);
+		Image icon = new Image("/br/com/SeniorLiving/images/icon.png");
+		newStage.getIcons().add(icon);
 		
 		Main.changeStage(newStage);
 		Main.getCurrentStage().close();
@@ -55,6 +58,8 @@ public class MenuController extends Controller implements  Initializable {
 		
 		Stage newStage = new Stage();
 		newStage.setScene(futureScene);
+		Image icon = new Image("/br/com/SeniorLiving/images/icon.png");
+		newStage.getIcons().add(icon);
 		
 		Main.changeStage(newStage);
 		Main.getCurrentStage().close();
