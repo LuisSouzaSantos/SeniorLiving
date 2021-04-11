@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,12 +26,26 @@ public class Elderly extends BaseConfig {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(length = 100, nullable = false)
 	private String name;
+	
+	@Column(name = "marital_status", length = 50, nullable = false)
 	private String maritalStatus;
+	
+	@Column(length = 30, nullable = false)
 	private String nationality;
+	
+	@Column(length = 30, unique = true, nullable = false)
 	private String rg;
+	
+	@Column(length = 11, unique = true, nullable = false)
 	private String cpf;
+	
+	@Column(nullable = false, name = "birth_date")
 	private LocalDate birthDate;
+	
+	@Column(nullable = false, name = "monthly_payment")
 	private BigDecimal monthlyPayment;
 	
 	@ManyToOne

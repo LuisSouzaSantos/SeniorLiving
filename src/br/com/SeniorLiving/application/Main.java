@@ -2,6 +2,7 @@ package br.com.SeniorLiving.application;
 	
 import java.io.IOException;
 
+import br.com.SeniorLiving.controllers.Controller;
 import br.com.SeniorLiving.controllers.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,12 +14,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
-	private static Scene mainScene;
-	private static Stage lastStage;
-	private static Stage currentStage;
-	
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primeStage) {
 		try {
 			
 			LoginController loginController = new LoginController();
@@ -26,55 +23,21 @@ public class Main extends Application {
 			FXMLLoader loader = loginController.getFXMLLoader();
 			AnchorPane scrollPane = loader.load();
 			
-			mainScene = new Scene(scrollPane);
-			currentStage = primaryStage;
-			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("Senior Living");
+			primeStage.setScene(new Scene(scrollPane));
+			primeStage.setTitle("Senior Living");
 			
 			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-            primaryStage.getIcons().add(anotherIcon);
+			primeStage.getIcons().add(anotherIcon);
             
-            setCurrentStage(primaryStage);
-			primaryStage.show();
+            Controller.goToNextScene(null, false, primeStage, false);
 		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void changeStage(Stage futureStage) {
-		Stage currentStage = getCurrentStage();
-		
-		if(currentStage != null) {
-			setLastStage(currentStage);
-		}
-		
-		setCurrentStage(futureStage);
-		getLasStage().close();
-		getCurrentStage().showAndWait();;
-	}
-	
-	public static void setLastStage(Stage stage) {
-		lastStage = stage;
-	}
-	
-	public static void setCurrentStage(Stage stage) {
-		currentStage = stage;
-	}
-	
-	public static Stage getLasStage() {
-		return lastStage;
-	}
-	
-	public static Scene getMainScene() {
-		return mainScene;
-	}
-	
-	public static Stage getCurrentStage() {
-		return currentStage;
+		catch (IOException e) {	e.printStackTrace(); }
 	}
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+
+	
 }

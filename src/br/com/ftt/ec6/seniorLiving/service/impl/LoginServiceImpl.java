@@ -15,7 +15,7 @@ public class LoginServiceImpl implements LoginService {
 	public User performLogin(String email, String password) throws LoginException {
 		if(email == null || email.trim().isEmpty()) { throw new LoginException("Email inválido"); }
 		
-		if(password == null || password.trim().isBlank()) { throw new LoginException("Senha inválida"); }
+		if(password == null || password.trim().isEmpty()) { throw new LoginException("Senha inválida"); }
 		
 		EntityManager entityManager =  Database.getConnection();
 		entityManager.getTransaction().begin();
@@ -25,7 +25,7 @@ public class LoginServiceImpl implements LoginService {
 		
 		if(user.isActive() == false) { throw new LoginException("Usuário desabilitado"); }
 		
-		if(BCrypt.checkpw(password, user.getPassword()) == false) { throw new LoginException("Email ou Senha inválida"); }
+		if(BCrypt.checkpw(password, user.getPassword()) == false) { throw new LoginException("Email ou Senha incorretos"); }
 		
 		return user;
 	}

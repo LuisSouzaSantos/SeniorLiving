@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="563.0" prefWidth="1124.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuController">
    <children>
-      <AnchorPane layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="797.0">
+      <AnchorPane prefHeight="60.0" prefWidth="1124.0" style="-fx-background-color: #4a5796;">
          <children>
-            <GridPane fx:id="gridPane" layoutX="90.0" layoutY="106.0" prefHeight="246.0" prefWidth="637.0">
+            <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logos.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="usernameMenu" fill="WHITE" layoutX="59.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuário: {username}" />
+            <ImageView fx:id="menuImageLogout" fitHeight="27.0" fitWidth="35.0" layoutX="1065.0" layoutY="17.0" onMouseClicked="#logoutEvent" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logout.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="58.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="1124.0">
+         <children>
+            <GridPane fx:id="gridPane" layoutX="252.0" layoutY="159.0" prefHeight="246.0" prefWidth="637.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="365.0" minWidth="10.0" prefWidth="268.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="475.0" minWidth="10.0" prefWidth="106.0" />
@@ -28,35 +43,7 @@
                 <RowConstraints maxHeight="5.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <AnchorPane layoutX="8.0" prefHeight="50.0" prefWidth="792.0" style="-fx-background-color: #4a5796;">
-               <children>
-                  <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/logos.png" />
-                     </image>
-                  </ImageView>
-                  <Text fx:id="usernameMenu" fill="WHITE" layoutX="55.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuário: {username}" />
-               </children>
-            </AnchorPane>
-            <Button fx:id="btFechar" layoutX="735.0" layoutY="-24.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#ff8800">
-               <font>
-                  <Font name="Calibri Bold" size="41.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
          </children>
       </AnchorPane>
-      <Pane layoutX="226.0" layoutY="-231.0" prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="50.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/user.png" />
-               </image>
-            </ImageView>
-            <Text layoutX="89.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-         </children>
-      </Pane>
    </children>
 </AnchorPane>

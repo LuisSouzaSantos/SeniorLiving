@@ -2,6 +2,7 @@ package br.com.ftt.ec6.seniorLiving.entities;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,8 +24,18 @@ public class User extends BaseConfig {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(unique = true, length = 255, nullable = false)
 	private String email;
+	
+	@Column(unique = true, length = 255, nullable = false)
+	private String nickname;
+	
+	@Column(length = 255, nullable = false)
 	private String password;
+	
+	@Transient
+	private String passwordConfirmation;
 	private boolean active;
 
 	@ManyToMany
@@ -50,6 +61,14 @@ public class User extends BaseConfig {
 		this.email = email;
 	}
 	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -58,6 +77,14 @@ public class User extends BaseConfig {
 		this.password = password;
 	}
 	
+	public String getPasswordConfirmation() {
+		return passwordConfirmation;
+	}
+
+	public void setPasswordConfirmation(String passwordConfirmation) {
+		this.passwordConfirmation = passwordConfirmation;
+	}
+
 	public boolean isActive() {
 		return active;
 	}

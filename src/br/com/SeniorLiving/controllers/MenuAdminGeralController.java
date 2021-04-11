@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.SeniorLiving.application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,8 +32,7 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		Stage newStage = new Stage();
 		newStage.setScene(futureScene);
 		
-		Main.changeStage(newStage);
-		Main.getCurrentStage().close();
+		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 	
 	@FXML
@@ -48,8 +46,7 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		Stage newStage = new Stage();
 		newStage.setScene(futureScene);
 		
-		Main.changeStage(newStage);
-		Main.getCurrentStage().close();
+		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 	
 	@FXML
@@ -63,8 +60,7 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		Stage newStage = new Stage();
 		newStage.setScene(futureScene);
 		
-		Main.changeStage(newStage);
-		Main.getCurrentStage().close();
+		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 	
 	@FXML

@@ -5,10 +5,9 @@ import javax.persistence.EntityManager;
 import br.com.ftt.ec6.seniorLiving.DAO.AccommodationDAO;
 import br.com.ftt.ec6.seniorLiving.entities.Accommodation;
 
-public class AccommodationDAOImpl implements AccommodationDAO {
+public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements AccommodationDAO {
 
 	private static AccommodationDAOImpl instance;
-	private EntityManager entityManager;
 	
 	private AccommodationDAOImpl() {}
 	
@@ -19,25 +18,11 @@ public class AccommodationDAOImpl implements AccommodationDAO {
 		instance.setEntityManager(entityManager);
 		return instance;
 	}
-	
-	@Override
-	public Accommodation save(Accommodation accommodation) {
-		entityManager.persist(accommodation);
-		return accommodation;
-	}
-
-	@Override
-	public Accommodation update(Accommodation accommodation) {
-		if(accommodation.getId() == null) { return null; }
-		
-		entityManager.persist(accommodation);
-		return accommodation;
-	}
 
 	@Override
 	public Accommodation getAccommodationByName(String name) {
 		try {
-			return this.entityManager.createQuery(findAccommodationByNameQuery(), Accommodation.class)
+			return AccommodationDAOImpl.entityManager.createQuery(findAccommodationByNameQuery(), Accommodation.class)
 						.setParameter("name", name)
 						.getSingleResult();
 		}catch(RuntimeException e) {return null;}
@@ -46,7 +31,7 @@ public class AccommodationDAOImpl implements AccommodationDAO {
 	@Override
 	public void delete(Long id) {
 		try {
-			this.entityManager.createQuery(removeAccommodationById(), Accommodation.class)
+			AccommodationDAOImpl.entityManager.createQuery(removeAccommodationById(), Accommodation.class)
 						.setParameter("id", id)
 						.executeUpdate();
 		}catch(RuntimeException e) {}
@@ -62,7 +47,7 @@ public class AccommodationDAOImpl implements AccommodationDAO {
 	}
 	
 	private void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
+		AccommodationDAOImpl.entityManager = entityManager;
 	}
 
 }

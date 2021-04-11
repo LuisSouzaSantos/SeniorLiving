@@ -6,7 +6,8 @@ import java.util.ResourceBundle;
 
 import javax.security.auth.login.LoginException;
 
-import br.com.SeniorLiving.application.Main;
+import com.sun.javafx.application.LauncherImpl;
+
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.Constraints;
@@ -62,8 +63,7 @@ public class LoginController extends Controller implements Initializable {
 			Stage newStage = new Stage();
 			newStage.setScene(futureScene);
 			
-			Main.changeStage(newStage);
-			Main.getCurrentStage().close();
+			Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -86,7 +86,6 @@ public class LoginController extends Controller implements Initializable {
 	@Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
-	} 
-	
+	}
 
 }

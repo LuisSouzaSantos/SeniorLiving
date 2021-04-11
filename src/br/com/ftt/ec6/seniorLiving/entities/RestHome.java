@@ -2,6 +2,7 @@ package br.com.ftt.ec6.seniorLiving.entities;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,12 +25,26 @@ public class RestHome extends BaseConfig {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(unique = true, length = 14, nullable = false)
 	private String cnpj;
+	
+	@Column(name = "social_reason", length = 100, nullable = false)
 	private String socialReason;
+	
+	@Column(name = "address_street", length = 100, nullable = false)
 	private String addressStreet;
+	
+	@Column(name = "address_number", length = 10, nullable = false)
 	private String addressNumber;
+	
+	@Column(name = "address_state", length = 20, nullable = false)
 	private String addressState;
+	
+	@Column(name = "address_cep", length = 8, nullable = false)
 	private String addressCep;
+	
+	@Column(name = "address_neighborhood", length = 100, nullable = false)
 	private String addressNeighborhood;
 	
 	@ManyToOne

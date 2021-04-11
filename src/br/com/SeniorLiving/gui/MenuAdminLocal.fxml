@@ -26,15 +26,15 @@
                   <Button layoutX="19.0" layoutY="143.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Tipo" />
                   <Button layoutX="19.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Produto" />
                   <Button layoutX="18.0" layoutY="223.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Pessoa" />
-                  <Text fill="WHITE" layoutX="14.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0.0" />
+                  <Text fill="WHITE" layoutX="14.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{version}" />
                   <Button layoutX="19.0" layoutY="344.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Logout" />
                   <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/logos.png" />
                      </image>
                   </ImageView>
-                  <Text fill="WHITE" layoutX="55.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User: 082190041" />
-                  <Text fill="WHITE" layoutX="46.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role: ADMIN_LOCAL" />
+                  <Text fill="WHITE" layoutX="44.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuário: {username}" />
+                  <Text fill="WHITE" layoutX="46.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Papel: {{roleName}}" />
                   <Button layoutX="18.0" layoutY="304.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Faturamento" />
                   <Button layoutX="18.0" layoutY="263.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Idoso" />
                </children>

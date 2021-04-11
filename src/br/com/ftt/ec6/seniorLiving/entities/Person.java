@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
+@Table(name = "person")
 public class Person extends BaseConfig {
 
 	@Transient
@@ -24,31 +26,44 @@ public class Person extends BaseConfig {
 	private Long id;
 	@Column(nullable = false)
 	private String name;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, length = 30)
 	private String nationality;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, name = "marital_status")
 	private String maritalStatus;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, length = 30)
 	private String job;
-	@Column(nullable = false, unique = true)
+	
+	@Column(nullable = false, unique = true, length = 30)
 	private String rg;
-	@Column(nullable = false, unique = true)
+	
+	@Column(nullable = false, unique = true, length = 11)
 	private String cpf;
+	
 	@Column(nullable = false)
 	private String phone;
+	
 	@Column(nullable = false, unique = true)
 	private String email;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, name = "address_street", length = 100)
 	private String addressStreet;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, name = "address_number", length = 10)
 	private String addressNumber;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, name = "address_state", length = 20)
 	private String addressState;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, name = "address_cep", length = 8)
 	private String addressCep;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, name = "address_neighborhood", length = 100)
 	private String addressNeighborhood;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, name = "birth_date")
 	private LocalDate  birthDate;
 	
 	@ManyToMany

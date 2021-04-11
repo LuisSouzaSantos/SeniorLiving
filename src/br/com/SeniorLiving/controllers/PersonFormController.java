@@ -12,13 +12,14 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import javax.xml.bind.ValidationException;
+
 import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
 import br.com.SeniorLiving.db.DbException;
-import br.com.SeniorLiving.model.exceptions.ValidationException;
 import br.com.SeniorLiving.model.services.DepartmentService;
-import br.com.SeniorLiving.model.services.PersonService;
 import br.com.ftt.ec6.seniorLiving.entities.Department;
 import br.com.ftt.ec6.seniorLiving.entities.Person;
+import br.com.ftt.ec6.seniorLiving.service.PersonService;
 import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;

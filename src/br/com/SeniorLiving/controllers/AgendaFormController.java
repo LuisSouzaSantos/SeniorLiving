@@ -11,9 +11,10 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import javax.xml.bind.ValidationException;
+
 import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
 import br.com.SeniorLiving.db.DbException;
-import br.com.SeniorLiving.model.exceptions.ValidationException;
 import br.com.SeniorLiving.model.services.AgendaService;
 import br.com.ftt.ec6.seniorLiving.entities.Agenda;
 import br.com.ftt.ec6.seniorLiving.utils.Alerts;
@@ -24,11 +25,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
 public class AgendaFormController implements Initializable {
 

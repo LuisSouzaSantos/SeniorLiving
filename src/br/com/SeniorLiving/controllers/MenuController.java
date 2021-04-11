@@ -5,11 +5,14 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import br.com.SeniorLiving.application.Main;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
+import br.com.ftt.ec6.seniorLiving.utils.Colors;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,7 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MenuController extends Controller implements  Initializable {
+public class MenuController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Menu.fxml";
 	
@@ -29,6 +32,7 @@ public class MenuController extends Controller implements  Initializable {
 	
 	@FXML
 	private Pane adminGeneralMenuPane;
+	
 	@FXML
 	private Pane enterInAdminLocalMenuPane;
 	
@@ -43,6 +47,11 @@ public class MenuController extends Controller implements  Initializable {
 		initializeNodes();
 	}
 	
+	@Override
+	public FXMLLoader getFXMLLoader() {
+		return new FXMLLoader(getClass().getResource(UI_PATH));
+	}
+	
 	private void initializeNodes() {
 		loadUserName();
 		loadPane();
@@ -53,7 +62,7 @@ public class MenuController extends Controller implements  Initializable {
 		String menuTextUpdate = currentText.replace(USERNAME_MENU_TEXT_TO_CHANGE, userLogged.getEmail());
 		usernameMenu.setText(menuTextUpdate);
 	}
-	
+
 	private void loadPane() {
 		List<Role> userLoggedRoleList = userLogged.getRoleList();
 		
@@ -63,14 +72,16 @@ public class MenuController extends Controller implements  Initializable {
 			pane.setId(role.getName().toLowerCase()+"MenuPane");
 			pane.setPrefHeight(50.0);
 			pane.setPrefWidth(50.0);
-			pane.setStyle("-fx-background-color: #4A5796;");
+			pane.setStyle("-fx-background-color:"+Colors.LIGHT_PURPLE.getHexColor()+";");
+			pane.setOnMouseClicked(getEventButton(role));
+			pane.setCursor(Cursor.HAND);
 			
 			ImageView imageView = new ImageView();
 			Image image = new Image("/br/com/SeniorLiving/images/user.png");
 			imageView.setImage(image);
 			imageView.setFitHeight(100.0);
 			imageView.setFitWidth(150.0);
-			imageView.setLayoutX(50.0);
+			imageView.setLayoutX(80.0);
 			imageView.setLayoutY(34.0);
 			imageView.setPickOnBounds(true);
 			imageView.setPreserveRatio(true);
@@ -90,39 +101,78 @@ public class MenuController extends Controller implements  Initializable {
 		}
 	}
 	
-	@FXML
-	private void enterInAdminGeralMenu() throws IOException {
-		MenuAdminGeralController menuAdminGeralController = new MenuAdminGeralController();
-		FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
-		AnchorPane anchorPane = loader.load();
-		loader.getController();
-		Scene futureScene = new Scene(anchorPane);
+	private EventHandler<Event> getEventButton(Role role){
+		if(role == null) { return null; }
 		
-		Stage newStage = new Stage();
-		newStage.setScene(futureScene);
+		String roleName = role.getName();
 		
-		Main.changeStage(newStage);
-		Main.getCurrentStage().close();
+		switch (roleName) {
+		case "ADMIN_GERAL":
+			return enterAdminGeralMenuEvent();
+		case "ADMIN_LOCAL":
+			return enterAdminLocalMenuEvent();
+		default:
+			return null;
+		}
 	}
 	
 	@FXML
-	private void enterInAdminLocalMenu() throws IOException {
-		MenuAdminLocalController menuAdminGeralController = new MenuAdminLocalController();
-		FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
+	private EventHandler<Event> enterAdminGeralMenuEvent() {
+		return new EventHandler<Event>() {
+			@Override
+			public void handle(Event arg0) {
+				try {
+					MenuAdminGeralController menuAdminGeralController = new MenuAdminGeralController();
+					FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
+					AnchorPane anchorPane = loader.load();
+					loader.getController();
+					Scene futureScene = new Scene(anchorPane);
+					
+					Stage newStage = new Stage();
+					newStage.setScene(futureScene);
+					
+					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
+				}catch(IOException e) { e.printStackTrace(); }	
+			}
+	
+		};
+	}
+	
+	@FXML
+	private EventHandler<Event> enterAdminLocalMenuEvent() {
+		return new EventHandler<Event>() {
+			@Override
+			public void handle(Event arg0) {
+				try {
+					MenuAdminLocalController menuAdminGeralController = new MenuAdminLocalController();
+					FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
+					AnchorPane anchorPane = loader.load();
+					loader.getController();
+					Scene futureScene = new Scene(anchorPane);
+					
+					Stage newStage = new Stage();
+					newStage.setScene(futureScene);
+					
+					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
+				}catch(IOException e){ e.printStackTrace(); }
+			}
+			
+		};
+		
+	}
+	
+	@FXML
+	private void logoutEvent() throws IOException {
+		LoginController loginController = new LoginController();
+		FXMLLoader loader = loginController.getFXMLLoader();
 		AnchorPane anchorPane = loader.load();
 		loader.getController();
 		Scene futureScene = new Scene(anchorPane);
-		
+					
 		Stage newStage = new Stage();
 		newStage.setScene(futureScene);
-		
-		Main.changeStage(newStage);
-		Main.getCurrentStage().close();
-	}
-
-	@Override
-	public FXMLLoader getFXMLLoader() {
-		return new FXMLLoader(getClass().getResource(UI_PATH));
+					
+		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 
 }
