@@ -42,7 +42,7 @@ public class AccommodationListController extends Controller implements Initializ
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("Nome"));
-		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("Descrição"));
+		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("Descriï¿½ï¿½o"));
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewAccomodation.prefHeightProperty().bind(stage.heightProperty());

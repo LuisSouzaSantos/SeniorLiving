@@ -16,9 +16,13 @@ import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -173,11 +177,11 @@ public class LoginController extends Controller implements Initializable {
 		Map<String, String> errorsList = new HashMap<String, String>();
 		
 		if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { 
-			errorsList.put("EMAIL", "Email não pode estar em branco");
+			errorsList.put("EMAIL", "Email nï¿½o pode estar em branco");
 		} 
 		
 		if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { 
-			errorsList.put("PASSWORD", "Senha não pode estar em branco");
+			errorsList.put("PASSWORD", "Senha nï¿½o pode estar em branco");
 		} 
 		
 		return errorsList;

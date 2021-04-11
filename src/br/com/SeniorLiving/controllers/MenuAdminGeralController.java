@@ -54,17 +54,16 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		
 		containerToScreen.getChildren().clear();
 		containerToScreen.getChildren().add(vBox);
-	}
 	
 	@FXML
 	private void restHomeButtonClick() throws IOException {
-		RestHomeController restHomeController = new RestHomeController();
-		FXMLLoader loader = restHomeController.getFXMLLoader();
-		VBox vBox = loader.load();
-		loader.getController();
-		
-		containerToScreen.getChildren().clear();
-		containerToScreen.getChildren().add(vBox);
+//		Stage newStage = new Stage();
+//		newStage.setScene(futureScene);
+//		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+//		newStage.getIcons().add(anotherIcon);
+//		
+//		Main.changeStage(newStage);
+//		Main.getCurrentStage().close();
 	}
 	
 	@FXML
@@ -77,7 +76,6 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		containerToScreen.getChildren().clear();
 		containerToScreen.getChildren().add(vBox);
 	}
-	
 	@FXML
 	private void logoutButtonClick(MouseEvent event) throws IOException {
 		LoginController loginController = new LoginController();

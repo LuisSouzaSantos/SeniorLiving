@@ -37,7 +37,7 @@ public class ReportController extends Controller implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
-		tableColumnService.setCellValueFactory(new PropertyValueFactory<>("Serviço"));
+		tableColumnService.setCellValueFactory(new PropertyValueFactory<>("Serviï¿½o"));
 		tableColumnValues.setCellValueFactory(new PropertyValueFactory<>("Valor"));
 		
 				

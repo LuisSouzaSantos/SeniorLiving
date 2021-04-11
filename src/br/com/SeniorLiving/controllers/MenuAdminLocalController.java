@@ -188,22 +188,22 @@ public class MenuAdminLocalController extends Controller implements Initializabl
 
 	@FXML
 	public void voltarAction(MouseEvent event) {
-	try {
-		MenuController menuController = new MenuController();
-		FXMLLoader loader = menuController.getFXMLLoader();
-		AnchorPane anchorPane = loader.load();
-		loader.getController();
-		Scene futureScene = new Scene(anchorPane);
-		
-		Stage newStage = new Stage();
-		newStage.setScene(futureScene);
-		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-		newStage.getIcons().add(anotherIcon);
-		
-		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
-	} catch (Exception e) {
-		e.getMessage();
-	}		
+		try {
+			MenuController menuController = new MenuController();
+			FXMLLoader loader = menuController.getFXMLLoader();
+			AnchorPane anchorPane = loader.load();
+			loader.getController();
+			Scene futureScene = new Scene(anchorPane);
+			
+			Stage newStage = new Stage();
+			newStage.setScene(futureScene);
+			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+			newStage.getIcons().add(anotherIcon);
+
+			Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
+
+		} catch (Exception e) {}
 	}
+
 }
 	

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import br.com.SeniorLiving.application.Main;
 import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
 import br.com.SeniorLiving.db.DbException;
 import br.com.ftt.ec6.seniorLiving.application.Main;
@@ -80,7 +81,7 @@ public class FinancialFormController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle db) {
 		initializeNodes();
-		tableColumnService.setCellValueFactory(new PropertyValueFactory<>("Serviço"));
+		tableColumnService.setCellValueFactory(new PropertyValueFactory<>("Serviï¿½o"));
 		tableColumnValues.setCellValueFactory(new PropertyValueFactory<>("Valor"));
 				
 		Stage stage = (Stage) Main.getMainScene().getWindow();
