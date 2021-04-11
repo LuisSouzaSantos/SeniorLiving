@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="648.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.PersonListController">
+<VBox prefHeight="431.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.ElderlyListController">
    <children>
       <Label prefHeight="27.0" prefWidth="373.0" text="IDOSO">
          <font>
@@ -25,7 +25,7 @@
       </Label>
       <ToolBar prefHeight="29.0" prefWidth="373.0">
         <items>
-            <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="28.0" prefWidth="113.0" text="Novo">
+            <Button fx:id="btNew" mnemonicParsing="false" prefHeight="28.0" prefWidth="126.0" text="Novo">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -34,24 +34,20 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="54.0" />
-            <TextField fx:id="textSearch" prefHeight="25.0" prefWidth="453.0" />
-            <Button fx:id="btSearch" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="25.0" prefWidth="150.0" text="Buscar">
+            <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="34.0" />
+            <TextField fx:id="textSearch" prefHeight="25.0" prefWidth="446.0" />
+            <Button fx:id="btSearch" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Buscar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
         </items>
       </ToolBar>
-      <TableView fx:id="tableViewPerson" prefHeight="545.0" prefWidth="902.0" stylesheets="@../application/application.css">
+      <TableView fx:id="tableViewElderly" prefHeight="545.0" prefWidth="902.0" stylesheets="@../application/application.css">
         <columns>
           <TableColumn fx:id="tableColumnName" prefWidth="87.0" text="Nome" />
-            <TableColumn fx:id="tableColumnEmail" prefWidth="94.0" text="Estado Civil" />
-            <TableColumn fx:id="tableColumnBirthDate" prefWidth="102.0" text="Nacionalidade" />
-            <TableColumn fx:id="tableColumnEDIT" minWidth="5.0" prefWidth="85.0" text="RG" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="69.0" text="CPF" />
-            <TableColumn prefWidth="103.0" text="Data de Nascimento" />
-            <TableColumn minWidth="0.0" prefWidth="118.0" text="Telefone" />
+            <TableColumn fx:id="tableColumnState" prefWidth="94.0" text="Estado Civil" />
+            <TableColumn fx:id="tableColumnNacionality" prefWidth="102.0" text="Nacionalidade" />
             <TableColumn prefWidth="79.0" text="Curador" />
             <TableColumn prefWidth="148.0" text="Solidário" />
             <TableColumn prefWidth="150.0" text="Ações" />

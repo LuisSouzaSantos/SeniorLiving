@@ -13,21 +13,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="361.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="431.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ReportController">
    <children>
       <AnchorPane prefHeight="30.0" prefWidth="310.0" style="-fx-background-color: lightgray;">
          <children>
             <Text layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gerar Novo Relatório" textAlignment="CENTER" wrappingWidth="220.982421875">
                <font>
-                  <Font name="Arial Bold" size="18.0" />
+                  <Font name="Arial" size="19.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
       <GridPane prefHeight="99.0" prefWidth="504.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="105.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="10.0" prefWidth="254.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="125.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="10.0" prefWidth="260.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="145.0" />
         </columnConstraints>
         <rowConstraints>
@@ -39,38 +39,24 @@
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Paciente: " GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="20.0" />
+                  <Insets left="40.0" />
                </GridPane.margin>
                <font>
-                  <Font name="Arial Bold" size="17.0" />
+                  <Font name="Arial" size="17.0" />
                </font>
             </Text>
-            <JFXComboBox prefHeight="25.0" prefWidth="197.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXButton prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: lightblue;" text="Gerar Relatório" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <JFXComboBox fx:id="txtElderly" prefHeight="25.0" prefWidth="228.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXButton fx:id="btReport" onAction="#reportAction" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: lightblue;" text="Gerar Relatório" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </JFXButton>
          </children>
       </GridPane>
-      <TableView prefHeight="69.0" prefWidth="504.0">
+      <TableView fx:id="tableViewReport" prefHeight="204.0" prefWidth="531.0">
         <columns>
-          <TableColumn prefWidth="324.0" text="Serviço " />
-          <TableColumn prefWidth="179.0" text="Valor" />
-        </columns>
-      </TableView>
-      <TableView prefHeight="65.0" prefWidth="504.0">
-        <columns>
-          <TableColumn prefWidth="325.0" text="Acomodação" />
-          <TableColumn prefWidth="178.0" text="Valor " />
-        </columns>
-      </TableView>
-      <TableView prefHeight="76.0" prefWidth="504.0">
-        <columns>
-          <TableColumn prefWidth="160.0" text="Produtos" />
-          <TableColumn prefWidth="94.0" text="Quantidade" />
-            <TableColumn prefWidth="99.0" text="Vl. Unitário" />
-            <TableColumn prefWidth="150.0" text="Valor" />
+          <TableColumn fx:id="tableColumnService" prefWidth="324.0" text="Serviço " />
+          <TableColumn fx:id="tableColumnValues" prefWidth="201.0" text="Valor" />
         </columns>
       </TableView>
    </children>

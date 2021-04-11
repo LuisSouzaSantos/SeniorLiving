@@ -6,6 +6,22 @@
     -fx-text-fill: #f4fffc;
 }
 
+.button:hover {
+	-fx-background-color: #A1C1F4;
+}
+
+.button:pressed {
+	-fx-background-color: #73A3EF;
+}
+
+.pane:hover {
+	-fx-background-color: #A1C1F4;
+}
+
+.pane:pressed {
+	-fx-background-color: #73A3EF;
+}
+
 .table-cell {	  
     -fx-padding: 0.8em 0em 0.5em 0.3em;
     -fx-border-color: transparent -fx-box-border transparent transparent;  

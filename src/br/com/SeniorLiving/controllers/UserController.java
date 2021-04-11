@@ -53,14 +53,16 @@ public class UserController extends Controller implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle db) {
+    	initializeNodes();
     }
 
 	@Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
 	}
-    
-    
+	
+	private void initializeNodes() {
+	}
     
 //    private void initializeNodes() {
 //		Constraints.setTextFieldInteger(id);

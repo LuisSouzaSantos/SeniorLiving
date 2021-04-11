@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -8,37 +7,35 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminLocalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminLocalController">
    <children>
-      <AnchorPane layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="797.0">
-         <children>
-            <Button fx:id="btFechar" layoutX="735.0" layoutY="-24.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" style="-fx-background-color: rgba(0,0,0,0);" text="x" textFill="#ff8800">
-               <font>
-                  <Font name="Calibri Bold" size="41.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <AnchorPane layoutX="8.0" prefHeight="431.0" prefWidth="207.0" style="-fx-background-color: #4a5796;">
+      <AnchorPane layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="1019.0">
+         <children>            
+            <AnchorPane layoutX="8.0" prefHeight="432.0" prefWidth="207.0" style="-fx-background-color: #4a5796;">
                <children>
-                  <Button layoutX="19.0" layoutY="104.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Acomodação" />
-                  <Button layoutX="19.0" layoutY="143.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Tipo" />
-                  <Button layoutX="19.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Produto" />
-                  <Button layoutX="18.0" layoutY="223.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Pessoa" />
-                  <Text fill="WHITE" layoutX="14.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{version}" />
-                  <Button layoutX="19.0" layoutY="344.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Logout" />
+                  <Button fx:id="btAccommodation" layoutX="19.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#accommodationButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Acomodação" />
+                  <Button fx:id="btType" layoutX="19.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#typeButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Tipo" />
+                  <Button fx:id="btProduct" layoutX="19.0" layoutY="183.0" mnemonicParsing="false" onMouseClicked="#productButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Produto" />
+                  <Button fx:id="btPerson" layoutX="18.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#personButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Pessoa" />
+                  <Text fill="WHITE" layoutX="14.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0.0" />
+                  <Button fx:id="btLogout" layoutX="19.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#logoutButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Logout" />
                   <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/logos.png" />
                      </image>
                   </ImageView>
-                  <Text fill="WHITE" layoutX="44.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuário: {username}" />
-                  <Text fill="WHITE" layoutX="46.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Papel: {{roleName}}" />
-                  <Button layoutX="18.0" layoutY="304.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Faturamento" />
-                  <Button layoutX="18.0" layoutY="263.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Idoso" />
+                  <Text fill="WHITE" layoutX="55.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User: 082190041" />
+                  <Text fill="WHITE" layoutX="46.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role: ADMIN_LOCAL" />
+                  <Button fx:id="btAccount" layoutX="18.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#reportButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Faturamento" />
+                  <Button fx:id="btElderly" layoutX="18.0" layoutY="263.0" mnemonicParsing="false" onMouseClicked="#elderlyButtonClick" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #ffffff;" text="Idoso" />
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="containerToScreen" layoutX="215.0" prefHeight="431.0" prefWidth="803.0" />
+            <Text fx:id="btVoltar" fill="#eeeaea" layoutX="164.0" layoutY="39.0" onMouseClicked="#voltarAction" strokeType="OUTSIDE" strokeWidth="0.0" text="Voltar">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>

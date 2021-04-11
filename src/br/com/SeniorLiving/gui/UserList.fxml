@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserListController">
+<VBox prefHeight="431.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
    <children>
-      <Label prefHeight="27.0" prefWidth="373.0" text="Cadastro Administrador Local">
+      <Label prefHeight="27.0" prefWidth="373.0" text="USUÁRIO ADMINISTRADOR LOCAL">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -23,7 +23,7 @@
       </Label>
       <ToolBar prefHeight="29.0" prefWidth="373.0">
          <items>
-            <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="28.0" prefWidth="113.0" text="Novo">
+            <Button fx:id="btNew" mnemonicParsing="false" prefHeight="28.0" prefWidth="125.0" text="Novo">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -34,7 +34,7 @@
             </Button>
          </items>
       </ToolBar>
-      <TableView fx:id="tableViewUser" prefHeight="279.0" prefWidth="800.0" stylesheets="@../application/application.css">
+      <TableView fx:id="tableViewUser" prefHeight="279.0" prefWidth="778.0" stylesheets="@../application/application.css">
         <columns>
           <TableColumn fx:id="tableColumnName" prefWidth="185.0" text="Nome" />
           <TableColumn fx:id="tableColumnEmail" prefWidth="262.0" text="Email" />

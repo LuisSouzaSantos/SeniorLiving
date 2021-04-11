@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="742.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.RoleController">
+<VBox fillWidth="false" prefHeight="430.0" prefWidth="785.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.RoleListController">
    <children>
-      <Label prefHeight="27.0" prefWidth="373.0" text="PAPEL">
+      <Label prefHeight="38.0" prefWidth="790.0" text="PAPEL">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -23,9 +23,9 @@
             <Insets left="5.0" top="5.0" />
          </padding>
       </Label>
-      <ToolBar prefHeight="29.0" prefWidth="400.0">
+      <ToolBar prefHeight="38.0" prefWidth="789.0">
         <items>
-            <Button fx:id="btNew" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" stylesheets="@../application/application.css" text="Novo">
+            <Button fx:id="btNew" mnemonicParsing="false" onMouseClicked="#onBtNewAction" prefHeight="28.0" prefWidth="133.0" stylesheets="@../application/application.css" text="Novo">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -35,7 +35,7 @@
                </graphic>
             </Button>
             <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="25.0" />
-            <TextField fx:id="textSearch" prefHeight="25.0" prefWidth="471.0" />
+            <TextField fx:id="textSearch" prefHeight="25.0" prefWidth="440.0" />
             <Button fx:id="btSearch" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Buscar">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -43,10 +43,10 @@
             </Button>
         </items>
       </ToolBar>
-      <TableView fx:id="tableViewRole" prefHeight="243.0" prefWidth="400.0" stylesheets="@../application/application.css">
+      <TableView fx:id="tableViewRole" prefHeight="296.0" prefWidth="785.0" stylesheets="@../application/application.css">
         <columns>
-          <TableColumn fx:id="tableColumnRoleName" maxWidth="500.0" minWidth="462.0" prefWidth="462.0" text="Nome" />
-            <TableColumn prefWidth="279.0" text="Ações" />
+          <TableColumn fx:id="tableColumnRoleName" maxWidth="500.0" minWidth="148.0" prefWidth="371.0" text="Nome" />
+            <TableColumn prefWidth="363.0" text="Ações" />
         </columns>
       </TableView>
    </children>

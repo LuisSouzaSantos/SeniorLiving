@@ -6,17 +6,27 @@ import java.util.ResourceBundle;
 
 import javax.security.auth.login.LoginException;
 
+<<<<<<< HEAD
 import com.sun.javafx.application.LauncherImpl;
 
+=======
+import com.jfoenix.controls.JFXSnackbar;
+
+import br.com.SeniorLiving.application.Main;
+>>>>>>> master-pri
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -36,16 +46,21 @@ public class LoginController extends Controller implements Initializable {
 	@FXML
 	private Button btFechar;
 	
+	@FXML private AnchorPane rootPane;
+	private JFXSnackbar snackbar;
+	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
+		snackbar = new JFXSnackbar(rootPane);
+		//snackbar.show("Carregando...", 5000);
 	}
 	
 	public void performLogin() throws LoginException, IOException {
 		try {
-			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { throw new Exception("Email não pode estar em branco"); } 
+			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { infoBox("Email nï¿½o pode estar em branco"); } 
 			
-			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { throw new Exception("Senha não pode estar em branco"); } 
+			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { infoBox("Senha nï¿½o pode estar em branco"); } 
 			
 			String email = txtEmail.getText();
 			String password = txtPassword.getText();
@@ -62,12 +77,17 @@ public class LoginController extends Controller implements Initializable {
 			
 			Stage newStage = new Stage();
 			newStage.setScene(futureScene);
+			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+			newStage.getIcons().add(anotherIcon);
 			
 			Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-			
+			e.getMessage();
+		}			
+	}
+	
+	public void performLogout() {
+		userLogged = null;
 	}
 	
 	private void initializeNodes() {
@@ -75,17 +95,33 @@ public class LoginController extends Controller implements Initializable {
 		Constraints.setTextFieldMaxLength(txtPassword, 255);
 	}
 	
-	public static void infoBox(String infoMessage, String headerText, String title){
+	public static void infoBox(String infoMessage){
         Alert alert = new Alert(AlertType.ERROR);
         alert.setContentText(infoMessage);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
+        //alert.setTitle(title);
+        //alert.setHeaderText(headerText);
         alert.showAndWait();
     }
 
 	@Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
-	}
+	} 	
 
+	@FXML
+	public void pressedAction(KeyEvent ke) throws LoginException, IOException {
+		if(ke.getCode().equals(KeyCode.ENTER)){
+			performLogin();
+		}
+	}
+	
+	public JFXSnackbar showSnackBar(String message,AnchorPane pane){
+        JFXSnackbar jfxSnackbar=new JFXSnackbar(pane);
+     //   jfxSnackbar.setAlignment(Pos.BOTTOM_RIGHT);
+      //  jfxSnackbar.setPrefHeight(40);
+        jfxSnackbar.setPrefWidth(pane.getWidth()-40);
+      //  jfxSnackbar.show(message,2000);
+
+        return jfxSnackbar;
+    }
 }

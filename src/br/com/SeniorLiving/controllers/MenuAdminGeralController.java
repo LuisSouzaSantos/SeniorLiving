@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -16,66 +19,126 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 	
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/MenuAdminGeral.fxml";
 
+	@FXML
+	private AnchorPane pane;
+	
+	@FXML
+	private AnchorPane containerToScreen;
+	
+	@FXML 
+	private TextField txtVoltar;
+	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL url, ResourceBundle rb) {
 		
 	}
 	
 	@FXML
 	private void roleButtonClick() throws IOException {
-		RoleController menuAdminGeralController = new RoleController();
+		RoleListController menuAdminGeralController = new RoleListController();
 		FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
-		VBox anchorPane = loader.load();
+		VBox vBox = loader.load();
 		loader.getController();
-		Scene futureScene = new Scene(anchorPane);
+//		Scene futureScene = new Scene(vBox);
 		
-		Stage newStage = new Stage();
-		newStage.setScene(futureScene);
+		containerToScreen.getChildren().clear();
+		containerToScreen.getChildren().add(vBox);
 		
 		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 	
 	@FXML
 	private void userButtonClick() throws IOException {
-		UserController menuAdminGeralController = new UserController();
-		FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
-		AnchorPane anchorPane = loader.load();
+		UserController userController = new UserController();
+		FXMLLoader loader = userController.getFXMLLoader();
+		VBox vBox = loader.load();
 		loader.getController();
-		Scene futureScene = new Scene(anchorPane);
 		
-		Stage newStage = new Stage();
-		newStage.setScene(futureScene);
+		containerToScreen.getChildren().clear();
+		containerToScreen.getChildren().add(vBox);
 		
 		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 	
 	@FXML
 	private void restHomeButtonClick() throws IOException {
-		RestHomeController menuAdminGeralController = new RestHomeController();
-		FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
-		AnchorPane anchorPane = loader.load();
+		RestHomeController restHomeController = new RestHomeController();
+		FXMLLoader loader = restHomeController.getFXMLLoader();
+		VBox vBox = loader.load();
 		loader.getController();
-		Scene futureScene = new Scene(anchorPane);
 		
-		Stage newStage = new Stage();
-		newStage.setScene(futureScene);
+		containerToScreen.getChildren().clear();
+		containerToScreen.getChildren().add(vBox);
 		
 		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 	
 	@FXML
-	private void aboutButtonClick() {
+	private void aboutButtonClick() throws IOException {
+		AboutController aboutController = new AboutController();
+		FXMLLoader loader = aboutController.getFXMLLoader();
+		VBox vBox = loader.load();
+		loader.getController();
 		
+		containerToScreen.getChildren().clear();
+		containerToScreen.getChildren().add(vBox);
+		
+		
+//		Scene futureScene = new Scene(anchorPane);
+//		
+//		Stage newStage = new Stage();
+//		newStage.setScene(futureScene);
+//		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+//		newStage.getIcons().add(anotherIcon);
+//		
+//	//	Main.changeScene(new Scene (newStage));
+//		Main.changeStage(newStage);
+//		Main.getCurrentStage().close();
 	}
-	
 	@FXML
-	private void logoutButtonClick() {
+	private void logoutButtonClick(MouseEvent event) throws IOException {
+		LoginController loginController = new LoginController();
+		FXMLLoader loader = loginController.getFXMLLoader();
+		AnchorPane anchorPane = loader.load();
+		loader.getController();
 		
+		Scene futureScene = new Scene(anchorPane);
+		Stage newStage = new Stage();
+		newStage.setScene(futureScene);
+		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+		newStage.getIcons().add(anotherIcon);
+		loginController.performLogout();
+		
+		Main.changeStage(newStage);
+		Main.getCurrentStage().close();
 	}
 
 	@Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
 	}
-
+	
+	@FXML
+	public void voltarAction(MouseEvent event) {
+	try {
+		MenuController menuController = new MenuController();
+		FXMLLoader loader = menuController.getFXMLLoader();
+		AnchorPane anchorPane = loader.load();
+		loader.getController();
+		Scene futureScene = new Scene(anchorPane);
+		
+		Stage newStage = new Stage();
+		newStage.setScene(futureScene);
+		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+		newStage.getIcons().add(anotherIcon);
+		
+		Main.changeStage(newStage);
+		Main.getCurrentStage().close();
+	} catch (Exception e) {
+		e.getMessage();
+	}			
+	
+	}
 }
+	
+	
