@@ -7,7 +7,8 @@ public enum Colors {
 	LIGHT_BLUE("#2F528F"),
 	PURPLE("#8290F0"),
 	LIGHT_PURPLE("#C6CEFF"),
-	LIGHT_GREY("#E2E2E2");
+	LIGHT_GREY("#E2E2E2"),
+	RED_ERROR("#CC0000");
 	
 	private String hexColor;
 	

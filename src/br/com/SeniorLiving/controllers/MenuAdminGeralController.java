@@ -35,16 +35,14 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 	
 	@FXML
 	private void roleButtonClick() throws IOException {
-		RoleListController menuAdminGeralController = new RoleListController();
-		FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
+		RoleListController roleListController = new RoleListController();
+		FXMLLoader loader = roleListController.getFXMLLoader();
 		VBox vBox = loader.load();
 		loader.getController();
-//		Scene futureScene = new Scene(vBox);
 		
 		containerToScreen.getChildren().clear();
 		containerToScreen.getChildren().add(vBox);
-		
-		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
+		containerToScreen.requestFocus();
 	}
 	
 	@FXML
@@ -56,8 +54,6 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		
 		containerToScreen.getChildren().clear();
 		containerToScreen.getChildren().add(vBox);
-		
-		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 	
 	@FXML
@@ -69,8 +65,6 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		
 		containerToScreen.getChildren().clear();
 		containerToScreen.getChildren().add(vBox);
-		
-		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 	
 	@FXML
@@ -82,19 +76,8 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		
 		containerToScreen.getChildren().clear();
 		containerToScreen.getChildren().add(vBox);
-		
-		
-//		Scene futureScene = new Scene(anchorPane);
-//		
-//		Stage newStage = new Stage();
-//		newStage.setScene(futureScene);
-//		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-//		newStage.getIcons().add(anotherIcon);
-//		
-//	//	Main.changeScene(new Scene (newStage));
-//		Main.changeStage(newStage);
-//		Main.getCurrentStage().close();
 	}
+	
 	@FXML
 	private void logoutButtonClick(MouseEvent event) throws IOException {
 		LoginController loginController = new LoginController();
@@ -109,8 +92,8 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		newStage.getIcons().add(anotherIcon);
 		loginController.performLogout();
 		
-		Main.changeStage(newStage);
-		Main.getCurrentStage().close();
+		
+		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 
 	@Override
@@ -120,25 +103,24 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 	
 	@FXML
 	public void voltarAction(MouseEvent event) {
-	try {
-		MenuController menuController = new MenuController();
-		FXMLLoader loader = menuController.getFXMLLoader();
-		AnchorPane anchorPane = loader.load();
-		loader.getController();
-		Scene futureScene = new Scene(anchorPane);
-		
-		Stage newStage = new Stage();
-		newStage.setScene(futureScene);
-		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-		newStage.getIcons().add(anotherIcon);
-		
-		Main.changeStage(newStage);
-		Main.getCurrentStage().close();
-	} catch (Exception e) {
+		try {
+			MenuController menuController = new MenuController();
+			FXMLLoader loader = menuController.getFXMLLoader();
+			AnchorPane anchorPane = loader.load();
+			loader.getController();
+			Scene futureScene = new Scene(anchorPane);
+			
+			Stage newStage = new Stage();
+			newStage.setScene(futureScene);
+			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+			newStage.getIcons().add(anotherIcon);
+			
+			Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
+		} catch (Exception e) {
 		e.getMessage();
-	}			
-	
+		}			
 	}
+	
 }
 	
 	

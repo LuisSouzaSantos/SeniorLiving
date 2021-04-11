@@ -1,4 +1,4 @@
-package br.com.SeniorLiving.application;
+package br.com.ftt.ec6.seniorLiving.application;
 	
 import java.io.IOException;
 
@@ -15,23 +15,22 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	@Override
-	public void start(Stage primeStage) {
+	public void start(Stage primaryStage) {
 		try {
-			stage = primaryStage;
 			LoginController loginController = new LoginController();
 			
 			FXMLLoader loader = loginController.getFXMLLoader();
 			AnchorPane scrollPane = loader.load();
 		
-			primeStage.setScene(new Scene(scrollPane));
-			primeStage.setTitle("Senior Living");
+			primaryStage.setScene(new Scene(scrollPane));
+			primaryStage.setTitle("Senior Living");
 			primaryStage.setMaxHeight(500);
 			primaryStage.setMaxWidth(800);
 			primaryStage.setResizable(false);
 			
 			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-			primeStage.getIcons().add(anotherIcon);
-            Controller.goToNextScene(null, false, primeStage, false);
+			primaryStage.getIcons().add(anotherIcon);
+            Controller.goToNextScene(null, false, primaryStage, false);
 		}
 		catch (IOException e) {
 			e.printStackTrace();

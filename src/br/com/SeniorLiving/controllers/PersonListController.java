@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import br.com.SeniorLiving.application.Main;
 import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
 import br.com.SeniorLiving.db.DbIntegrityException;
 import br.com.SeniorLiving.model.services.DepartmentService;
+import br.com.ftt.ec6.seniorLiving.application.Main;
 import br.com.ftt.ec6.seniorLiving.entities.Department;
 import br.com.ftt.ec6.seniorLiving.entities.Person;
 import br.com.ftt.ec6.seniorLiving.service.PersonService;

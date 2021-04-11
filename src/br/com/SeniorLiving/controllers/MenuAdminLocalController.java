@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.SeniorLiving.application.Main;
+import br.com.ftt.ec6.seniorLiving.application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -183,8 +183,7 @@ public class MenuAdminLocalController extends Controller implements Initializabl
 		newStage.getIcons().add(anotherIcon);
 		loginController.performLogout();
 		
-		Main.changeStage(newStage);
-		Main.getCurrentStage().close();
+		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
 
 	@FXML
@@ -201,8 +200,7 @@ public class MenuAdminLocalController extends Controller implements Initializabl
 		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
 		newStage.getIcons().add(anotherIcon);
 		
-		Main.changeStage(newStage);
-		Main.getCurrentStage().close();
+		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	} catch (Exception e) {
 		e.getMessage();
 	}		

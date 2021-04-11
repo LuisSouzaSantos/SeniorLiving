@@ -23,9 +23,11 @@ public class LoginServiceImpl implements LoginService {
 		User user = userDAO.getUserByEmail(email);
 		entityManager.close();
 		
+		if(user == null) { throw new LoginException("Usuário não registrado"); }
+		
 		if(user.isActive() == false) { throw new LoginException("Usuário desabilitado"); }
 		
-		if(BCrypt.checkpw(password, user.getPassword()) == false) { throw new LoginException("Email ou Senha incorretos"); }
+		if(BCrypt.checkpw(password, user.getPassword()) == false) { throw new LoginException("Credenciais inválidas"); }
 		
 		return user;
 	}

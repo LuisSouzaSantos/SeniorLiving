@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.SeniorLiving.application.Main;
+import br.com.ftt.ec6.seniorLiving.application.Main;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;
@@ -51,8 +51,8 @@ public class RoleListController extends Controller implements Initializable {
 		initializeNodes();
 		tableColumnRoleName.setCellValueFactory(new PropertyValueFactory<>("Nome"));
 				
-		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewRole.prefHeightProperty().bind(stage.heightProperty());
+//		Stage stage = (Stage) Main.getMainScene().getWindow();
+//		tableViewRole.prefHeightProperty().bind(stage.heightProperty());
 	}
 
 	private void initializeNodes() {

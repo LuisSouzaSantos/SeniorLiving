@@ -59,12 +59,12 @@ public class MenuController extends Controller implements Initializable {
 	
 	private void loadUserName() {
 		String currentText = usernameMenu.getText();
-		String menuTextUpdate = currentText.replace(USERNAME_MENU_TEXT_TO_CHANGE, userLogged.getEmail());
+		String menuTextUpdate = currentText.replace(USERNAME_MENU_TEXT_TO_CHANGE, getUserLogged().getEmail());
 		usernameMenu.setText(menuTextUpdate);
 	}
 
 	private void loadPane() {
-		List<Role> userLoggedRoleList = userLogged.getRoleList();
+		List<Role> userLoggedRoleList = getUserLogged().getRoleList();
 		
 		for (int i = 0; i < userLoggedRoleList.size(); i++) {
 			Role role = userLoggedRoleList.get(i);
@@ -108,22 +108,24 @@ public class MenuController extends Controller implements Initializable {
 		
 		switch (roleName) {
 		case "ADMIN_GERAL":
-			return enterAdminGeralMenuEvent();
+			return enterAdminGeralMenuEvent(role);
 		case "ADMIN_LOCAL":
-			return enterAdminLocalMenuEvent();
+			return enterAdminLocalMenuEvent(role);
 		default:
 			return null;
 		}
 	}
 	
 	@FXML
-	private EventHandler<Event> enterAdminGeralMenuEvent() {
+	private EventHandler<Event> enterAdminGeralMenuEvent(Role role) {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
 				try {
-					MenuAdminGeralController menuAdminGeralController = new MenuAdminGeralController();
-					FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
+					setRoleActived(role);
+					
+					MenuAdminController menuAdminController = new MenuAdminController();
+					FXMLLoader loader = menuAdminController.getFXMLLoader();
 					AnchorPane anchorPane = loader.load();
 					loader.getController();
 					Scene futureScene = new Scene(anchorPane);
@@ -139,13 +141,15 @@ public class MenuController extends Controller implements Initializable {
 	}
 	
 	@FXML
-	private EventHandler<Event> enterAdminLocalMenuEvent() {
+	private EventHandler<Event> enterAdminLocalMenuEvent(Role role) {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
 				try {
-					MenuAdminLocalController menuAdminGeralController = new MenuAdminLocalController();
-					FXMLLoader loader = menuAdminGeralController.getFXMLLoader();
+					setRoleActived(role);
+					
+					MenuAdminController menuAdminController = new MenuAdminController();
+					FXMLLoader loader = menuAdminController.getFXMLLoader();
 					AnchorPane anchorPane = loader.load();
 					loader.getController();
 					Scene futureScene = new Scene(anchorPane);

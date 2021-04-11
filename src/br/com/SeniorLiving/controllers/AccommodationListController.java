@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.SeniorLiving.application.Main;
+import br.com.ftt.ec6.seniorLiving.application.Main;
 import br.com.ftt.ec6.seniorLiving.entities.Accommodation;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;

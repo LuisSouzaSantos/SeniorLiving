@@ -3,7 +3,7 @@ package br.com.SeniorLiving.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.SeniorLiving.application.Main;
+import br.com.ftt.ec6.seniorLiving.application.Main;
 import br.com.ftt.ec6.seniorLiving.entities.Elderly;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import javafx.fxml.FXML;

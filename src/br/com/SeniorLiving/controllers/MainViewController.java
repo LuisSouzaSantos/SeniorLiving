@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-import br.com.SeniorLiving.application.Main;
+import br.com.ftt.ec6.seniorLiving.application.Main;
 import br.com.ftt.ec6.seniorLiving.utils.Alerts;
 import br.com.ftt.ec6.seniorLiving.utils.Utils;
 import javafx.event.ActionEvent;
