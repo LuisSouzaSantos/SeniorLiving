@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,48 +14,117 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminController">
    <children>
-      <AnchorPane fx:id="Ap" layoutX="-8.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1020.0">
+      <AnchorPane fx:id="Ap" layoutX="-17.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="888.0">
          <children>
-            <AnchorPane fx:id="menuAdminContainerScreen" layoutX="255.0" prefHeight="568.0" prefWidth="955.0" />
-            <Pane layoutX="8.0" prefHeight="105.0" prefWidth="248.0" style="-fx-background-color: #4a5796;">
+            <AnchorPane fx:id="menuAdminContainerScreen" layoutX="258.0" layoutY="46.0" prefHeight="528.0" prefWidth="959.0" />
+            <Pane layoutX="8.0" prefHeight="46.0" prefWidth="1210.0" style="-fx-background-color: #4a5796;">
                <children>
-                  <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="20.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="23.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/logos.png" />
                      </image>
                   </ImageView>
-                  <Text fx:id="menuUserNameText" fill="WHITE" layoutX="66.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuário: {{nickname}}">
+                  <Text fx:id="menuUserNameText" fill="WHITE" layoutX="68.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuário: {{nickname}}">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Text>
                </children>
             </Pane>
-            <Pane layoutX="8.0" layoutY="510.0" prefHeight="59.0" prefWidth="248.0" style="-fx-background-color: #4a5796;">
+            <Pane fx:id="menuAdminPaneContainer" layoutX="17.0" layoutY="46.0" prefHeight="522.0" prefWidth="257.0" style="-fx-background-color: #4a5796;" stylesheets="@menuAdmin.css">
                <children>
-                  <Text fx:id="menuVersionText" fill="#FFFFFF" layoutX="20.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{VERSION}">
+                  <Text fx:id="menuVersionText" fill="#FFFFFF" layoutX="10.0" layoutY="504.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{VERSION}">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
+                  <GridPane fx:id="menuGridOption" layoutX="74.0" layoutY="34.0" prefHeight="434.0" prefWidth="162.0" style="-fx-background-color: #4a5796;">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="157.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="163.0" text="Button" />
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="163.0" text="Button" GridPane.rowIndex="1" />
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" text="Button" GridPane.rowIndex="2" />
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" text="Button" GridPane.rowIndex="3" />
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" text="Button" GridPane.rowIndex="4" />
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" text="Button" GridPane.rowIndex="5" />
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" text="Button" GridPane.rowIndex="6" />
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" text="Button" GridPane.rowIndex="7" />
+                     </children>
+                  </GridPane>
+                  <GridPane fx:id="menuGridIcons" layoutX="8.0" layoutY="43.0" prefHeight="420.0" prefWidth="65.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="46.0" fitWidth="56.0" layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="7">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </GridPane>
                </children>
+               <styleClass>
+                  <String fx:value="menu-admin-container" />
+                  <String fx:value="background" />
+               </styleClass>
             </Pane>
-            <GridPane fx:id="menuGridOption" layoutX="8.0" layoutY="105.0" prefHeight="406.0" prefWidth="248.0" style="-fx-background-color: #4a5796;">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.0" minWidth="10.0" prefWidth="40.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="161.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="78.0" minWidth="2.0" prefWidth="45.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
          </children>
       </AnchorPane>
    </children>

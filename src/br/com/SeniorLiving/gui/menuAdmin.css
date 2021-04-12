@@ -1,0 +1,10 @@
+.menu-admin-container{
+	width: 75px;
+}
+
+.menu-admin-container:hover {
+	width: 257px;
+}
+.background{
+	background-color: white;
+}

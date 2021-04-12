@@ -102,41 +102,41 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton prefHeight="181.0" prefWidth="326.0" text="Button 1" textFill="#a8a8a8">
+                  <Button prefHeight="181.0" prefWidth="326.0" text="Button 1" textFill="#a8a8a8">
                      <font>
                         <Font size="17.0" />
                      </font>
-                  </JFXButton>
-                  <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="181.0" prefWidth="326.0" text="Button 2" textFill="#a8a8a8" GridPane.rowIndex="1">
+                  </Button>
+                  <Button layoutX="10.0" layoutY="10.0" prefHeight="181.0" prefWidth="326.0" text="Button 2" textFill="#a8a8a8" GridPane.rowIndex="1">
                      <font>
                         <Font size="17.0" />
                      </font>
-                  </JFXButton>
-                  <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="181.0" prefWidth="326.0" text="Button 3" textFill="#a8a8a8" GridPane.rowIndex="2">
+                  </Button>
+                  <Button layoutX="10.0" layoutY="10.0" prefHeight="181.0" prefWidth="326.0" text="Button 3" textFill="#a8a8a8" GridPane.rowIndex="2">
                      <font>
                         <Font size="17.0" />
                      </font>
-                  </JFXButton>
-                  <JFXButton prefHeight="181.0" prefWidth="326.0" text="Button 4" textFill="#a8a8a8" GridPane.rowIndex="3">
+                  </Button>
+                  <Button prefHeight="181.0" prefWidth="326.0" text="Button 4" textFill="#a8a8a8" GridPane.rowIndex="3">
                      <font>
                         <Font size="17.0" />
                      </font>
-                  </JFXButton>
-                  <JFXButton prefHeight="181.0" prefWidth="326.0" text="Button 5" textFill="#a8a8a8" GridPane.rowIndex="4">
+                  </Button>
+                  <Button prefHeight="181.0" prefWidth="326.0" text="Button 5" textFill="#a8a8a8" GridPane.rowIndex="4">
                      <font>
                         <Font size="17.0" />
                      </font>
-                  </JFXButton>
-                  <JFXButton prefHeight="181.0" prefWidth="326.0" text="Button 6" textFill="#a8a8a8" GridPane.rowIndex="5">
+                  </Button>
+                  <Button prefHeight="181.0" prefWidth="326.0" text="Button 6" textFill="#a8a8a8" GridPane.rowIndex="5">
                      <font>
                         <Font size="17.0" />
                      </font>
-                  </JFXButton>
-                  <JFXButton prefHeight="181.0" prefWidth="326.0" text="Button 7" textFill="#a8a8a8" GridPane.rowIndex="6">
+                  </Button>
+                  <Button prefHeight="181.0" prefWidth="326.0" text="Button 7" textFill="#a8a8a8" GridPane.rowIndex="6">
                      <font>
                         <Font size="17.0" />
                      </font>
-                  </JFXButton>
+                  </Button>
                </children>
             </GridPane>
          </children>

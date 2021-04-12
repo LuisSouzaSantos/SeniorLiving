@@ -73,9 +73,9 @@ public class MenuAdminController extends Controller implements Initializable {
 	private Pane createOption(String ControllerName) {
 		Pane pane = new Pane();
 		pane.setId("menuPane"+ControllerName);
-		pane.setPrefHeight(50.0);
-		pane.setPrefWidth(50.0);
-		pane.setStyle("-fx-background-color:"+Colors.WHITE.getHexColor()+";");
+		//pane.setPrefHeight(50.0);
+		//pane.setPrefWidth(50.0);
+		//pane.setStyle("-fx-background-color:"+Colors.WHITE.getHexColor()+";");
 		//pane.setOnMouseClicked(getEventButton(role));
 		pane.setCursor(Cursor.HAND);
 		
