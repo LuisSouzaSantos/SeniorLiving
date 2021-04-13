@@ -1,10 +1,10 @@
 .menu-admin-container{
-	width: 75px;
+	-fx-pref-width: 250px;
 }
 
 .menu-admin-container:hover {
-	width: 257px;
+	-fx-pref-width: 250px;
 }
 .background{
-	background-color: white;
+	-fx-background-color: #4a5796;
 }
