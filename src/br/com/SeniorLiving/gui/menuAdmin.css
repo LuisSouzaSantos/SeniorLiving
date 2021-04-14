@@ -1,10 +1,15 @@
 .menu-admin-container{
-	-fx-pref-width: 250px;
+	-fx-pref-width: 60px;
 }
 
 .menu-admin-container:hover {
-	-fx-pref-width: 250px;
+	-fx-pref-width: 180px;
 }
-.background{
-	-fx-background-color: #4a5796;
+ 
+#gridPaneOptions {
+	visibility: false;
+}
+
+#gridPaneOptions:hover {
+	visibility: true;
 }
