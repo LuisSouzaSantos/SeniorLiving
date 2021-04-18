@@ -5,12 +5,13 @@ import javax.persistence.EntityManager;
 import br.com.ftt.ec6.seniorLiving.DAO.UserDAO;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 
-public class UserDAOImpl implements UserDAO{
+public class UserDAOImpl extends DAOImpl<User> implements UserDAO{
 	
 	private static UserDAOImpl instance;
-	private EntityManager entityManager;
 	
-	private UserDAOImpl() {}
+	private UserDAOImpl() {
+		super.t = User.class;
+	}
 	
 	public static UserDAOImpl getInstance(EntityManager entityManager) {
 		if(instance == null) {
@@ -23,7 +24,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public User getUserByEmail(String email) {
 		try {
-			return this.entityManager.createQuery(findUserByEmailQuery(), User.class)
+			return super.entityManager.createQuery(findUserByEmailQuery(), User.class)
 			  		 .setParameter("email", email)
 			         .getSingleResult();
 		}catch(RuntimeException e) {
@@ -34,20 +35,20 @@ public class UserDAOImpl implements UserDAO{
 	
 	@Override
 	public User save(User user) {
-		this.entityManager.persist(user);
+		super.entityManager.persist(user);
 		return user;
 	}
 	
 	@Override
 	public User update(User user) {
-		this.entityManager.persist(user);
+		super.entityManager.persist(user);
 		return user;
 	}
 	
 	@Override
 	public void delete(Long id) {
 		try {
-			this.entityManager.createQuery(removeUserById(), User.class)
+			super.entityManager.createQuery(removeUserById(), User.class)
 						.setParameter("id", id)
 						.executeUpdate();
 		}catch(RuntimeException e) {}
@@ -62,9 +63,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 	
 	private void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
+		super.entityManager = entityManager;
 	}
-
-
 	
 }

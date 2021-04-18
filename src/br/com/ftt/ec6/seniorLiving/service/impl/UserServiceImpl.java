@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User save(String email, String password, List<Role> roleList) throws LoginException {
+	public User save(String email, String password, String nickname, List<Role> roleList) throws LoginException {
 		if(email == null || email.trim().isEmpty()) { throw new LoginException("Email inválido"); } 
 		
 		if(password == null || password.trim().isEmpty()) { throw new LoginException("Senha inválido"); }
@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 		
 		User user = new User();
 		user.setEmail(email);
+		user.setNickname(nickname);
 		user.setPassword(new String(BCrypt.hashpw(password, BCrypt.gensalt())));
 		user.setRoleList(roleList);
 		user.setActive(true);
@@ -79,6 +80,17 @@ public class UserServiceImpl implements UserService {
 		entityManager.close();
 		
 		return user;
+	}
+
+	@Override
+	public List<User> getAll() {
+		EntityManager entityManager = Database.getConnection();
+		entityManager.getTransaction().begin();
+		UserDAOImpl userDAO = UserDAOImpl.getInstance(entityManager);
+		List<User> users = userDAO.getAll();
+		entityManager.close();
+		
+		return users;
 	}
 
 }

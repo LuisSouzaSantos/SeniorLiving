@@ -9,7 +9,9 @@ public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements Acco
 
 	private static AccommodationDAOImpl instance;
 	
-	private AccommodationDAOImpl() {}
+	private AccommodationDAOImpl() {
+		super.t = Accommodation.class;
+	}
 	
 	public static AccommodationDAOImpl getInstance(EntityManager entityManager) {
 		if(instance == null) {
@@ -22,7 +24,7 @@ public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements Acco
 	@Override
 	public Accommodation getAccommodationByName(String name) {
 		try {
-			return AccommodationDAOImpl.entityManager.createQuery(findAccommodationByNameQuery(), Accommodation.class)
+			return super.entityManager.createQuery(findAccommodationByNameQuery(), Accommodation.class)
 						.setParameter("name", name)
 						.getSingleResult();
 		}catch(RuntimeException e) {return null;}
@@ -31,7 +33,7 @@ public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements Acco
 	@Override
 	public void delete(Long id) {
 		try {
-			AccommodationDAOImpl.entityManager.createQuery(removeAccommodationById(), Accommodation.class)
+			super.entityManager.createQuery(removeAccommodationById(), Accommodation.class)
 						.setParameter("id", id)
 						.executeUpdate();
 		}catch(RuntimeException e) {}
@@ -47,7 +49,7 @@ public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements Acco
 	}
 	
 	private void setEntityManager(EntityManager entityManager) {
-		AccommodationDAOImpl.entityManager = entityManager;
+		super.entityManager = entityManager;
 	}
 
 }

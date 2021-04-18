@@ -1,55 +1,15 @@
 package br.com.SeniorLiving.controllers;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import br.com.SeniorLiving.controllers.listeners.DataChangeListener;
-import br.com.ftt.ec6.seniorLiving.entities.User;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 
 public class UserController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/UserList.fxml";
-	private User entity;
-	
-	//private UserService service;
-	
-	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
-	@FXML
-    private TextField id;
-	
-	@FXML
-    private TextField fullname;
-
-    @FXML
-    private PasswordField password;
-
-    @FXML
-    private TextField email;
-
-    @FXML
-	private Label labelErrorName;
-    
-    @FXML
-   	private Label labelErrorEmail;
-    
-    @FXML
-   	private Label labelErrorPassword;
-	
-	@FXML
-	private Button btSave;
-	
-	@FXML
-	private Button btCancel;
     
     @Override
     public void initialize(URL url, ResourceBundle db) {
