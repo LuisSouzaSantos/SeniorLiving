@@ -30,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -40,6 +41,9 @@ public class LoginController extends Controller implements Initializable {
 //	private final static String LOGIN_ERROR_EMAIL_MESSAGE_TO_CHANGE = "{ERROR_EMAIL_MESSAGE}";
 //	private final static String LOGIN_ERROR_PASSWORD_MESSAGE_TO_CHANGE = "{ERROR_PASSWORD_MESSAGE}";
 	
+	@FXML
+	private AnchorPane loginContainerAnchorPane;
+
 	@FXML
 	private TextField txtEmail;
 	
@@ -71,7 +75,6 @@ public class LoginController extends Controller implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
 		snackbar = new JFXSnackbar(rootPane);
-		//snackbar.show("Carregando...", 5000);
 	}
 	
 	public void performLogin() throws LoginException {
@@ -83,6 +86,7 @@ public class LoginController extends Controller implements Initializable {
 			
 			LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
 			User userLogged = loginServiceImpl.performLogin(email, password);
+			
 			setUserLogged(userLogged);
 			
 			MenuController menuController = new MenuController();
@@ -101,7 +105,7 @@ public class LoginController extends Controller implements Initializable {
 			loginErrorSignInMessageText.setText(e.getMessage());
 		} catch (IOException e) {
 			e.printStackTrace();
-		}			
+		}	
 	}
 	
 	public void performLogout() {

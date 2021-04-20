@@ -108,7 +108,7 @@ public class MenuAdminController extends Controller implements Initializable {
 	
 	private void initText() {
 		menuVersionText.setText(Controller.VERSION);
-		menuUserNameText.setText(getUserLogged().getEmail());
+		menuUserNameText.setText(getUserLogged().getNickname());
 	}
 	
 	private EventHandler<Event> getEventButton(String controller){
@@ -130,18 +130,11 @@ public class MenuAdminController extends Controller implements Initializable {
 			@Override
 			public void handle(Event arg0) {
 				try {
-					
 					MenuAdminController menuAdminController = new MenuAdminController();
 					FXMLLoader loader = menuAdminController.getFXMLLoader();
 					AnchorPane anchorPane = loader.load();
 					loader.getController();
 					contentContainer.getChildren().add(anchorPane);
-//					Scene futureScene = new Scene(anchorPane);
-//					
-//					Stage newStage = new Stage();
-//					newStage.setScene(futureScene);
-//					
-//					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 				}catch(IOException e) { e.printStackTrace(); }	
 			}
 	
@@ -159,13 +152,8 @@ public class MenuAdminController extends Controller implements Initializable {
 					Pane pane = loader.load();
 					loader.getController();
 					contentContainer.getChildren().add(pane);
-					
-					UserService userService = UserServiceImpl.getInstance();
-					List<User> users =  userService.getAll();
-					System.out.println(users);
-					
 //					contentContainer.app
-					
+					 
 //					Scene futureScene = new Scene(anchorPane);
 //					
 //					Stage newStage = new Stage();

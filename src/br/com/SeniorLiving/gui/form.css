@@ -1,0 +1,3 @@
+.form-field:focused {
+	-fx-border-color:  #47B2E6;
+}

@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 
 import br.com.ftt.ec6.seniorLiving.DAO.ElderlyDAO;
 import br.com.ftt.ec6.seniorLiving.DAO.impl.ElderlyDAOImpl;
-import br.com.ftt.ec6.seniorLiving.DAO.impl.PersonDAOImpl;
 import br.com.ftt.ec6.seniorLiving.db.Database;
 import br.com.ftt.ec6.seniorLiving.entities.Billing;
 import br.com.ftt.ec6.seniorLiving.entities.Elderly;

@@ -7,12 +7,12 @@
 
 <Pane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
    <children>
-      <TableView layoutX="75.0" layoutY="60.0" prefHeight="280.0" prefWidth="850.0" style="-fx-background-color: #F1FDFE;">
+      <TableView fx:id="userTable" layoutX="75.0" layoutY="60.0" prefHeight="280.0" prefWidth="850.0" style="-fx-background-color: #47B2E6;">
         <columns>
-          <TableColumn fx:id="columnEmail" prefWidth="410.0" style="-fx-background-color: #47B2E6;" text="Email" />
-          <TableColumn fx:id="columnNickname" prefWidth="233.0" style="-fx-background-color: #47B2E6;" text="Apelido" />
-            <TableColumn fx:id="ColumnActive" prefWidth="91.0" style="-fx-background-color: #47B2E6;" text="Ativo" />
-            <TableColumn fx:id="ColumnActions" prefWidth="115.0" style="-fx-background-color: #47B2E6;" text="Ações" />
+          <TableColumn fx:id="emailColumn" prefWidth="410.0" style="-fx-background-color: #F1FDFE;" text="Email" />
+          <TableColumn fx:id="nicknameColumn" prefWidth="233.0" style="-fx-background-color: #F1FDFE;" text="Apelido" />
+          <TableColumn fx:id="activeColumn" prefWidth="91.0" style="-fx-background-color: #F1FDFE;" text="Ativo" />
+          <TableColumn fx:id="actionsColumn" prefWidth="115.0" style="-fx-background-color: #F1FDFE;" text="Ações" />
         </columns>
          <effect>
             <DropShadow color="#0000005e" />

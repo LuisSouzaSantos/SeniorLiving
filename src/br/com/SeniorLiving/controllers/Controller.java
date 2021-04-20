@@ -63,6 +63,12 @@ public abstract class Controller {
 	public static Stage getCurrentStage() {
 		return currentStage;
 	}
+	
+	public static void updateCurrentStage() {
+		currentStage.centerOnScreen();
+	}
+	
+	
 	public abstract FXMLLoader getFXMLLoader();
 	
 }

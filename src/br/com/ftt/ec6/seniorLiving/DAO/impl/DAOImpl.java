@@ -45,7 +45,7 @@ public abstract class DAOImpl<T> {
 	}
 	
 	private String getByIdQuery() {
-		return "SELECT t FROM"+t.getName()+" t where t.id = :id";
+		return "SELECT t FROM "+t.getName()+" t where t.id = :id";
 	}
 	
 	private String removeByIdQuery() {
