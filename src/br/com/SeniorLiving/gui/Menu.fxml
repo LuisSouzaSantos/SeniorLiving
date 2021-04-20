@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuController">
    <children>
-      <AnchorPane prefHeight="60.0" prefWidth="1000.0" style="-fx-background-color: #4a5796;">
+      <AnchorPane prefHeight="60.0" prefWidth="1000.0" style="-fx-background-color: #4472c4;">
          <children>
             <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -19,15 +19,16 @@
                </image>
             </ImageView>
             <Text fx:id="usernameMenu" fill="WHITE" layoutX="59.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuário: {username}" />
-            <ImageView fx:id="menuImageLogout" fitHeight="27.0" fitWidth="35.0" layoutX="950.0" layoutY="19.0" onMouseClicked="#logoutEvent" pickOnBounds="true" preserveRatio="true">
+            <Text layoutX="545.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="945.0" layoutY="19.0">
                <image>
-                  <Image url="@../images/logout.png" />
+                  <Image url="@../../../../../../../../Users/Harich/Downloads/ICONES/2x/baseline_logout_white_24dp.png" />
                </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
             </ImageView>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </AnchorPane>
       <AnchorPane layoutY="58.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="1000.0">
          <children>
