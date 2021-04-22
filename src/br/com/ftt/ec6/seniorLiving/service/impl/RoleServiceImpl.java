@@ -1,5 +1,6 @@
 package br.com.ftt.ec6.seniorLiving.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -92,6 +93,20 @@ public class RoleServiceImpl implements RoleService {
 			
 		}
 		return validRoleList;
+	}
+
+	@Override
+	public List<Role> findRoleListByRoleNameArray(String[] roleNameArray) {
+		List<Role> roleList = new ArrayList<Role>();
+		
+		for (String roleName : roleNameArray) {
+			Role role = getRoleByName(roleName);
+			if(role != null) {
+				roleList.add(role);
+			}
+		}
+		
+		return roleList;
 	}
 	
 }

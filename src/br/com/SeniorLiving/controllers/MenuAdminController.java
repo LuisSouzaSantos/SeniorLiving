@@ -29,8 +29,8 @@ public class MenuAdminController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/MenuAdmin.fxml";
 	
-	private final static String[] CONTROLLERS_ADMIN_GERAL_LIST = {"RoleController", "UserController", "RestHomeController", "AboutController"};
-	private final static String[] CONTROLLERS_ADMIN_GERAL_ICONS_LIST = {"/br/com/SeniorLiving/images/role.png", "/br/com/SeniorLiving/images/user.png", "/br/com/SeniorLiving/images/restHome.png", "/br/com/SeniorLiving/images/about.png"};
+	private final static String[] CONTROLLERS_ADMIN_GERAL_LIST = {"UserController", "RestHomeController", "AboutController"};
+	private final static String[] CONTROLLERS_ADMIN_GERAL_ICONS_LIST = {"/br/com/SeniorLiving/images/user.png", "/br/com/SeniorLiving/images/restHome.png", "/br/com/SeniorLiving/images/about.png"};
 	
 	private final static String[] CONTROLLERS_ADMIN_LOCAL_LIST = {"AccommodationController", "TypeController", "ProductController", "PersonController", "ElderlyController", "BillingController","AboutController"};
 	private final static String[] CONTROLLERS_ADMIN_LOCAL_ICONS_LIST = {"/br/com/SeniorLiving/images/accommodation.png", "/br/com/SeniorLiving/images/type.png", "/br/com/SeniorLiving/images/product.png", "/br/com/SeniorLiving/images/person.png", "/br/com/SeniorLiving/images/elderly.png", "/br/com/SeniorLiving/images/billing.png", "/br/com/SeniorLiving/images/about.png"};
@@ -55,6 +55,9 @@ public class MenuAdminController extends Controller implements Initializable {
 	@FXML
 	private Pane contentContainer;
 	
+	@FXML
+	private Pane menuAdminSelectRestHomePane;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		initText();
@@ -75,6 +78,7 @@ public class MenuAdminController extends Controller implements Initializable {
 				break;
 			case "ADMIN_LOCAL":
 				createGridOptionsIcons(CONTROLLERS_ADMIN_LOCAL_LIST, CONTROLLERS_ADMIN_LOCAL_ICONS_LIST);
+				menuAdminSelectRestHomePane.setVisible(true);
 				break;
 			default:
 				break;
@@ -113,8 +117,6 @@ public class MenuAdminController extends Controller implements Initializable {
 	
 	private EventHandler<Event> getEventButton(String controller){
 		switch (controller) {
-			case "RoleController":
-				return selectRoleOptionButtonEvent();
 			case "UserController":
 				return selectUserOptionButtonEvent();
 			case "RestHomeController":
@@ -122,23 +124,6 @@ public class MenuAdminController extends Controller implements Initializable {
 			default:
 				return null;
 		}
-	}
-	
-	@FXML
-	private EventHandler<Event> selectRoleOptionButtonEvent() {
-		return new EventHandler<Event>() {
-			@Override
-			public void handle(Event arg0) {
-				try {
-					MenuAdminController menuAdminController = new MenuAdminController();
-					FXMLLoader loader = menuAdminController.getFXMLLoader();
-					AnchorPane anchorPane = loader.load();
-					loader.getController();
-					contentContainer.getChildren().add(anchorPane);
-				}catch(IOException e) { e.printStackTrace(); }	
-			}
-	
-		};
 	}
 	
 	@FXML
@@ -152,14 +137,6 @@ public class MenuAdminController extends Controller implements Initializable {
 					Pane pane = loader.load();
 					loader.getController();
 					contentContainer.getChildren().add(pane);
-//					contentContainer.app
-					 
-//					Scene futureScene = new Scene(anchorPane);
-//					
-//					Stage newStage = new Stage();
-//					newStage.setScene(futureScene);
-//					
-//					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 				}catch(IOException e) { e.printStackTrace(); }	
 			}
 	

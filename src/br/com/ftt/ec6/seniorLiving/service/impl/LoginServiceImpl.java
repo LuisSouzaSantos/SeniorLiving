@@ -3,6 +3,7 @@ package br.com.ftt.ec6.seniorLiving.service.impl;
 import javax.persistence.EntityManager;
 import javax.security.auth.login.LoginException;
 
+import br.com.ftt.ec6.seniorLiving.DAO.UserDAO;
 import br.com.ftt.ec6.seniorLiving.DAO.impl.UserDAOImpl;
 import br.com.ftt.ec6.seniorLiving.db.Database;
 import br.com.ftt.ec6.seniorLiving.entities.User;
@@ -10,6 +11,8 @@ import br.com.ftt.ec6.seniorLiving.service.LoginService;
 import br.com.ftt.ec6.seniorLiving.utils.BCrypt;
 
 public class LoginServiceImpl implements LoginService {
+	
+	private final static UserDAO userDAO =  UserDAOImpl.getInstance();
 	
 	@Override
 	public User performLogin(String email, String password) throws LoginException {
@@ -19,9 +22,10 @@ public class LoginServiceImpl implements LoginService {
 		
 		EntityManager entityManager =  Database.getConnection();
 		entityManager.getTransaction().begin();
-		UserDAOImpl userDAO = UserDAOImpl.getInstance(entityManager);
+		userDAO.startConnection(entityManager);
 		User user = userDAO.getUserByEmail(email);
 		entityManager.close();
+		userDAO.stopConnection();
 		
 		if(user == null) { throw new LoginException("Usuário não registrado"); }
 		

@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="712.0" style="-fx-background-color: #2b378a;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="712.0" style="-fx-background-color: #4472c4;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <Label fx:id="logoLabel" alignment="CENTER" layoutX="312.0" layoutY="116.0" prefHeight="88.0" prefWidth="89.0" style="-fx-background-color: #fff; -fx-background-radius: 50px;" text="S" textFill="#2b378a">
+      <Label fx:id="logoLabel" alignment="CENTER" layoutX="312.0" layoutY="116.0" prefHeight="88.0" prefWidth="89.0" style="-fx-background-color: #fff; -fx-background-radius: 50px;" text="S" textFill="#4472c4">
          <font>
             <Font name="Microsoft JhengHei UI Light" size="39.0" />
          </font>

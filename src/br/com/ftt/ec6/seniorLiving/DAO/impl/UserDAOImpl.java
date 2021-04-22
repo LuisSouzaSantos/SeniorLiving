@@ -13,12 +13,21 @@ public class UserDAOImpl extends DAOImpl<User> implements UserDAO{
 		super.t = User.class;
 	}
 	
-	public static UserDAOImpl getInstance(EntityManager entityManager) {
+	public static UserDAOImpl getInstance() {
 		if(instance == null) {
 			instance = new UserDAOImpl();
 		}
-		instance.setEntityManager(entityManager);
 		return instance;
+	}
+	
+	@Override
+	public void startConnection(EntityManager entityManager) {
+		instance.setEntityManager(entityManager);
+	}
+	
+	@Override
+	public void stopConnection() {
+		clearEntityManager();
 	}
 	
 	@Override
@@ -32,31 +41,6 @@ public class UserDAOImpl extends DAOImpl<User> implements UserDAO{
 		}
 		
 	}
-	
-	@Override
-	public User save(User user) {
-		super.entityManager.persist(user);
-		return user;
-	}
-	
-	@Override
-	public User update(User user) {
-		super.entityManager.persist(user);
-		return user;
-	}
-	
-	@Override
-	public void delete(Long id) {
-		try {
-			super.entityManager.createQuery(removeUserById(), User.class)
-						.setParameter("id", id)
-						.executeUpdate();
-		}catch(RuntimeException e) {}
-	}
-	
-	private String removeUserById() {
-		return "DELETE from User u where u.id = :id";
-	}
 
 	private String findUserByEmailQuery() {
 		return "SELECT u from User u where u.email = :email";
@@ -64,6 +48,10 @@ public class UserDAOImpl extends DAOImpl<User> implements UserDAO{
 	
 	private void setEntityManager(EntityManager entityManager) {
 		super.entityManager = entityManager;
+	}
+	
+	private void clearEntityManager() {
+		super.entityManager = null;
 	}
 	
 }

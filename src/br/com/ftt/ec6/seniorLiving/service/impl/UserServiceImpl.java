@@ -3,21 +3,23 @@ package br.com.ftt.ec6.seniorLiving.service.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.security.auth.login.LoginException;
 
+import br.com.ftt.ec6.seniorLiving.DAO.UserDAO;
 import br.com.ftt.ec6.seniorLiving.DAO.impl.UserDAOImpl;
 import br.com.ftt.ec6.seniorLiving.db.Database;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.exception.UserException;
+import br.com.ftt.ec6.seniorLiving.exception.UserFormException;
+import br.com.ftt.ec6.seniorLiving.service.RoleService;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.utils.BCrypt;
 
 public class UserServiceImpl implements UserService {
 	
-	//TO DO: Regras para inserir email e senha
-	
-	
 	private static UserServiceImpl instance;
+	private RoleService roleService = RoleServiceImpl.getInstance();
+	private UserDAO userDAO = UserDAOImpl.getInstance();
 	
 	private UserServiceImpl() {}
 	
@@ -29,22 +31,20 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User save(String email, String password, String nickname, List<Role> roleList) throws LoginException {
-		if(email == null || email.trim().isEmpty()) { throw new LoginException("Email inválido"); } 
+	public User save(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException, UserFormException {
+		validateUser(email, nickname, password, passwordConfirmation, roleList);
 		
-		if(password == null || password.trim().isEmpty()) { throw new LoginException("Senha inválido"); }
+		if(roleService.checkRoleList(roleList) == false) { throw new UserException("Lista de papéis invalida"); }
 		
-		RoleServiceImpl roleServiceImpl = RoleServiceImpl.getInstance();
+		EntityManager entityManagerConnection = Database.getConnection();
+		userDAO.startConnection(entityManagerConnection);
 		
-		if(roleServiceImpl.checkRoleList(roleList) == false) { throw new LoginException("Lista de papéis invalida"); }
+		entityManagerConnection.getTransaction().begin();
+		User userRetrieved = userDAO.getUserByEmail(email);
 		
-		EntityManager entityManager =  Database.getConnection();
-		UserDAOImpl userDAO = UserDAOImpl.getInstance(entityManager);
-		entityManager.getTransaction().begin();
-		User userRetrived = userDAO.getUserByEmail(email);
-		entityManager.close();
+		if(userRetrieved != null) { throw new UserException("Já existe um usuário com esse email cadastrado na aplicação"); }
 		
-		if(userRetrived != null) { throw new LoginException("Usuário com esse email já está cadastrado"); }
+		if(checkPassword(password, passwordConfirmation)) { throw new UserException("Senha de confirmação está divergente da senha "); }
 		
 		User user = new User();
 		user.setEmail(email);
@@ -52,14 +52,11 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(new String(BCrypt.hashpw(password, BCrypt.gensalt())));
 		user.setRoleList(roleList);
 		user.setActive(true);
+		userDAO.save(user);
 		
-		EntityManager entityManage2 =  Database.getConnection();
-		
-		entityManage2.getTransaction().begin();
-		UserDAOImpl userDAO2 = UserDAOImpl.getInstance(entityManage2);
-		userDAO2.save(user);
-		entityManage2.getTransaction().commit();
-		entityManage2.close();
+		entityManagerConnection.getTransaction().commit();
+		entityManagerConnection.close();
+		userDAO.stopConnection();
 		
 		return user;
 	}
@@ -67,17 +64,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(Long id) {
 		EntityManager entityManager =  Database.getConnection();
-		UserDAOImpl userDAO = UserDAOImpl.getInstance(entityManager);
+		userDAO.startConnection(entityManager);
 		userDAO.delete(id);
 		entityManager.close();
+		userDAO.stopConnection();
 	}
 
 	@Override
 	public User getUserByEmail(String email) {
 		EntityManager entityManager =  Database.getConnection();
-		UserDAOImpl userDAO = UserDAOImpl.getInstance(entityManager);
+		userDAO.startConnection(entityManager);
 		User user = userDAO.getUserByEmail(email);
 		entityManager.close();
+		userDAO.stopConnection();
 		
 		return user;
 	}
@@ -86,11 +85,28 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAll() {
 		EntityManager entityManager = Database.getConnection();
 		entityManager.getTransaction().begin();
-		UserDAOImpl userDAO = UserDAOImpl.getInstance(entityManager);
+		userDAO.startConnection(entityManager);
 		List<User> users = userDAO.getAll();
 		entityManager.close();
+		userDAO.stopConnection();
 		
 		return users;
+	}
+	
+	private void validateUser(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserFormException {
+		if(email == null || email.trim().isEmpty()) { throw new UserFormException("Email não pode estar em branco."); }
+		
+		if(nickname == null || nickname.trim().isEmpty()) { throw new UserFormException("Apelido não pode estar em branco."); }
+		
+		if(password == null || password.trim().isEmpty()) { throw new UserFormException("Senha não pode estar em branco."); }
+		
+		if(passwordConfirmation == null || passwordConfirmation.trim().isEmpty()) { throw new UserFormException("Confirmação da senha não pode estar em branco."); }
+		
+		if(roleList == null || roleList.isEmpty()) { throw new UserFormException("Ao menos uma role deve ser selecionada."); }
+	}
+	
+	private boolean checkPassword(String password, String passwordConfirmation) {
+		return password.equals(passwordConfirmation);
 	}
 
 }

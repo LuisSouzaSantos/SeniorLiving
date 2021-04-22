@@ -13,6 +13,17 @@
 
 <Pane prefHeight="501.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
    <children>
+      <TableView fx:id="userTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="843.0" style="-fx-background-color: #F1FDFE;">
+        <columns>
+          <TableColumn fx:id="emailColumn" prefWidth="374.0" style="-fx-background-color: #47B2E6;" text="Email" />
+          <TableColumn fx:id="nicknameColumn" prefWidth="254.0" style="-fx-background-color: #47B2E6;" text="Apelido" />
+            <TableColumn fx:id="statusColumn" prefWidth="106.0" style="-fx-background-color: #47B2E6;" text="Status" />
+            <TableColumn fx:id="actionsColumn" prefWidth="117.0" style="-fx-background-color: #47B2E6;" text="Ações" />
+        </columns>
+         <effect>
+            <DropShadow />
+         </effect>
+      </TableView>
       <Pane layoutX="892.0" layoutY="80.0" prefHeight="384.0" prefWidth="220.0" style="-fx-background-color: #F1FDFE;">
          <children>
             <Pane layoutY="-3.0" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #47B2E6;">
@@ -72,18 +83,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <TableView layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="843.0" style="-fx-background-color: #F1FDFE;">
-        <columns>
-          <TableColumn fx:id="columnEmail" prefWidth="410.0" style="-fx-background-color: #47B2E6;" text="Apelido" />
-          <TableColumn fx:id="columnNickname" prefWidth="233.0" style="-fx-background-color: #47B2E6;" text="Email" />
-            <TableColumn fx:id="ColumnActive" prefWidth="91.0" style="-fx-background-color: #47B2E6;" text="Ativo" />
-            <TableColumn fx:id="ColumnActions" prefWidth="117.0" style="-fx-background-color: #47B2E6;" text="Ações" />
-        </columns>
-         <effect>
-            <DropShadow />
-         </effect>
-      </TableView>
-      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Novo usuário" textFill="WHITE">
+      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#createNewUserButtonAction" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Novo usuário" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

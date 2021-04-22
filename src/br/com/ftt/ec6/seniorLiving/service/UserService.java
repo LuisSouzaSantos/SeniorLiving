@@ -2,14 +2,14 @@ package br.com.ftt.ec6.seniorLiving.service;
 
 import java.util.List;
 
-import javax.security.auth.login.LoginException;
-
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.exception.UserException;
+import br.com.ftt.ec6.seniorLiving.exception.UserFormException;
 
 public interface UserService {
 
-	User save(String email, String password, String nickname, List<Role> roleList) throws LoginException;
+	User save(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException, UserFormException;
 	
 	void delete(Long id);
 	

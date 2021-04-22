@@ -13,7 +13,9 @@ public interface RoleService {
 	
 	Role getRoleByName(String name);
 	
-	boolean checkRoleList(List<Role> roleList);
+	List<Role> findRoleListByRoleNameArray(String[] roleNameArray);
+	
+	boolean checkRoleList(List<Role> roleLroleListNameist);
 	
 	void delete(Long id);
 

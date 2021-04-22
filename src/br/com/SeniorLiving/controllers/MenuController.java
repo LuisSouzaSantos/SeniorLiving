@@ -6,19 +6,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.ftt.ec6.seniorLiving.entities.Role;
-import br.com.ftt.ec6.seniorLiving.utils.Colors;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -26,21 +24,27 @@ public class MenuController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Menu.fxml";
 	
-	private final static String USERNAME_MENU_TEXT_TO_CHANGE = "{username}";
-	private final static Integer[] GRID_PANE_AVAILABLE_POSITIONS_X = {0, 2};
-	private final static Integer[] GRID_PANE_AVAILABLE_POSITIONS_Y = {1, 1};
+	@FXML
+	private Pane menuPane1;
+	@FXML
+	private Circle menuCircle1;
+	@FXML
+	private ImageView menuUserImage1;
+	@FXML
+	private Button menuButton1;
 	
 	@FXML
-	private Pane adminGeneralMenuPane;
+	private Pane menuPane2;
+	@FXML
+	private Circle menuCircle2;
+	@FXML
+	private ImageView menuUserImage2;
+	@FXML
+	private Button menuButton2;
 	
 	@FXML
-	private Pane enterInAdminLocalMenuPane;
+	private Text menuSoftwareVersion;
 	
-	@FXML
-	private Text usernameMenu;
-	
-	@FXML
-	private GridPane gridPane;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -53,14 +57,9 @@ public class MenuController extends Controller implements Initializable {
 	}
 	
 	private void initializeNodes() {
-		loadUserName();
+		initMenuConfig();
+		initVersion();
 		loadPane();
-	}
-	
-	private void loadUserName() {
-		String currentText = usernameMenu.getText();
-		String menuTextUpdate = currentText.replace(USERNAME_MENU_TEXT_TO_CHANGE, getUserLogged().getEmail());
-		usernameMenu.setText(menuTextUpdate);
 	}
 
 	private void loadPane() {
@@ -68,36 +67,24 @@ public class MenuController extends Controller implements Initializable {
 		
 		for (int i = 0; i < userLoggedRoleList.size(); i++) {
 			Role role = userLoggedRoleList.get(i);
-			Pane pane = new Pane();
-			pane.setId(role.getName().toLowerCase()+"MenuPane");
-			pane.setPrefHeight(50.0);
-			pane.setPrefWidth(50.0);
-			pane.setStyle("-fx-background-color:"+Colors.LIGHT_PURPLE.getHexColor()+";");
-			pane.setOnMouseClicked(getEventButton(role));
-			pane.setCursor(Cursor.HAND);
 			
-			ImageView imageView = new ImageView();
-			Image image = new Image("/br/com/SeniorLiving/images/user.png");
-			imageView.setImage(image);
-			imageView.setFitHeight(100.0);
-			imageView.setFitWidth(150.0);
-			imageView.setLayoutX(80.0);
-			imageView.setLayoutY(34.0);
-			imageView.setPickOnBounds(true);
-			imageView.setPreserveRatio(true);
+			if(i==0) {
+				menuPane1.setVisible(true);
+				EventHandler<Event> buttonEvent = getEventButton(role);
+				menuCircle1.setOnMouseClicked(buttonEvent);
+				menuUserImage1.setOnMouseClicked(buttonEvent);
+				menuButton1.setOnMouseClicked(buttonEvent);
+				menuButton1.setText(role.getName());
+			}
 			
-			Text textRoleName = new Text();
-			textRoleName.setText(role.getName());
-			textRoleName.setLayoutX(90.0);
-			textRoleName.setLayoutY(159.0);
-			
-			pane.getChildren().add(imageView);
-			pane.getChildren().add(textRoleName);
-			
-			Integer positionX = GRID_PANE_AVAILABLE_POSITIONS_X[i];
-			Integer positionY = GRID_PANE_AVAILABLE_POSITIONS_Y[i];
-			
-			gridPane.add(pane, positionX, positionY);
+			if(i==1) {
+				menuPane2.setVisible(true);
+				EventHandler<Event> buttonEvent = getEventButton(role);
+				menuCircle2.setOnMouseClicked(buttonEvent);
+				menuUserImage2.setOnMouseClicked(buttonEvent);
+				menuButton2.setOnMouseClicked(buttonEvent);
+				menuButton2.setText(role.getName());
+			}
 		}
 	}
 	
@@ -128,12 +115,12 @@ public class MenuController extends Controller implements Initializable {
 					FXMLLoader loader = menuAdminController.getFXMLLoader();
 					AnchorPane anchorPane = loader.load();
 					loader.getController();
+			
 					Scene futureScene = new Scene(anchorPane);
-					
-					Stage newStage = new Stage();
+					Stage newStage = Controller.getCurrentStage();
 					newStage.setScene(futureScene);
 					
-					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
+					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
 				}catch(IOException e) { e.printStackTrace(); }	
 			}
 	
@@ -152,12 +139,12 @@ public class MenuController extends Controller implements Initializable {
 					FXMLLoader loader = menuAdminController.getFXMLLoader();
 					AnchorPane anchorPane = loader.load();
 					loader.getController();
-					Scene futureScene = new Scene(anchorPane);
 					
-					Stage newStage = new Stage();
+					Scene futureScene = new Scene(anchorPane);
+					Stage newStage = Controller.getCurrentStage();
 					newStage.setScene(futureScene);
 					
-					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
+					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
 				}catch(IOException e){ e.printStackTrace(); }
 			}
 			
@@ -176,7 +163,16 @@ public class MenuController extends Controller implements Initializable {
 		Stage newStage = new Stage();
 		newStage.setScene(futureScene);
 					
-		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
+		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
+	}
+	
+	private void initMenuConfig() {
+		menuPane1.setVisible(false);
+		menuPane2.setVisible(false);
+	}
+	
+	private void initVersion() {
+		menuSoftwareVersion.setText(Controller.VERSION);
 	}
 
 }
