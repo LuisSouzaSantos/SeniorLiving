@@ -1,81 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="399.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="777.0" style="-fx-background-color: #fdfdfd;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserFormController">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="526.0">
+      <Pane layoutY="-2.0" prefHeight="64.0" prefWidth="777.0" style="-fx-background-color: #47B2E6;">
          <children>
-            <GridPane layoutX="35.0" layoutY="27.0" prefHeight="340.0" prefWidth="456.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="27.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="131.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="319.0" minWidth="10.0" prefWidth="213.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="112.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtEstadoCivil" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <TextField fx:id="txtPgMensal" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <ComboBox fx:id="cbCurador" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <Label fx:id="labelErrorName" textFill="#e12d09" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
-                  </Label>
-                  <Label text="Nome" GridPane.rowIndex="1" />
-                  <Label text="Estado Civil" GridPane.rowIndex="2" />
-                  <Label text="Data Nascimento" GridPane.rowIndex="6" />
-                  <Label text="Pagamento Mensal" GridPane.rowIndex="7" />
-                  <Label text="Curador" GridPane.rowIndex="8" />
-                  <Label fx:id="labelErrorEmail" textFill="#fc0808" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Label fx:id="labelErrorBirthDate" textFill="#f80707" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Label fx:id="labelErrorBaseSalary" textFill="#f50707" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <Label text="RG" GridPane.rowIndex="4" />
-                  <Label text="CPF" GridPane.rowIndex="5" />
-                  <TextField fx:id="txtRg" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="txtCpf" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <ComboBox fx:id="cbSolidario" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <ComboBox fx:id="cbAcomodacao" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <Label text="Solidario" GridPane.rowIndex="9" />
-                  <Label text="Acomodação" GridPane.rowIndex="10" />
-                  <Label text="Nacionalidade" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtNacionalidade" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-               </children>
-            </GridPane>
-            <AnchorPane fx:id="txtNome" layoutX="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="526.0">
-               <children>
-                  <Button fx:id="btCancel" alignment="CENTER" contentDisplay="RIGHT" layoutX="263.0" layoutY="353.0" mnemonicParsing="false" onAction="#onBtCancelAction" prefHeight="27.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #c2c2c2; -fx-border-radius: 50px;" text="Voltar" />
-                  <Button fx:id="btSave" alignment="CENTER" layoutX="131.0" layoutY="353.0" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="27.0" prefWidth="116.0" style="-fx-border-radius: 50px; -fx-background-color: transparent; -fx-border-color: #c2c2c2;" text="Salvar" />
-               </children>
-            </AnchorPane>
+            <Text fill="WHITE" layoutX="297.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de  Paciente">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
          </children>
-      </AnchorPane>
-      <HBox prefHeight="2.0" prefWidth="459.0" spacing="6.0" />
+      </Pane>
+      <TextField fx:id="formUserEmailField" layoutX="38.0" layoutY="99.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" styleClass="form-field" stylesheets="@form.css" />
+      <Text fill="#757373" layoutX="38.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" />
+      <Text fill="#757373" layoutX="38.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado Civil" />
+      <TextField fx:id="formUserNicknameField" layoutX="38.0" layoutY="174.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fill="#757373" layoutX="40.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nacionalidade" />
+      <PasswordField fx:id="formUserPasswordField" layoutX="422.0" layoutY="174.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fill="#757373" layoutX="424.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RG" />
+      <PasswordField fx:id="formUserPasswordConfirmationField" layoutX="422.0" layoutY="99.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formUserErrorEmailMessageText" fill="#cc0000" layoutX="39.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAME_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fx:id="formUserErrorNicknameMessageText" fill="#cc0000" layoutX="41.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{CIVIL_STATUS_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fx:id="formUserErrorPasswordMessageText" fill="#cc0000" layoutX="426.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{CPF_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fx:id="formUserErrorPasswordConfirmationMessageText" fill="#cc0000" layoutX="426.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{RG_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Button layoutX="233.0" layoutY="502.0" onMouseClicked="#createNewUserButtonAction" prefHeight="37.0" prefWidth="137.0" style="-fx-background-color: #47B2E6;" text="Adicionar" textFill="WHITE">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#00000032" height="5.0" offsetX="2.0" offsetY="2.0" radius="3.25" width="10.0" />
+         </effect>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="417.0" layoutY="502.0" onMouseClicked="#closeUserFormButtonAction" prefHeight="37.0" prefWidth="129.0" style="-fx-background-color: transparent;" text="Cancelar" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Text fx:id="formUserErrorMessageText" fill="#cc0000" layoutX="209.0" layoutY="485.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{ERROR}" textAlignment="CENTER" wrappingWidth="358.5771484375">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <ComboBox layoutX="40.0" layoutY="402.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formUserErrorNicknameMessageText1" fill="#cc0000" layoutX="41.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{NACIONALITY_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="424.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF" />
+      <Text fill="#757373" layoutX="40.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data de Nascimento" />
+      <DatePicker layoutX="40.0" layoutY="324.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formUserErrorNicknameMessageText11" fill="#cc0000" layoutX="41.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{BIRTH_DATE_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="formUserPasswordField1" layoutX="38.0" layoutY="249.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fill="#757373" layoutX="422.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pagamento Mensal" />
+      <PasswordField fx:id="formUserPasswordConfirmationField1" layoutX="422.0" layoutY="249.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formUserErrorPasswordMessageText1" fill="#cc0000" layoutX="42.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{CURATOR_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fx:id="formUserErrorPasswordConfirmationMessageText1" fill="#cc0000" layoutX="427.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{MONTHLY_PAYMENT_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="40.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Curador" />
+      <ComboBox layoutX="422.0" layoutY="325.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formUserErrorPasswordMessageText11" fill="#cc0000" layoutX="424.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SOLIDARITY_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="422.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solidário" />
+      <ComboBox layoutX="422.0" layoutY="403.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formUserErrorPasswordMessageText12" fill="#cc0000" layoutX="424.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{ACCOMMODATION_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="422.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acomodação" />
    </children>
-</VBox>
+   <effect>
+      <DropShadow />
+   </effect>
+</Pane>
