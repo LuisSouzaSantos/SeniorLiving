@@ -9,7 +9,7 @@ import br.com.ftt.ec6.seniorLiving.exception.UserFormException;
 
 public interface UserService {
 
-	User save(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException, UserFormException;
+	User save(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException;
 	
 	void delete(Long id);
 	

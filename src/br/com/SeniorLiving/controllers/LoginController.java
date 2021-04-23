@@ -118,9 +118,7 @@ public class LoginController extends Controller implements Initializable {
 	@FXML
 	public void pressedAction(KeyEvent ke) throws LoginException, IOException {
 		if(ke.getCode().equals(KeyCode.ENTER)){
-			startSpinner();
 			performLogin();
-			stopSpinner();
 		}
 	}
 	

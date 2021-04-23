@@ -36,7 +36,15 @@ public class User extends BaseConfig {
 	
 	@Transient
 	private String passwordConfirmation;
-	private boolean active;
+	
+	@Column(nullable = false)
+	private Boolean active;
+	
+	@Column(length = 40, nullable = true)
+	private String codeChangePassword;
+	
+	@Column(nullable = true)
+	private Boolean codeChangePasswordUsed; 
 
 	@ManyToMany
 	@JoinTable(
@@ -99,6 +107,30 @@ public class User extends BaseConfig {
 
 	public void setRoleList(List<Role> roleList) {
 		this.roleList = roleList;
+	}
+	
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public String getCodeChangePassword() {
+		return codeChangePassword;
+	}
+
+	public void setCodeChangePassword(String codeChangePassword) {
+		this.codeChangePassword = codeChangePassword;
+	}
+
+	public Boolean getCodeChangePasswordUsed() {
+		return codeChangePasswordUsed;
+	}
+
+	public void setCodeChangePasswordUsed(Boolean codeChangePasswordUsed) {
+		this.codeChangePasswordUsed = codeChangePasswordUsed;
 	}
 
 	@Override

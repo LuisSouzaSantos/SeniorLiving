@@ -10,7 +10,6 @@ import br.com.ftt.ec6.seniorLiving.db.Database;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.exception.UserException;
-import br.com.ftt.ec6.seniorLiving.exception.UserFormException;
 import br.com.ftt.ec6.seniorLiving.service.RoleService;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.utils.BCrypt;
@@ -31,8 +30,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User save(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException, UserFormException {
-		validateUser(email, nickname, password, passwordConfirmation, roleList);
+	public User save(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException {
+		validateUserParameters(email, nickname, password, passwordConfirmation, roleList);
 		
 		if(roleService.checkRoleList(roleList) == false) { throw new UserException("Lista de papéis invalida"); }
 		
@@ -44,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		
 		if(userRetrieved != null) { throw new UserException("Já existe um usuário com esse email cadastrado na aplicação"); }
 		
-		if(checkPassword(password, passwordConfirmation)) { throw new UserException("Senha de confirmação está divergente da senha "); }
+		if(checkPassword(password, passwordConfirmation) == false) { throw new UserException("Senha de confirmação está divergente da senha "); }
 		
 		User user = new User();
 		user.setEmail(email);
@@ -93,16 +92,16 @@ public class UserServiceImpl implements UserService {
 		return users;
 	}
 	
-	private void validateUser(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserFormException {
-		if(email == null || email.trim().isEmpty()) { throw new UserFormException("Email não pode estar em branco."); }
+	private void validateUserParameters(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException {
+		if(email == null || email.trim().isEmpty()) { throw new UserException("Email não pode estar em branco."); }
 		
-		if(nickname == null || nickname.trim().isEmpty()) { throw new UserFormException("Apelido não pode estar em branco."); }
+		if(nickname == null || nickname.trim().isEmpty()) { throw new UserException("Apelido não pode estar em branco."); }
 		
-		if(password == null || password.trim().isEmpty()) { throw new UserFormException("Senha não pode estar em branco."); }
+		if(password == null || password.trim().isEmpty()) { throw new UserException("Senha não pode estar em branco."); }
 		
-		if(passwordConfirmation == null || passwordConfirmation.trim().isEmpty()) { throw new UserFormException("Confirmação da senha não pode estar em branco."); }
+		if(passwordConfirmation == null || passwordConfirmation.trim().isEmpty()) { throw new UserException("Confirmação da senha não pode estar em branco."); }
 		
-		if(roleList == null || roleList.isEmpty()) { throw new UserFormException("Ao menos uma role deve ser selecionada."); }
+		if(roleList == null || roleList.isEmpty()) { throw new UserException("Ao menos uma role deve ser selecionada."); }
 	}
 	
 	private boolean checkPassword(String password, String passwordConfirmation) {

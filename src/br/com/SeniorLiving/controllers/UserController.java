@@ -16,7 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
 public class UserController extends Controller implements Initializable, Runnable {
@@ -38,7 +40,7 @@ public class UserController extends Controller implements Initializable, Runnabl
 	private TableColumn<User, Boolean> statusColumn;
 	
 	@FXML
-	private TableColumn<User, String> actionsColumn;
+	private TableColumn<User, SVGPath> actionsColumn;
 	
 	@FXML
 	private Button newUserButton;
@@ -73,9 +75,16 @@ public class UserController extends Controller implements Initializable, Runnabl
 		emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 		nicknameColumn.setCellValueFactory(new PropertyValueFactory<>("nickname"));
 		statusColumn.setCellValueFactory(new PropertyValueFactory<>("active"));
+		actionsColumn.setCellValueFactory(new PropertyValueFactory<>(""));
 		
 		users.forEach(user -> {
 			userTable.getItems().add(user);
+		});
+		
+		userTable.getColumns().forEach(tableColumn -> {
+			if(tableColumn.getId() == "actionsColumn") {
+				tableColumn.set
+			}
 		});
 		
 	}
@@ -85,13 +94,15 @@ public class UserController extends Controller implements Initializable, Runnabl
 		UserFormController userFormController = new UserFormController();
 		FXMLLoader loader = userFormController.getFXMLLoader();
 		Pane pane = loader.load();
-		loader.getController();
 		
 		Stage stage = new Stage();
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
-		userFormController.setStageMe(stage);
 		stage.show();
+		
+		UserFormController userFormControllerControllerLoaded = loader.getController();
+		userFormControllerControllerLoaded.setStageMe(stage);
+		
 	}
 
 

@@ -113,8 +113,6 @@ public class UserFormController extends Controller implements Initializable {
 			clearForm();
 		}catch(UserException ex) {
 			formUserErrorMessageText.setText(ex.getMessage());
-		}catch(UserFormException ex2) {
-			formUserErrorMessageText.setText(ex2.getMessage());
 		}
 	}
 	
@@ -197,5 +195,4 @@ public class UserFormController extends Controller implements Initializable {
 		this.me = me;
 	}
 	
-    
 }
