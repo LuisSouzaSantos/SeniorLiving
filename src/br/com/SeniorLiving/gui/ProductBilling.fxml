@@ -2,49 +2,71 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="314.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="389.0" style="-fx-background-color: #fdfdfd;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserFormController">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="603.0">
+      <Pane layoutY="-2.0" prefHeight="64.0" prefWidth="389.0" style="-fx-background-color: #47B2E6;">
          <children>
-            <GridPane layoutX="84.0" layoutY="46.0" prefHeight="199.0" prefWidth="382.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Produto" GridPane.rowIndex="1" />
-                  <Label text="Quantidade" GridPane.rowIndex="2" />
-                  <Label text="Valor Unitário" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtMensalidade" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtQuantidade" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtValorUnitario" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Faturamento" GridPane.rowIndex="4" />
-                  <ComboBox prefHeight="27.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-               </children>
-            </GridPane>
-            <HBox layoutX="275.0" layoutY="257.0" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
-               <children>
-                  <Button fx:id="btSave1" alignment="CENTER" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="27.0" prefWidth="100.0" style="-fx-border-radius: 50px; -fx-background-color: transparent; -fx-border-color: #c2c2c2;" text="Salvar" />
-                  <Button fx:id="btCancel1" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onBtCancelAction" prefHeight="27.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #c2c2c2; -fx-border-radius: 50px;" text="Voltar" />
-               </children>
-            </HBox>
+            <Text fill="WHITE" layoutX="37.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de Faturamento de Produto">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
          </children>
-      </AnchorPane>
+      </Pane>
+      <TextField fx:id="formUserEmailField" layoutX="38.0" layoutY="99.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" styleClass="form-field" stylesheets="@form.css" />
+      <Text fill="#757373" layoutX="38.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produto" />
+      <Text fx:id="formUserErrorEmailMessageText" fill="#cc0000" layoutX="39.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRODUCT_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Button layoutX="30.0" layoutY="454.0" onMouseClicked="#createNewUserButtonAction" prefHeight="37.0" prefWidth="137.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 50px;" text="Adicionar" textFill="WHITE">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#00000032" height="5.0" offsetX="2.0" offsetY="2.0" radius="3.25" width="10.0" />
+         </effect>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="222.0" layoutY="454.0" onMouseClicked="#closeUserFormButtonAction" prefHeight="37.0" prefWidth="129.0" style="-fx-background-color: transparent; -fx-border-color: d3d3d3;" text="Cancelar" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Text fx:id="formUserErrorMessageText" fill="#cc0000" layoutX="15.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{ERROR}" textAlignment="CENTER" wrappingWidth="358.5771484375">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="41.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faturamento" />
+      <ComboBox layoutX="38.0" layoutY="330.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formUserErrorNicknameMessageText1" fill="#cc0000" layoutX="42.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{BILLING_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <TextField fx:id="formUserEmailField1" layoutX="38.0" layoutY="176.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" styleClass="form-field" stylesheets="@form.css" />
+      <Text fill="#757373" layoutX="38.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade" />
+      <Text fx:id="formUserErrorEmailMessageText1" fill="#cc0000" layoutX="39.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTITY_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <TextField fx:id="formUserEmailField2" layoutX="38.0" layoutY="252.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" styleClass="form-field" stylesheets="@form.css" />
+      <Text fill="#757373" layoutX="38.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor Unitário" />
+      <Text fx:id="formUserErrorEmailMessageText2" fill="#cc0000" layoutX="39.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNITARY_VALUE_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
    </children>
-</VBox>
+   <effect>
+      <DropShadow />
+   </effect>
+</Pane>
