@@ -33,7 +33,6 @@ public class UserFormController extends Controller implements Initializable {
 	@FXML
 	private TableView<User> userTable;
 	
-	
 	@FXML
 	private TextField formUserEmailField;
 	@FXML
@@ -46,7 +45,6 @@ public class UserFormController extends Controller implements Initializable {
 	private CheckBox formUserAdminGeralCheckBox;
 	@FXML
 	private CheckBox formUserAdminLocalCheckBox;
-	
 	
 	@FXML
 	private Text formUserErrorNicknameMessageText;

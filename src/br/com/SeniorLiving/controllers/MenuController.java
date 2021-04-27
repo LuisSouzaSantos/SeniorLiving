@@ -5,7 +5,11 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.com.ftt.ec6.seniorLiving.entities.Action;
+import br.com.ftt.ec6.seniorLiving.entities.Audit;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
+import br.com.ftt.ec6.seniorLiving.service.AuditService;
+import br.com.ftt.ec6.seniorLiving.service.impl.AuditServiceImpl;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,6 +27,7 @@ import javafx.stage.Stage;
 public class MenuController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Menu.fxml";
+	private final static AuditService audit = AuditServiceImpl.getInstance();
 	
 	@FXML
 	private Pane menuPane1;
@@ -63,6 +68,7 @@ public class MenuController extends Controller implements Initializable {
 	}
 
 	private void loadPane() {
+		performAudit(MenuAudit.PERFORM_LOAD_ROLE_PANE);
 		List<Role> userLoggedRoleList = getUserLogged().getRoleList();
 		
 		for (int i = 0; i < userLoggedRoleList.size(); i++) {
@@ -108,6 +114,7 @@ public class MenuController extends Controller implements Initializable {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
+				performAudit(MenuAudit.ADMIN_GERAL_BUTTON_CLICKED);
 				try {
 					setRoleActived(role);
 					
@@ -132,6 +139,7 @@ public class MenuController extends Controller implements Initializable {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
+				performAudit(MenuAudit.ADMIN_LOCAL_BUTTON_CLICKED);
 				try {
 					setRoleActived(role);
 					
@@ -173,6 +181,28 @@ public class MenuController extends Controller implements Initializable {
 	
 	private void initVersion() {
 		menuSoftwareVersion.setText(Controller.VERSION);
+	}
+	
+	private void performAudit(MenuAudit menuAudit) {
+		switch (menuAudit) {
+		case PERFORM_LOAD_ROLE_PANE:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "loadPane()", Action.LOADER, getUserLogged().getEmail(), null));
+			break;
+		case ADMIN_GERAL_BUTTON_CLICKED:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "enterAdminGeralMenuEvent()", Action.CHOICE, getUserLogged().getEmail(), null));
+			break;
+		case ADMIN_LOCAL_BUTTON_CLICKED:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "enterAdminLocalMenuEvent()", Action.CHOICE, getUserLogged().getEmail(), null));
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private enum MenuAudit{
+		PERFORM_LOAD_ROLE_PANE,
+		ADMIN_GERAL_BUTTON_CLICKED,
+		ADMIN_LOCAL_BUTTON_CLICKED;
 	}
 
 }

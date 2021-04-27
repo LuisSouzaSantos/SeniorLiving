@@ -9,9 +9,12 @@ import java.util.ResourceBundle;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.service.impl.UserServiceImpl;
+import br.com.ftt.ec6.seniorLiving.utils.Utils;
+import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -40,7 +43,7 @@ public class UserController extends Controller implements Initializable, Runnabl
 	private TableColumn<User, Boolean> statusColumn;
 	
 	@FXML
-	private TableColumn<User, SVGPath> actionsColumn;
+	private TableColumn<User, ImageView> actionsColumn;
 	
 	@FXML
 	private Button newUserButton;
@@ -75,7 +78,6 @@ public class UserController extends Controller implements Initializable, Runnabl
 		emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 		nicknameColumn.setCellValueFactory(new PropertyValueFactory<>("nickname"));
 		statusColumn.setCellValueFactory(new PropertyValueFactory<>("active"));
-		actionsColumn.setCellValueFactory(new PropertyValueFactory<>(""));
 		
 		users.forEach(user -> {
 			userTable.getItems().add(user);
@@ -83,7 +85,7 @@ public class UserController extends Controller implements Initializable, Runnabl
 		
 		userTable.getColumns().forEach(tableColumn -> {
 			if(tableColumn.getId() == "actionsColumn") {
-				tableColumn.set
+				tableColumn.setGraphic(ViewUtils.createImageView("dasdas", "/br/com/SeniorLiving/images/edit.png",  5.0,  5.0, true, true, Cursor.HAND));
 			}
 		});
 		

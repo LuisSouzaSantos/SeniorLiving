@@ -8,7 +8,11 @@ import java.util.ResourceBundle;
 
 import javax.security.auth.login.LoginException;
 
+import br.com.ftt.ec6.seniorLiving.entities.Action;
+import br.com.ftt.ec6.seniorLiving.entities.Audit;
 import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.service.AuditService;
+import br.com.ftt.ec6.seniorLiving.service.impl.AuditServiceImpl;
 import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import javafx.fxml.FXML;
@@ -31,9 +35,7 @@ import javafx.stage.Stage;
 public class LoginController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Login.fxml";
-//	private final static String LOGIN_VERSION_TEXT_TO_CHANGE = "{VERSION}";
-//	private final static String LOGIN_ERROR_EMAIL_MESSAGE_TO_CHANGE = "{ERROR_EMAIL_MESSAGE}";
-//	private final static String LOGIN_ERROR_PASSWORD_MESSAGE_TO_CHANGE = "{ERROR_PASSWORD_MESSAGE}";
+	private final static AuditService audit = AuditServiceImpl.getInstance();
 	
 	@FXML
 	private AnchorPane loginContainerAnchorPane;
@@ -66,10 +68,9 @@ public class LoginController extends Controller implements Initializable {
 	}
 	
 	public void performLogin() throws LoginException {
+		performAudit(LoginAudit.PERFORM_LOGIN);
 		try {
-			if(validateFields() == false) { 
-				return; 
-			}
+			if(validateFields() == false) { return; }
 			
 			String email = txtEmail.getText();
 			String password = txtPassword.getText();
@@ -99,6 +100,7 @@ public class LoginController extends Controller implements Initializable {
 	}
 	
 	public void performLogout() {
+		performAudit(LoginAudit.PERFORM_LOGOUT);
 		setUserLogged(null);
 	}
 	
@@ -170,12 +172,22 @@ public class LoginController extends Controller implements Initializable {
 		
 		return errorsList;
 	}
-	
-	private void startSpinner() {
-		loginSpinner.setVisible(true);
+		
+	private void performAudit(LoginAudit loginAudit) {
+		switch (loginAudit) {
+		case PERFORM_LOGIN:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "performLogin()", Action.LOGIN, null, null));
+			break;
+		case PERFORM_LOGOUT:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "performLogout()", Action.LOGOUT, getUserLogged().getEmail(), getRoleActived().getName()));
+			break;
+		default:
+			break;
+		}
 	}
 	
-	private void stopSpinner() {
-		loginSpinner.setVisible(false);
+	private enum LoginAudit{
+		PERFORM_LOGIN,
+		PERFORM_LOGOUT
 	}
 }
