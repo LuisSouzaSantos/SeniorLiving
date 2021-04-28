@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SplashScreenController">
+   <children>
+      <ImageView fx:id="image" fitHeight="574.0" fitWidth="741.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../../Downloads/passatempo-dos-reformados-na-casa-dos-idosos.jpg" />
+         </image>
+      </ImageView>
+      <ProgressIndicator layoutX="345.0" layoutY="261.0" />
+   </children>
+</AnchorPane>
