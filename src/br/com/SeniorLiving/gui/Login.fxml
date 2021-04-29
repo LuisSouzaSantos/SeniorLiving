@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="loginContainerAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.LoginController">
+<AnchorPane fx:id="loginContainerAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.LoginController">
    <children>
       <AnchorPane layoutX="523.0" layoutY="59.0" prefHeight="458.0" prefWidth="393.0">
          <children>
@@ -83,6 +83,16 @@
                         <Font name="System Bold" size="10.0" />
                      </font>
                   </Text>
+                  <ImageView fitHeight="33.0" fitWidth="22.0" layoutX="259.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../Downloads/loader.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="33.0" fitWidth="58.0" layoutX="58.0" layoutY="379.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../Downloads/UncommonCrazyAfricanaugurbuzzard-max-1mb.gif" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </children>

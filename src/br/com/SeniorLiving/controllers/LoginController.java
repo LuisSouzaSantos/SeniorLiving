@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.security.auth.login.LoginException;
+import javax.swing.JOptionPane;
 
 import br.com.ftt.ec6.seniorLiving.entities.Action;
 import br.com.ftt.ec6.seniorLiving.entities.Audit;
@@ -38,13 +39,9 @@ public class LoginController extends Controller implements Initializable {
 	private final static AuditService audit = AuditServiceImpl.getInstance();
 	
 	@FXML
-	private AnchorPane loginContainerAnchorPane;
-
-	@FXML
 	private TextField txtEmail;
 	@FXML
 	private PasswordField txtPassword;
-	
 	@FXML
 	private Button btLogar;
 	@FXML
@@ -61,6 +58,7 @@ public class LoginController extends Controller implements Initializable {
 	
 	@FXML
 	private Pane loginSpinner;
+	@FXML private AnchorPane rootPane;
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -72,12 +70,15 @@ public class LoginController extends Controller implements Initializable {
 		try {
 			if(validateFields() == false) { return; }
 			
+			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { JOptionPane.showMessageDialog(null,"Email n�o pode estar em branco"); } 
+			
+			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { JOptionPane.showMessageDialog(null,"Senha n�o pode estar em branco"); } 
+			
 			String email = txtEmail.getText();
 			String password = txtPassword.getText();
 			
 			LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
 			User userLogged = loginServiceImpl.performLogin(email, password);
-			
 			setUserLogged(userLogged);
 			
 			MenuController menuController = new MenuController();
@@ -91,12 +92,20 @@ public class LoginController extends Controller implements Initializable {
 			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
 			newStage.getIcons().add(anotherIcon);
 			
+
 			Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
 		} catch (LoginException e) {
 			loginErrorSignInMessageText.setText(e.getMessage());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
+
+	/*		Main.changeStage(newStage);
+			Main.getCurrentStage().close();
+		} catch (Exception e) {
+			e.getMessage();
+		}			
+*/
 	}
 	
 	public void performLogout() {
@@ -104,14 +113,6 @@ public class LoginController extends Controller implements Initializable {
 		setUserLogged(null);
 	}
 	
-	public static void infoBox(String infoMessage){
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setContentText(infoMessage);
-        //alert.setTitle(title);
-        //alert.setHeaderText(headerText);
-        alert.showAndWait();
-    }
-
 	@Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
@@ -122,12 +123,6 @@ public class LoginController extends Controller implements Initializable {
 		if(ke.getCode().equals(KeyCode.ENTER)){
 			performLogin();
 		}
-	}
-	
-	private void initializeNodes() {
-		Constraints.setTextFieldMaxLength(txtEmail, 255);
-		Constraints.setTextFieldMaxLength(txtPassword, 255);
-		initText();
 	}
 	
 	private void initText() {
