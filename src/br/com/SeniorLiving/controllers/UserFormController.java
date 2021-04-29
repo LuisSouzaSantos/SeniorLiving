@@ -1,6 +1,5 @@
 package br.com.SeniorLiving.controllers;
 
-import java.awt.Button;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.ResourceBundle;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.exception.UserException;
-import br.com.ftt.ec6.seniorLiving.exception.UserFormException;
 import br.com.ftt.ec6.seniorLiving.service.RoleService;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.service.impl.RoleServiceImpl;
@@ -18,6 +16,7 @@ import br.com.ftt.ec6.seniorLiving.service.impl.UserServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -33,7 +32,6 @@ public class UserFormController extends Controller implements Initializable {
 	@FXML
 	private TableView<User> userTable;
 	
-	
 	@FXML
 	private TextField formUserEmailField;
 	@FXML
@@ -46,7 +44,6 @@ public class UserFormController extends Controller implements Initializable {
 	private CheckBox formUserAdminGeralCheckBox;
 	@FXML
 	private CheckBox formUserAdminLocalCheckBox;
-	
 	
 	@FXML
 	private Text formUserErrorNicknameMessageText;
@@ -62,11 +59,17 @@ public class UserFormController extends Controller implements Initializable {
 	private Text formUserErrorMessageText;
 	
 	@FXML
-	private Button newUserButton;
+	private Button userFormCreateButton;
+	@FXML
+	private Button userFormUpdateButton;
 	
 	private Stage me;
+	
+	private boolean isCreatedForm;
+	private User user;
 
     public UserFormController() {
+
     }
 	
     @Override
@@ -79,8 +82,15 @@ public class UserFormController extends Controller implements Initializable {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
 	}
 	
+	public void performReload() {
+		initializeNodes();
+	}
+	
 	private void initializeNodes() {
 		cleanErrorMessages();
+		clearForm();
+		buttonFormAvailable();
+		checkIfIsUpdateForm();
 	}
 	
 	private void cleanErrorMessages() {
@@ -114,6 +124,11 @@ public class UserFormController extends Controller implements Initializable {
 		}catch(UserException ex) {
 			formUserErrorMessageText.setText(ex.getMessage());
 		}
+	}
+	
+	@FXML
+	private void updateUserButtonAction() {
+		
 	}
 	
 	@FXML
@@ -183,8 +198,36 @@ public class UserFormController extends Controller implements Initializable {
 		formUserNicknameField.setText("");
 		formUserPasswordField.setText("");
 		formUserPasswordConfirmationField.setText("");
-		formUserAdminGeralCheckBox.disarm();
-		formUserAdminLocalCheckBox.disarm();
+		formUserAdminGeralCheckBox.setSelected(false);;
+		formUserAdminLocalCheckBox.setSelected(false);
+	}
+	
+	private void buttonFormAvailable() {
+		if(this.isCreatedForm) {
+			this.userFormCreateButton.setVisible(true);
+			this.userFormUpdateButton.setVisible(false);
+		}else {
+			this.userFormCreateButton.setVisible(false);
+			this.userFormUpdateButton.setVisible(true);
+		}
+	}
+	
+	private void checkIfIsUpdateForm() {
+		if(this.isCreatedForm) { return; }
+		
+		if(this.user == null) { return; }
+		
+		formUserEmailField.setText(this.user.getEmail());
+		formUserNicknameField.setText(this.user.getNickname());
+		
+		if(this.user.hasRole("ADMIN_GERAL")) {
+			formUserAdminGeralCheckBox.setSelected(true);
+		}
+		
+		if(this.user.hasRole("ADMIN_LOCAL")) {
+			formUserAdminLocalCheckBox.setSelected(true);
+		}
+		
 	}
 	
 	private void closeMe() {
@@ -193,6 +236,22 @@ public class UserFormController extends Controller implements Initializable {
 	
 	public void setStageMe(Stage me) {
 		this.me = me;
+	}
+
+	public boolean isCreatedForm() {
+		return isCreatedForm;
+	}
+
+	public void setCreatedForm(boolean isCreatedForm) {
+		this.isCreatedForm = isCreatedForm;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

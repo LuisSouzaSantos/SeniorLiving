@@ -9,11 +9,11 @@ import java.util.ResourceBundle;
 import javax.security.auth.login.LoginException;
 import javax.swing.JOptionPane;
 
-import com.jfoenix.controls.JFXSnackbar;
-
-import br.com.ftt.ec6.seniorLiving.application.Main;
-//import br.com.SeniorLiving.application.Main;
+import br.com.ftt.ec6.seniorLiving.entities.Action;
+import br.com.ftt.ec6.seniorLiving.entities.Audit;
 import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.service.AuditService;
+import br.com.ftt.ec6.seniorLiving.service.impl.AuditServiceImpl;
 import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import javafx.fxml.FXML;
@@ -36,6 +36,7 @@ import javafx.stage.Stage;
 public class LoginController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Login.fxml";
+	private final static AuditService audit = AuditServiceImpl.getInstance();
 	
 	@FXML
 	private TextField txtEmail;
@@ -64,15 +65,14 @@ public class LoginController extends Controller implements Initializable {
 		initializeNodes();
 	}
 	
-	public void performLogin() throws LoginException, IOException {
+	public void performLogin() throws LoginException {
+		performAudit(LoginAudit.PERFORM_LOGIN);
 		try {
-			if(validateFields() == false) { 
-				return; 
-			}
+			if(validateFields() == false) { return; }
 			
-			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { JOptionPane.showMessageDialog(null,"Email não pode estar em branco"); } 
+			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { JOptionPane.showMessageDialog(null,"Email nï¿½o pode estar em branco"); } 
 			
-			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { JOptionPane.showMessageDialog(null,"Senha não pode estar em branco"); } 
+			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { JOptionPane.showMessageDialog(null,"Senha nï¿½o pode estar em branco"); } 
 			
 			String email = txtEmail.getText();
 			String password = txtPassword.getText();
@@ -109,12 +109,8 @@ public class LoginController extends Controller implements Initializable {
 	}
 	
 	public void performLogout() {
-		//userLogged = null;
-	}
-	
-	private void initializeNodes() {
-		Constraints.setTextFieldMaxLength(txtEmail, 255);
-		Constraints.setTextFieldMaxLength(txtPassword, 255);
+		performAudit(LoginAudit.PERFORM_LOGOUT);
+		setUserLogged(null);
 	}
 	
 	@Override
@@ -171,12 +167,22 @@ public class LoginController extends Controller implements Initializable {
 		
 		return errorsList;
 	}
-	
-	private void startSpinner() {
-		loginSpinner.setVisible(true);
+		
+	private void performAudit(LoginAudit loginAudit) {
+		switch (loginAudit) {
+		case PERFORM_LOGIN:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "performLogin()", Action.LOGIN, null, null));
+			break;
+		case PERFORM_LOGOUT:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "performLogout()", Action.LOGOUT, getUserLogged().getEmail(), getRoleActived().getName()));
+			break;
+		default:
+			break;
+		}
 	}
 	
-	private void stopSpinner() {
-		loginSpinner.setVisible(false);
+	private enum LoginAudit{
+		PERFORM_LOGIN,
+		PERFORM_LOGOUT
 	}
 }
