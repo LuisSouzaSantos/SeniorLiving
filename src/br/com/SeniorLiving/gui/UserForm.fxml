@@ -54,7 +54,7 @@
             <Font size="10.0" />
          </font>
       </Text>
-      <Button layoutX="39.0" layoutY="505.0" onMouseClicked="#createNewUserButtonAction" prefHeight="37.0" prefWidth="137.0" style="-fx-background-color: #47B2E6;" text="Adicionar" textFill="WHITE">
+      <Button fx:id="userFormCreateButton" layoutX="39.0" layoutY="505.0" onMouseClicked="#createNewUserButtonAction" prefHeight="37.0" prefWidth="137.0" style="-fx-background-color: #47B2E6;" text="Adicionar" textFill="WHITE">
          <effect>
             <DropShadow blurType="GAUSSIAN" color="#00000032" height="5.0" offsetX="2.0" offsetY="2.0" radius="3.25" width="10.0" />
          </effect>
@@ -72,6 +72,14 @@
             <Font size="10.0" />
          </font>
       </Text>
+      <Button fx:id="userFormUpdateButton" layoutX="39.0" layoutY="505.0" onMouseClicked="#updateUserButtonAction" prefHeight="37.0" prefWidth="137.0" style="-fx-background-color: #47B2E6;" text="Atualizar" textFill="WHITE">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#00000032" height="5.0" offsetX="2.0" offsetY="2.0" radius="3.25" width="10.0" />
+         </effect>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
    <effect>
       <DropShadow />

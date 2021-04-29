@@ -44,6 +44,8 @@ public class AuditServiceImpl extends Thread implements AuditService {
 	private void performSaveAudit() {
 		Audit lastAuditObject = waitingAuditList.poll();
 		
+		if(lastAuditObject == null) { return; }
+		
 		if((entityManager == null) || (entityManager.getTransaction() == null) || (entityManager.isOpen() == false) || (entityManager.getTransaction().isActive() == false)) { 
 			entityManager = Database.getConnection(); 
 			entityManager.getTransaction().begin(); 

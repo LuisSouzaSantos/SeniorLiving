@@ -51,7 +51,7 @@ public class User extends BaseConfig {
 			name = "user_role",
 			joinColumns = @JoinColumn(name="user_id"),
 			inverseJoinColumns = @JoinColumn(name="role_id"))
-	private List<Role> roleList; 
+	private List<Role> roleList;
 	
 	public Long getId() {
 		return id;
@@ -131,6 +131,10 @@ public class User extends BaseConfig {
 
 	public void setCodeChangePasswordUsed(Boolean codeChangePasswordUsed) {
 		this.codeChangePasswordUsed = codeChangePasswordUsed;
+	}
+	
+	public boolean hasRole(String roleName) {
+		return this.roleList.stream().anyMatch(role -> role.getName().equals(roleName));
 	}
 
 	@Override
