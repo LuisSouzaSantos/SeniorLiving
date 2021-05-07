@@ -5,7 +5,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.exception.UserException;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.service.impl.UserServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
@@ -25,7 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class UserController extends Controller implements Initializable, Runnable {
+public class UserController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/UserList.fxml";
 	private final static String UI_USER_FORM_PATH = "/br/com/SeniorLiving/gui/UserForm.fxml";
@@ -40,38 +43,65 @@ public class UserController extends Controller implements Initializable, Runnabl
 	
 	@FXML
 	private TableColumn<User, String> emailColumn;
-	
 	@FXML
 	private TableColumn<User, String> nicknameColumn;
-	
 	@FXML
 	private TableColumn<User, Boolean> statusColumn;
-	
 	@FXML
 	private TableColumn<User, Pane> actionsColumn;
 	
 	@FXML
-	private Button newUserButton;
-
-    
-	@Override
-	public void run() {
-		initialize(null, null);
-	}
+	private Button newUserButton; 
 	
     @Override
     public void initialize(URL url, ResourceBundle db) {
     	initializeNodes();
     }
     
-    public FXMLLoader getUserFormView() {
-    	return new FXMLLoader(getClass().getResource(UI_USER_FORM_PATH));
-    }
-
-	@Override
+    @Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
 	}
+    
+    public FXMLLoader getUserFormView() {
+    	return new FXMLLoader(getClass().getResource(UI_USER_FORM_PATH));
+    }
+    
+    public void reloadMe() {
+    	userTable.getItems().clear();
+    	load();
+    }
+    
+    public void addNewUserOnTable(User user) {
+	    if((user == null) || (user.getId() == null)) { return; }
+	   
+	    if(userTable == null) { return; }
+
+	    userTable.getItems().add(user);
+    }
+    
+    public void removeUserOnTable(User user) {
+    	if((user == null) || (user.getId() == null)) { return; }
+    	
+    	if(userTable == null) { return; }
+    	
+    	userTable.getItems().remove(user);
+    }
+    
+    public void updateUserOnTable(User oldUser, User userUpdated) {
+    	if(userTable == null) { return; }
+    	
+    	if((oldUser == null) || (userUpdated == null)) { return; }
+    	
+    	if(oldUser.getId().equals(userUpdated.getId()) == false) {
+    		userTable.getItems().clear();
+        	load();
+    		return; 
+    	}
+    	
+    	userTable.getItems().clear();
+    	load();
+    }
 	
 	private void initializeNodes() {
 		load();
@@ -87,6 +117,8 @@ public class UserController extends Controller implements Initializable, Runnabl
 		users.forEach(user -> {
 			userTable.getItems().add(user);
 		});
+
+		UserController currentUserController = this;
 		
 		actionsColumn.setCellFactory(param -> new TableCell<User, Pane>() {
 			@Override
@@ -101,7 +133,7 @@ public class UserController extends Controller implements Initializable, Runnabl
 	    			editImage.setLayoutX(10.0);
 	            	deleteImage.setLayoutX(60.0);
 	            	
-	    			editImage.setOnMouseClicked(editUserButtonAction(user));
+	    			editImage.setOnMouseClicked(editUserButtonAction(user, currentUserController));
 	    			deleteImage.setOnMouseClicked(deleteUserButtonAction(user));
 	            	
 	            	pane.getChildren().addAll(editImage, deleteImage);
@@ -110,7 +142,6 @@ public class UserController extends Controller implements Initializable, Runnabl
 	            }  
 	        }
 		});
-
 	}
 	
 	@FXML
@@ -122,6 +153,7 @@ public class UserController extends Controller implements Initializable, Runnabl
 		UserFormController userFormControllerLoaded = loader.getController();
 		userFormControllerLoaded.setCreatedForm(true);
 		userFormControllerLoaded.setUser(null);
+		userFormControllerLoaded.setFather(this);
 		userFormControllerLoaded.performReload();
 		
 		Stage stage = new Stage();
@@ -132,7 +164,7 @@ public class UserController extends Controller implements Initializable, Runnabl
 		userFormControllerLoaded.setStageMe(stage);
 	}
 	
-	private EventHandler<Event> editUserButtonAction(User user) {
+	private EventHandler<Event> editUserButtonAction(User user, UserController father) {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
@@ -145,6 +177,7 @@ public class UserController extends Controller implements Initializable, Runnabl
 					UserFormController userFormControllerLoaded = loader.getController();
 					userFormControllerLoaded.setCreatedForm(false);
 					userFormControllerLoaded.setUser(user);
+					userFormControllerLoaded.setFather(father);
 					userFormControllerLoaded.performReload();
 					
 					Stage stage = new Stage();
@@ -164,11 +197,45 @@ public class UserController extends Controller implements Initializable, Runnabl
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
-				System.out.println(user);
+				int optionChosen = JOptionPane.showConfirmDialog(null,"Deseja excluir o usuário "+ user.getEmail());
+				
+				if(optionChosen != JOptionPane.YES_OPTION) { return; }
+				
+				try {
+					deleteUser(user);
+					JOptionPane.showMessageDialog(null, "Usuário "+user.getEmail()+" deletado com sucesso.");
+					removeUserOnTable(user);
+				}catch (UserException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+				
 			}
 		};
 	}
-
-
+	
+	private void deleteUser(User user) throws UserException {
+		String messageInfo = userService.delete(user.getId());
+		
+		if(messageInfo == "ERROR") { throw new UserException("Erro ao excluir o usuário "+user.getEmail()); }
+	}
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

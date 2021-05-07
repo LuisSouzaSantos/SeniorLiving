@@ -12,11 +12,15 @@ public interface UserDAO {
 	
 	User update(User user);
 	
-	void delete(Long id);
+	String delete(Long id);
 	
 	User getUserByEmail(String email);
 	
+	User getById(Long id);
+	
 	List<User> getAll();
+	
+	List<User> getUsersByRole(String roleName);
 	
 	void startConnection(EntityManager entityManager);
 	

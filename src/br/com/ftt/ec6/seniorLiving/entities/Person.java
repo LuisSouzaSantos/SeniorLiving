@@ -64,7 +64,7 @@ public class Person extends BaseConfig {
 	private String addressNeighborhood;
 	
 	@Column(nullable = false, name = "birth_date")
-	private LocalDate  birthDate;
+	private LocalDate birthDate;
 	
 	@ManyToMany
 	@JoinTable(

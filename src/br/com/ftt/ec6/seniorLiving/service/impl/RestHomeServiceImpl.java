@@ -17,6 +17,7 @@ import br.com.ftt.ec6.seniorLiving.service.RestHomeService;
 public class RestHomeServiceImpl implements RestHomeService {
 
 	private static RestHomeServiceImpl instance;
+	private static final RestHomeDAO restHomeDAO = RestHomeDAOImpl.getInstance(null);
 	
 	private RestHomeServiceImpl() {}
 	
@@ -25,6 +26,18 @@ public class RestHomeServiceImpl implements RestHomeService {
 			instance = new RestHomeServiceImpl();
 		}
 		return instance;
+	}
+	
+	@Override
+	public List<RestHome> getAll() {
+		EntityManager entityManagerConnection = Database.getConnection();
+		entityManagerConnection.getTransaction().begin();
+		restHomeDAO.startConnection(entityManagerConnection);
+		List<RestHome> restHomeList = restHomeDAO.getAll();
+		entityManagerConnection.close();
+		restHomeDAO.stopConnection();
+		
+		return restHomeList;
 	}
 	
 	@Override
@@ -55,16 +68,17 @@ public class RestHomeServiceImpl implements RestHomeService {
 		restHome.setAddressCep(addressCep);
 		restHome.setAddressNeighborhood(addressNeighborhood);
 		restHome.setAdmin(admin);
-		restHome.setAccommodationList(accommodationList);
-		restHome.setUserList(userList);
-		restHome.setTypeList(typeList);
+//		restHome.setAccommodationList(accommodationList);
+//		restHome.setUserList(userList);
+//		restHome.setTypeList(typeList);
 		
-		EntityManager entityManager = Database.getConnection();
-		entityManager.getTransaction().begin();
-		RestHomeDAO restHomeDAO = RestHomeDAOImpl.getInstance(entityManager);
+		EntityManager entityManagerConnection = Database.getConnection();
+		entityManagerConnection.getTransaction().begin();
+		restHomeDAO.startConnection(entityManagerConnection);
 		RestHome newRestHome = restHomeDAO.save(restHome);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		entityManagerConnection.getTransaction().commit();
+		entityManagerConnection.close();
+		restHomeDAO.stopConnection();
 		
 		return newRestHome;
 	}

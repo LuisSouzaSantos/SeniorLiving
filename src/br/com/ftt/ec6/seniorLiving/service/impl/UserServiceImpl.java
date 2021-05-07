@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		
 		if(userRetrieved != null) { throw new UserException("Já existe um usuário com esse email cadastrado na aplicação"); }
 		
-		if(checkPassword(password, passwordConfirmation) == false) { throw new UserException("Senha de confirmação está divergente da senha "); }
+		if(checkPassword(password, passwordConfirmation) == false) { throw new UserException("Senha de confirmação está divergente da senha"); }
 		
 		User user = new User();
 		user.setEmail(email);
@@ -59,14 +59,41 @@ public class UserServiceImpl implements UserService {
 		
 		return user;
 	}
+	
+	@Override
+	public User update(User user) throws UserException {
+		if(user == null) { throw new UserException("Usuário = não pode ser nulo"); }
+		
+		validateUserUpdateParameters(user.getEmail(), user.getNickname(), user.getPassword(), user.getPasswordConfirmation(), user.getRoleList());
+		
+		if(roleService.checkRoleList(user.getRoleList()) == false) { throw new UserException("Lista de papéis invalida"); }
+		
+		EntityManager entityManagerConnection = Database.getConnection();
+		userDAO.startConnection(entityManagerConnection);
+		
+		entityManagerConnection.getTransaction().begin();
+		User userRetrieved = userDAO.getUserByEmail(user.getEmail());
+		
+		if((userRetrieved != null) && (userRetrieved.getId().equals(user.getId()) == false)) { throw new UserException("Já existe um usuário com esse email cadastrado na aplicação"); }
+		
+		userDAO.update(user);
+		entityManagerConnection.getTransaction().commit();
+		userDAO.stopConnection();
+		
+		return user;
+	}
 
 	@Override
-	public void delete(Long id) {
+	public String delete(Long id) {
 		EntityManager entityManager =  Database.getConnection();
 		userDAO.startConnection(entityManager);
-		userDAO.delete(id);
+		entityManager.getTransaction().begin();
+		String messageInfo = userDAO.delete(id);
+		entityManager.getTransaction().commit();
 		entityManager.close();
 		userDAO.stopConnection();
+		
+		return messageInfo;
 	}
 
 	@Override
@@ -92,6 +119,18 @@ public class UserServiceImpl implements UserService {
 		return users;
 	}
 	
+	@Override
+	public List<User> getUsersByRole(String roleName) {
+		EntityManager entityManager = Database.getConnection();
+		entityManager.getTransaction().begin();
+		userDAO.startConnection(entityManager);
+		List<User> users = userDAO.getUsersByRole(roleName);
+		entityManager.close();
+		userDAO.stopConnection();
+		
+		return users;
+	}
+	
 	private void validateUserParameters(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException {
 		if(email == null || email.trim().isEmpty()) { throw new UserException("Email não pode estar em branco."); }
 		
@@ -100,6 +139,14 @@ public class UserServiceImpl implements UserService {
 		if(password == null || password.trim().isEmpty()) { throw new UserException("Senha não pode estar em branco."); }
 		
 		if(passwordConfirmation == null || passwordConfirmation.trim().isEmpty()) { throw new UserException("Confirmação da senha não pode estar em branco."); }
+		
+		if(roleList == null || roleList.isEmpty()) { throw new UserException("Ao menos uma role deve ser selecionada."); }
+	}
+	
+	private void validateUserUpdateParameters(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException {
+		if(email == null || email.trim().isEmpty()) { throw new UserException("Email não pode estar em branco."); }
+		
+		if(nickname == null || nickname.trim().isEmpty()) { throw new UserException("Apelido não pode estar em branco."); }
 		
 		if(roleList == null || roleList.isEmpty()) { throw new UserException("Ao menos uma role deve ser selecionada."); }
 	}

@@ -13,7 +13,7 @@
 
 <Pane prefHeight="501.0" prefWidth="1195.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
    <children>
-      <TableView fx:id="userTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="843.0" style="-fx-background-color: #F1FDFE;">
+      <TableView fx:id="userTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="843.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
         <columns>
           <TableColumn fx:id="emailColumn" prefWidth="374.0" style="-fx-background-color: #47B2E6;" text="Email" />
           <TableColumn fx:id="nicknameColumn" prefWidth="254.0" style="-fx-background-color: #47B2E6;" text="Apelido" />

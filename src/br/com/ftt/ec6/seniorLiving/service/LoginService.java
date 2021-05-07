@@ -1,8 +1,7 @@
 package br.com.ftt.ec6.seniorLiving.service;
 
-import javax.security.auth.login.LoginException;
-
 import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.exception.LoginException;
 
 public interface LoginService {
 

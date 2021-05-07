@@ -10,9 +10,13 @@ public interface UserService {
 
 	User save(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException;
 	
-	void delete(Long id);
+	User update(User user) throws UserException;
+	
+	String delete(Long id);
 	
 	User getUserByEmail(String email);
 	
 	List<User> getAll();
+	
+	List<User> getUsersByRole(String roleName);
 }

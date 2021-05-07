@@ -9,5 +9,5 @@ public interface AccommodationDAO {
 	
 	Accommodation getAccommodationByName(String name);
 	
-	void delete(Long id);
+	String delete(Long id);
 }

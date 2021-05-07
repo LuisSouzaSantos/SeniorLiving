@@ -1,18 +1,28 @@
 package br.com.ftt.ec6.seniorLiving.service.impl;
 
 import javax.persistence.EntityManager;
-import javax.security.auth.login.LoginException;
 
 import br.com.ftt.ec6.seniorLiving.DAO.UserDAO;
 import br.com.ftt.ec6.seniorLiving.DAO.impl.UserDAOImpl;
 import br.com.ftt.ec6.seniorLiving.db.Database;
 import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.exception.LoginException;
 import br.com.ftt.ec6.seniorLiving.service.LoginService;
 import br.com.ftt.ec6.seniorLiving.utils.BCrypt;
 
 public class LoginServiceImpl implements LoginService {
 	
+	private static LoginServiceImpl instance;
 	private final static UserDAO userDAO =  UserDAOImpl.getInstance();
+	
+	private LoginServiceImpl() {}
+	
+	public static LoginServiceImpl getInstance() {
+		if(instance == null) {
+			instance = new LoginServiceImpl();
+		}
+		return instance;
+	}
 	
 	@Override
 	public User performLogin(String email, String password) throws LoginException {

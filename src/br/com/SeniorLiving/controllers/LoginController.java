@@ -6,22 +6,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javax.security.auth.login.LoginException;
-import javax.swing.JOptionPane;
-
 import br.com.ftt.ec6.seniorLiving.entities.Action;
 import br.com.ftt.ec6.seniorLiving.entities.Audit;
 import br.com.ftt.ec6.seniorLiving.entities.User;
+import br.com.ftt.ec6.seniorLiving.exception.LoginException;
 import br.com.ftt.ec6.seniorLiving.service.AuditService;
+import br.com.ftt.ec6.seniorLiving.service.LoginService;
+import br.com.ftt.ec6.seniorLiving.service.callback.LoginInfoCallBack;
 import br.com.ftt.ec6.seniorLiving.service.impl.AuditServiceImpl;
 import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
-import br.com.ftt.ec6.seniorLiving.utils.Constraints;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -37,6 +34,7 @@ public class LoginController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Login.fxml";
 	private final static AuditService audit = AuditServiceImpl.getInstance();
+	private final static LoginService loginService = LoginServiceImpl.getInstance();
 	
 	@FXML
 	private TextField txtEmail;
@@ -55,30 +53,30 @@ public class LoginController extends Controller implements Initializable {
 	private Text loginErrorPasswordMessageText;
 	@FXML
 	private Text loginErrorSignInMessageText;
-	
+		
 	@FXML
-	private Pane loginSpinner;
-	@FXML private AnchorPane rootPane;
+	private Pane loginProgressIndicator;
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
 	}
 	
+	public void initializeNodes() {
+		initText();
+		cleanErrorsMessages();
+	}
+	
 	public void performLogin() throws LoginException {
+		//this.initProgressIndicator();
 		performAudit(LoginAudit.PERFORM_LOGIN);
 		try {
 			if(validateFields() == false) { return; }
 			
-			if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { JOptionPane.showMessageDialog(null,"Email nï¿½o pode estar em branco"); } 
-			
-			if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { JOptionPane.showMessageDialog(null,"Senha nï¿½o pode estar em branco"); } 
-			
 			String email = txtEmail.getText();
 			String password = txtPassword.getText();
 			
-			LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
-			User userLogged = loginServiceImpl.performLogin(email, password);
+			User userLogged = loginService.performLogin(email, password);
 			setUserLogged(userLogged);
 			
 			MenuController menuController = new MenuController();
@@ -92,20 +90,12 @@ public class LoginController extends Controller implements Initializable {
 			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
 			newStage.getIcons().add(anotherIcon);
 			
-
 			Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
 		} catch (LoginException e) {
 			loginErrorSignInMessageText.setText(e.getMessage());
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	
-
-	/*		Main.changeStage(newStage);
-			Main.getCurrentStage().close();
-		} catch (Exception e) {
-			e.getMessage();
-		}			
-*/
+		}
 	}
 	
 	public void performLogout() {
@@ -158,14 +148,22 @@ public class LoginController extends Controller implements Initializable {
 		Map<String, String> errorsList = new HashMap<String, String>();
 		
 		if(txtEmail == null || txtEmail.getText().trim().isEmpty()) { 
-			errorsList.put("EMAIL", "Email nï¿½o pode estar em branco");
+			errorsList.put("EMAIL", "Email não pode estar em branco");
 		} 
 		
 		if(txtPassword == null || txtPassword.getText().trim().isEmpty()) { 
-			errorsList.put("PASSWORD", "Senha nï¿½o pode estar em branco");
+			errorsList.put("PASSWORD", "Senha não pode estar em branco");
 		} 
 		
 		return errorsList;
+	}
+	
+	private void initProgressIndicator() {
+		loginProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		loginProgressIndicator.setVisible(false);
 	}
 		
 	private void performAudit(LoginAudit loginAudit) {
@@ -185,4 +183,22 @@ public class LoginController extends Controller implements Initializable {
 		PERFORM_LOGIN,
 		PERFORM_LOGOUT
 	}
+	
+	private void performLoginService(String email, String password, final LoginInfoCallBack callback) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				initProgressIndicator();
+				try {
+					User user = loginService.performLogin(email, password);
+					callback.onSucess(user);
+				} catch (LoginException e) {
+					callback.onFail(e);
+				}finally {
+					stopProgressIndicator();
+				}
+			}
+		}, "PERFORM_LOGIN_SERVICE_THREAD").start();
+	}
+	
 }

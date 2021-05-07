@@ -1,5 +1,7 @@
 package br.com.ftt.ec6.seniorLiving.DAO.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.ftt.ec6.seniorLiving.DAO.UserDAO;
@@ -21,16 +23,6 @@ public class UserDAOImpl extends DAOImpl<User> implements UserDAO{
 	}
 	
 	@Override
-	public void startConnection(EntityManager entityManager) {
-		instance.setEntityManager(entityManager);
-	}
-	
-	@Override
-	public void stopConnection() {
-		clearEntityManager();
-	}
-	
-	@Override
 	public User getUserByEmail(String email) {
 		try {
 			return super.entityManager.createQuery(findUserByEmailQuery(), User.class)
@@ -41,9 +33,34 @@ public class UserDAOImpl extends DAOImpl<User> implements UserDAO{
 		}
 		
 	}
+	
+	@Override
+	public List<User> getUsersByRole(String roleName) {
+		try {
+			return super.entityManager.createQuery(findUsersByRoleNameQuery(), User.class)
+			  		 .setParameter("name", roleName)
+			         .getResultList();
+		}catch(RuntimeException e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public void startConnection(EntityManager entityManager) {
+		instance.setEntityManager(entityManager);
+	}
+	
+	@Override
+	public void stopConnection() {
+		clearEntityManager();
+	}
 
 	private String findUserByEmailQuery() {
 		return "SELECT u from User u where u.email = :email";
+	}
+	
+	private String findUsersByRoleNameQuery() {
+		return "SELECT u from User u JOIN u.roleList rl where rl.name = :name";
 	}
 	
 	private void setEntityManager(EntityManager entityManager) {
@@ -53,5 +70,7 @@ public class UserDAOImpl extends DAOImpl<User> implements UserDAO{
 	private void clearEntityManager() {
 		super.entityManager = null;
 	}
+
+	
 	
 }

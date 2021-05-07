@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="777.0" style="-fx-background-color: #fdfdfd;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.RestHomeFormController">
+   <children>
+      <Pane layoutY="-2.0" prefHeight="64.0" prefWidth="777.0" style="-fx-background-color: #47B2E6;">
+         <children>
+            <Text fill="WHITE" layoutX="264.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de  Casa de Repouso">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Text fill="#757373" layoutX="39.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Razão Social" />
+      <TextField fx:id="formRestHomeSocialReasonField" layoutX="39.0" layoutY="121.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px; -fx-background-color: #ffffff;" styleClass="form-field" stylesheets="@form.css" />
+      <Text fx:id="formRestHomeErrorSocialReasonMessageText" fill="#cc0000" layoutX="42.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{SOCIAL_REASON_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="39.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CNPJ" />
+      <TextField fx:id="formRestHomeCNPJField" layoutX="39.0" layoutY="196.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formRestHomeErrorCNPJMessageText" fill="#cc0000" layoutX="42.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{CNPJ_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="41.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrador" />
+      <ComboBox fx:id="formRestHomeAdminComboBox" layoutX="38.0" layoutY="271.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formRestHomeErrorAdminMessageText" fill="#cc0000" layoutX="41.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{ADMINISTRATION_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="41.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CEP" />
+      <TextField fx:id="formResetHomeCEPField" layoutX="39.0" layoutY="348.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formRestHomeErrorCEPMessageText" fill="#cc0000" layoutX="42.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{CEP_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="422.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rua" />
+      <TextField fx:id="formRestHomeStreetField" layoutX="422.0" layoutY="121.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px; -fx-background-color: #ffffff;" />
+      <Text fx:id="formRestHomeErrorStreetMessageText" fill="#cc0000" layoutX="425.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{STREET_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="424.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número" />
+      <TextField fx:id="formRestHomeStreetNumberField" layoutX="422.0" layoutY="196.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px; -fx-background-color: #ffffff;" />
+      <Text fx:id="formRestHomeErrorStreetNumberMessageText" fill="#cc0000" layoutX="425.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{NUMBER_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="422.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado" />
+      <ComboBox fx:id="formRestHomeStateComboBox" layoutX="422.0" layoutY="270.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px;" />
+      <Text fx:id="formRestHomeErrorStateMessageText" fill="#cc0000" layoutX="425.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{STATE_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#757373" layoutX="424.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bairro" />
+      <TextField fx:id="formRestHomeNeighborhoodField" layoutX="422.0" layoutY="344.0" prefHeight="37.0" prefWidth="314.0" style="-fx-border-width: 1px; -fx-border-color: d3d3d3; -fx-border-radius: 3px; -fx-background-color: #ffffff;" />
+      <Text fx:id="formRestHomeErrorNeighborhoodMessageText" fill="#cc0000" layoutX="425.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{NEIGHBORHOOD_ERROR}">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fx:id="formRestHomeErrorMessageText" fill="#cc0000" layoutX="212.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{ERROR}" textAlignment="CENTER" wrappingWidth="358.5771484375">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Button fx:id="restHomeFormCreateButton" layoutX="236.0" layoutY="482.0" onMouseClicked="#createRestHomeButtonAction" prefHeight="37.0" prefWidth="137.0" style="-fx-background-color: #47B2E6;" text="Adicionar" textFill="WHITE">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#00000032" height="5.0" offsetX="2.0" offsetY="2.0" radius="3.25" width="10.0" />
+         </effect>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="restHomeFormCloseButton" layoutX="420.0" layoutY="482.0" onMouseClicked="#closeRestHomeFormButtonAction" prefHeight="37.0" prefWidth="129.0" style="-fx-background-color: transparent;" text="Cancelar" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="restHomeFormUdpateButton" layoutX="236.0" layoutY="482.0" onMouseClicked="#updateRestHomeButtonAction" prefHeight="37.0" prefWidth="137.0" style="-fx-background-color: #47B2E6;" text="Atualizar" textFill="WHITE">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#00000032" height="5.0" offsetX="2.0" offsetY="2.0" radius="3.25" width="10.0" />
+         </effect>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+   <effect>
+      <DropShadow />
+   </effect>
+</Pane>

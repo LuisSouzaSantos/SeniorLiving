@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.MenuAdminController">
    <children>
       <AnchorPane layoutX="-17.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1219.0">
          <children>
@@ -106,7 +106,7 @@
                   </GridPane>
                </children>
             </Pane>
-            <Pane fx:id="menuAdminPaneTopContainer" layoutX="8.0" prefHeight="46.0" prefWidth="1210.0" style="-fx-background-color: #4472c4;">
+            <Pane fx:id="menuAdminPaneTopContainer" layoutX="8.0" prefHeight="46.0" prefWidth="1250.0" style="-fx-background-color: #4472c4;">
                <children>
                   <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="23.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -122,7 +122,7 @@
                   <DropShadow height="20.0" radius="4.5" spread="0.4" width="0.0" />
                </effect>
             </Pane>
-            <Pane fx:id="menuAdminSelectRestHomePane" layoutX="19.0" opacity="0.95" prefHeight="568.0" prefWidth="1200.0" style="-fx-background-color: #4472c4;" visible="false">
+            <Pane fx:id="menuAdminSelectRestHomePane" layoutX="19.0" opacity="0.95" prefHeight="568.0" prefWidth="1250.0" style="-fx-background-color: #4472c4;" visible="false">
                <children>
                   <Pane layoutX="390.0" layoutY="129.0" prefHeight="221.0" prefWidth="420.0" style="-fx-background-color: white;">
                      <children>

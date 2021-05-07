@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.ftt.ec6.seniorLiving.entities.Role;
-import br.com.ftt.ec6.seniorLiving.entities.User;
-import br.com.ftt.ec6.seniorLiving.service.UserService;
-import br.com.ftt.ec6.seniorLiving.service.impl.UserServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -135,7 +132,6 @@ public class MenuAdminController extends Controller implements Initializable {
 					UserController userController = new UserController();
 					FXMLLoader loader = userController.getFXMLLoader();
 					Pane pane = loader.load();
-					loader.getController();
 					contentContainer.getChildren().add(pane);
 				}catch(IOException e) { e.printStackTrace(); }	
 			}
@@ -149,17 +145,10 @@ public class MenuAdminController extends Controller implements Initializable {
 			@Override
 			public void handle(Event arg0) {
 				try {
-					
-					MenuAdminController menuAdminController = new MenuAdminController();
-					FXMLLoader loader = menuAdminController.getFXMLLoader();
-					AnchorPane anchorPane = loader.load();
-					loader.getController();
-					Scene futureScene = new Scene(anchorPane);
-					
-					Stage newStage = new Stage();
-					newStage.setScene(futureScene);
-					
-					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
+					RestHomeController restHomeController = new RestHomeController();
+					FXMLLoader loader = restHomeController.getFXMLLoader();
+					Pane pane = loader.load();
+					contentContainer.getChildren().add(pane);
 				}catch(IOException e) { e.printStackTrace(); }	
 			}
 	

@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.com.ftt.ec6.seniorLiving.entities.Action;
+import br.com.ftt.ec6.seniorLiving.entities.Audit;
+import br.com.ftt.ec6.seniorLiving.service.AuditService;
+import br.com.ftt.ec6.seniorLiving.service.impl.AuditServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +22,7 @@ import javafx.stage.Stage;
 public class MenuAdminGeralController extends Controller implements Initializable {
 	
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/MenuAdminGeral.fxml";
+	private final static AuditService audit = AuditServiceImpl.getInstance();
 
 	@FXML
 	private AnchorPane pane;
@@ -42,11 +47,11 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		
 		containerToScreen.getChildren().clear();
 		containerToScreen.getChildren().add(vBox);
-		containerToScreen.requestFocus();
 	}
 	
 	@FXML
 	private void userButtonClick() throws IOException {
+		performAudit(MenuAdminGeralAudit.ADMIN_GERAL_USER_CLICKED);
 		UserController userController = new UserController();
 		FXMLLoader loader = userController.getFXMLLoader();
 		VBox vBox = loader.load();
@@ -54,9 +59,11 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		
 		containerToScreen.getChildren().clear();
 		containerToScreen.getChildren().add(vBox);
+	}
 	
 	@FXML
 	private void restHomeButtonClick() throws IOException {
+		performAudit(MenuAdminGeralAudit.ADMIN_GERAL_REST_HOME_CLICKED);
 //		Stage newStage = new Stage();
 //		newStage.setScene(futureScene);
 //		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
@@ -76,6 +83,7 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		containerToScreen.getChildren().clear();
 		containerToScreen.getChildren().add(vBox);
 	}
+	
 	@FXML
 	private void logoutButtonClick(MouseEvent event) throws IOException {
 		LoginController loginController = new LoginController();
@@ -89,7 +97,6 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
 		newStage.getIcons().add(anotherIcon);
 		loginController.performLogout();
-		
 		
 		Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, true);
 	}
@@ -118,6 +125,34 @@ public class MenuAdminGeralController extends Controller implements Initializabl
 		e.getMessage();
 		}			
 	}
+	
+	private void performAudit(MenuAdminGeralAudit menuAdminGeralAudit) {
+		switch (menuAdminGeralAudit) {
+		case ADMIN_GERAL_USER_CLICKED:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "userButtonClick()", Action.CHOICE, getUserLogged().getEmail(), getRoleActived().getName()));
+			break;
+		case ADMIN_GERAL_REST_HOME_CLICKED:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "restHomeButtonClick()", Action.CHOICE, getUserLogged().getEmail(), getRoleActived().getName()));
+			break;
+		case ADMIN_GERAL_ABOUT_CLICKED:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "aboutButtonClick()", Action.CHOICE, getUserLogged().getEmail(), getRoleActived().getName()));
+			break;
+		case ADMIN_GERAL_LOGOUT:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "logoutButtonClick()", Action.LOGOUT, getUserLogged().getEmail(), getRoleActived().getName()));
+			break;
+		default:
+			audit.addToWaitingAuditList(new Audit(System.currentTimeMillis(), "NOT_FOUND", Action.NOT_FOUND, getUserLogged().getEmail(), getRoleActived().getName()));
+			break;
+		}
+	}
+	
+	private enum MenuAdminGeralAudit{
+		ADMIN_GERAL_USER_CLICKED,
+		ADMIN_GERAL_REST_HOME_CLICKED,
+		ADMIN_GERAL_ABOUT_CLICKED,
+		ADMIN_GERAL_LOGOUT;
+	}
+
 	
 }
 	

@@ -144,7 +144,7 @@ public class User extends BaseConfig {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", roleList=" + roleList + "]";
+		return this.email;
 	}
 		
 }

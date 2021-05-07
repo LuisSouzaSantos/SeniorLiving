@@ -1,6 +1,7 @@
 package br.com.SeniorLiving.controllers;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -28,9 +28,8 @@ public class UserFormController extends Controller implements Initializable {
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/UserForm.fxml";
 	private final UserService userService =  UserServiceImpl.getInstance();
 	private final RoleService roleService = RoleServiceImpl.getInstance();
-	
-	@FXML
-	private TableView<User> userTable;
+	private final static String[] FIELDS_TO_BE_VALIDATE_IN_CREATE = {"EMAIL", "NICKNAME", "PASSWORD", "PASSWORD_CONFIRMATION", "ROLE"};
+	private final static String[] FIELDS_TO_BE_VALIDATE_IN_UPDATE = {"EMAIL", "NICKNAME", "ROLE"};
 	
 	@FXML
 	private TextField formUserEmailField;
@@ -64,13 +63,9 @@ public class UserFormController extends Controller implements Initializable {
 	private Button userFormUpdateButton;
 	
 	private Stage me;
-	
 	private boolean isCreatedForm;
 	private User user;
-
-    public UserFormController() {
-
-    }
+	private UserController father;
 	
     @Override
     public void initialize(URL url, ResourceBundle db) {
@@ -105,7 +100,7 @@ public class UserFormController extends Controller implements Initializable {
 	@FXML
 	private void createNewUserButtonAction() {
 		try {
-			if(isValidFields() == false) { return; }
+			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
 			
 			String[] roleNameArray = new String[2]; 
 			
@@ -119,8 +114,9 @@ public class UserFormController extends Controller implements Initializable {
 			
 			List<Role> roleList =  roleService.findRoleListByRoleNameArray(roleNameArray);
 			
-			userService.save(formUserEmailField.getText(), formUserNicknameField.getText(), formUserPasswordField.getText(), formUserPasswordConfirmationField.getText(), roleList);
-			clearForm();
+			User user = userService.save(formUserEmailField.getText(), formUserNicknameField.getText(), formUserPasswordField.getText(), formUserPasswordConfirmationField.getText(), roleList);
+			closeMe();
+			father.addNewUserOnTable(user);
 		}catch(UserException ex) {
 			formUserErrorMessageText.setText(ex.getMessage());
 		}
@@ -128,7 +124,33 @@ public class UserFormController extends Controller implements Initializable {
 	
 	@FXML
 	private void updateUserButtonAction() {
-		
+			
+		try {
+			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
+			
+			String[] roleNameArray = new String[2]; 
+			
+			if(formUserAdminGeralCheckBox.isSelected()) {
+				roleNameArray[0] = "ADMIN_GERAL";
+			}
+			
+			if(formUserAdminLocalCheckBox.isSelected()) {
+				roleNameArray[1] = "ADMIN_LOCAL";
+			}
+			
+			List<Role> roleList =  roleService.findRoleListByRoleNameArray(roleNameArray);
+			this.user.getRoleList().clear();
+			
+			this.user.setEmail(formUserEmailField.getText());
+			this.user.setNickname(formUserNicknameField.getText());
+			this.user.setRoleList(roleList);
+			
+			userService.update(this.user);
+			closeMe();
+			father.reloadMe();
+		}catch(UserException ex) {
+			formUserErrorMessageText.setText(ex.getMessage());
+		}
 	}
 	
 	@FXML
@@ -137,10 +159,10 @@ public class UserFormController extends Controller implements Initializable {
 		closeMe();
 	}
 	
-	private boolean isValidFields(){
+	private boolean isValidFields(List<String> fieldsToBeValidate){
 		cleanErrorMessages();
 		
-		Map<String, String> fieldsAndMessages = checkFields();
+		Map<String, String> fieldsAndMessages = checkFields(fieldsToBeValidate);
 		
 		fieldsAndMessages.forEach((key, value) -> {
 			if(key.equals("EMAIL")) {
@@ -167,26 +189,26 @@ public class UserFormController extends Controller implements Initializable {
 		return fieldsAndMessages.size() <= 0;
 	}
 	
-	private Map<String, String> checkFields() {
+	private Map<String, String> checkFields(List<String> fieldsToBeValidate) {
 		Map<String, String> errorsList = new HashMap<String, String>();
 		
-		if(formUserEmailField == null || formUserEmailField.getText().trim().isEmpty()) { 
+		if((fieldsToBeValidate.contains("EMAIL")) && (formUserEmailField == null || formUserEmailField.getText().trim().isEmpty())) { 
 			errorsList.put("EMAIL", "Email não pode estar em branco.");
 		} 
 		
-		if(formUserNicknameField == null || formUserNicknameField.getText().trim().isEmpty()) { 
+		if((fieldsToBeValidate.contains("NICKNAME")) && (formUserNicknameField == null || formUserNicknameField.getText().trim().isEmpty())) { 
 			errorsList.put("NICKNAME", "Apelido não pode estar em branco.");
 		}
 		
-		if(formUserPasswordField == null || formUserPasswordField.getText().trim().isEmpty()) { 
+		if((fieldsToBeValidate.contains("PASSWORD")) && ((formUserPasswordField == null) || (formUserPasswordField.getText().trim().isEmpty()))) { 
 			errorsList.put("PASSWORD", "Senha não pode estar em branco.");
 		}
 		
-		if(formUserPasswordConfirmationField == null || formUserPasswordConfirmationField.getText().trim().isEmpty()) { 
+		if((fieldsToBeValidate.contains("PASSWORD_CONFIRMATION")) && ((formUserPasswordConfirmationField == null) || formUserPasswordConfirmationField.getText().trim().isEmpty())) { 
 			errorsList.put("PASSWORD_CONFIRMATION", "Confirmação da senha não pode estar em branco.");
 		}
 		
-		if((formUserAdminGeralCheckBox.isSelected() == false) && (formUserAdminLocalCheckBox.isSelected() == false)) {
+		if((fieldsToBeValidate.contains("ROLE")) && ((formUserAdminGeralCheckBox.isSelected() == false) && (formUserAdminLocalCheckBox.isSelected() == false))) {
 			errorsList.put("ROLE", "Ao menos uma role deve ser selecionada.");
 		}
 		
@@ -219,6 +241,8 @@ public class UserFormController extends Controller implements Initializable {
 		
 		formUserEmailField.setText(this.user.getEmail());
 		formUserNicknameField.setText(this.user.getNickname());
+		formUserPasswordField.setDisable(true);
+		formUserPasswordConfirmationField.setDisable(true);
 		
 		if(this.user.hasRole("ADMIN_GERAL")) {
 			formUserAdminGeralCheckBox.setSelected(true);
@@ -231,6 +255,7 @@ public class UserFormController extends Controller implements Initializable {
 	}
 	
 	private void closeMe() {
+		this.clearForm();
 		this.me.close();
 	}
 	
@@ -252,6 +277,14 @@ public class UserFormController extends Controller implements Initializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public UserController getFather() {
+		return father;
+	}
+
+	public void setFather(UserController father) {
+		this.father = father;
 	}
 	
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="501.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
+<Pane prefHeight="501.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.RestHomeController">
    <children>
       <Pane layoutX="892.0" layoutY="80.0" prefHeight="384.0" prefWidth="220.0" style="-fx-background-color: #F1FDFE;">
          <children>
@@ -78,23 +78,19 @@
             <DropShadow />
          </effect>
       </Pane>
-      <TableView layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="849.0" style="-fx-background-color: #F1FDFE;">
+      <TableView fx:id="restHomeTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="849.0" style="-fx-background-color: #F1FDFE;">
          <columns>
-            <TableColumn fx:id="columnEmail" prefWidth="132.0" style="-fx-background-color: #47B2E6;" text="Razão Social" />
-            <TableColumn fx:id="columnNickname" prefWidth="69.0" style="-fx-background-color: #47B2E6;" text="CNPJ" />
-            <TableColumn fx:id="ColumnActive" prefWidth="122.0" style="-fx-background-color: #47B2E6;" text="Mês de Faturamento" />
-            <TableColumn fx:id="ColumnActions" prefWidth="115.0" style="-fx-background-color: #47B2E6;" text="Rua" />
-            <TableColumn fx:id="ColumnActions1" prefWidth="54.0" style="-fx-background-color: #47B2E6;" text="Número" />
-            <TableColumn fx:id="ColumnActions11" prefWidth="50.0" style="-fx-background-color: #47B2E6;" text="Estado" />
-            <TableColumn fx:id="ColumnActions12" prefWidth="91.0" style="-fx-background-color: #47B2E6;" text="CEP" />
-            <TableColumn fx:id="ColumnActions13" prefWidth="135.0" style="-fx-background-color: #47B2E6;" text="Bairro" />
-            <TableColumn fx:id="ColumnActions14" style="-fx-background-color: #47B2E6;" text="Ações" />
+            <TableColumn fx:id="socialReasonColumn" prefWidth="229.0" style="-fx-background-color: #47B2E6;" text="Razão Social" />
+            <TableColumn fx:id="cnpjColumn" prefWidth="326.0" style="-fx-background-color: #47B2E6;" text="CNPJ" />
+            <TableColumn fx:id="addressStateColumn" prefWidth="49.0" style="-fx-background-color: #47B2E6;" text="UF" />
+            <TableColumn fx:id="addressCepColumn" prefWidth="146.0" style="-fx-background-color: #47B2E6;" text="CEP" />
+            <TableColumn fx:id="actionsColumn" prefWidth="98.0" style="-fx-background-color: #47B2E6;" text="Ações" />
          </columns>
          <effect>
             <DropShadow />
          </effect>
       </TableView>
-      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="154.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Nova Casa de Repouso" textFill="WHITE">
+      <Button fx:id="createNewRestHomeButton" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#openNewRestHomeFormButton" prefHeight="32.0" prefWidth="154.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Nova Casa de Repouso" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

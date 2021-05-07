@@ -15,12 +15,17 @@ public abstract class DAOImpl<T> {
 		return entity;
 	}
 
-	public void delete(Long id) {
+	public String delete(Long id) {
 		try {
-			entityManager.createQuery(removeByIdQuery(), t)
-						.setParameter("id", id)
-						.executeUpdate();
-		}catch(RuntimeException e) {}
+			T entity = entityManager.find(t, id);
+//			entityManager.createQuery(removeByIdQuery())
+//						.setParameter("id", id)
+//						.executeUpdate();,
+			entityManager.remove(entity);
+			return "SUCESS";
+		}catch(RuntimeException e) {
+			return "ERROR";
+		}
 	}
 	
 	public List<T> getAll(){

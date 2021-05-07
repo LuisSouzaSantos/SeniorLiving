@@ -8,5 +8,6 @@ public enum Action {
 	DELETE,
 	UPDATE,
 	LOGIN,
-	LOGOUT;
+	LOGOUT,
+	NOT_FOUND;
 }

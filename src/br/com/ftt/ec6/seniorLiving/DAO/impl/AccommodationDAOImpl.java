@@ -30,15 +30,15 @@ public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements Acco
 		}catch(RuntimeException e) {return null;}
 	}
 
-	@Override
-	public void delete(Long id) {
-		try {
-			super.entityManager.createQuery(removeAccommodationById(), Accommodation.class)
-						.setParameter("id", id)
-						.executeUpdate();
-		}catch(RuntimeException e) {}
-		
-	}
+//	@Override
+//	public void delete(Long id) {
+//		try {
+//			super.entityManager.createQuery(removeAccommodationById(), Accommodation.class)
+//						.setParameter("id", id)
+//						.executeUpdate();
+//		}catch(RuntimeException e) {}
+//		
+//	}
 	
 	private String removeAccommodationById() {
 		return "DELETE from Accommodation a where a.id = :id";
