@@ -5,14 +5,19 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import br.com.ftt.ec6.seniorLiving.utils.MaritalStatus;
 
 @Entity
 @Table(name = "person")
@@ -30,8 +35,9 @@ public class Person extends BaseConfig {
 	@Column(nullable = false, length = 30)
 	private String nationality;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, name = "marital_status")
-	private String maritalStatus;
+	private MaritalStatus maritalStatus;
 	
 	@Column(nullable = false, length = 30)
 	private String job;
@@ -66,6 +72,10 @@ public class Person extends BaseConfig {
 	@Column(nullable = false, name = "birth_date")
 	private LocalDate birthDate;
 	
+	@ManyToOne
+	@JoinColumn(name = "rest_home_id", nullable = false)
+	private RestHome restHome;
+	
 	@ManyToMany
 	@JoinTable(
 			name = "person_type",
@@ -91,10 +101,10 @@ public class Person extends BaseConfig {
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
-	public String getMaritalStatus() {
+	public MaritalStatus getMaritalStatus() {
 		return maritalStatus;
 	}
-	public void setMaritalStatus(String maritalStatus) {
+	public void setMaritalStatus(MaritalStatus maritalStatus) {
 		this.maritalStatus = maritalStatus;
 	}
 	public String getJob() {
@@ -162,6 +172,12 @@ public class Person extends BaseConfig {
 	}
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
+	}
+	public RestHome getRestHome() {
+		return restHome;
+	}
+	public void setRestHome(RestHome restHome) {
+		this.restHome = restHome;
 	}
 	public List<Type> getTypeList() {
 		return typeList;

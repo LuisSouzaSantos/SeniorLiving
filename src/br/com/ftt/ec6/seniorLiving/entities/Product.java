@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -26,6 +28,10 @@ public class Product extends BaseConfig {
 	@Column(length = 100, nullable = false)
 	private String description;
 	
+	@ManyToOne
+	@JoinColumn(name = "rest_home_id", nullable = false)
+	private RestHome restHome;
+	
 	public Long getId() {
 		return id;
 	}
@@ -43,6 +49,12 @@ public class Product extends BaseConfig {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public RestHome getRestHome() {
+		return restHome;
+	}
+	public void setRestHome(RestHome restHome) {
+		this.restHome = restHome;
 	}
 	@Override
 	public String getLinkedToDatabase() {

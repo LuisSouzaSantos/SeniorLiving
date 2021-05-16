@@ -78,7 +78,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <TableView fx:id="restHomeTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="849.0" style="-fx-background-color: #F1FDFE;">
+      <TableView fx:id="restHomeTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="849.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
          <columns>
             <TableColumn fx:id="socialReasonColumn" prefWidth="229.0" style="-fx-background-color: #47B2E6;" text="Razão Social" />
             <TableColumn fx:id="cnpjColumn" prefWidth="326.0" style="-fx-background-color: #47B2E6;" text="CNPJ" />

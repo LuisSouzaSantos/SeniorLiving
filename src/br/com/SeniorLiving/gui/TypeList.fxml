@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="501.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
+<Pane prefHeight="501.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.TypeController">
    <children>
       <Pane layoutX="892.0" layoutY="74.0" prefHeight="240.0" prefWidth="220.0" style="-fx-background-color: #F1FDFE;">
          <children>
@@ -60,16 +60,16 @@
             <DropShadow />
          </effect>
       </Pane>
-      <TableView layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="843.0" style="-fx-background-color: #F1FDFE;">
+      <TableView fx:id="typeTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="843.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
          <columns>
-            <TableColumn fx:id="columnEmail" prefWidth="704.0" style="-fx-background-color: #47B2E6;" text="Nome" />
-            <TableColumn fx:id="ColumnActions" minWidth="0.0" prefWidth="138.0" style="-fx-background-color: #47B2E6;" text="Ações" />
+            <TableColumn fx:id="nameColumn" prefWidth="713.0" style="-fx-background-color: #47B2E6;" text="Nome" />
+            <TableColumn fx:id="actionsColumn" minWidth="0.0" prefWidth="129.0" style="-fx-background-color: #47B2E6;" text="Ações" />
          </columns>
          <effect>
             <DropShadow />
          </effect>
       </TableView>
-      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Novo Tipo" textFill="WHITE">
+      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#openTypeFormButtonAction" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Novo Tipo" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

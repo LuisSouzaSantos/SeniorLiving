@@ -1,5 +1,10 @@
 package br.com.ftt.ec6.seniorLiving.DAO;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.Type;
 
 public interface TypeDAO {
@@ -9,5 +14,13 @@ public interface TypeDAO {
 	
 	Type getTypeByName(String name);
 	
-	void delete(Long id);
+	String delete(Long id);
+	
+	List<Type> getAll();
+	
+	List<Type> getTypeByRestHome(RestHome restHome);
+	
+	void startConnection(EntityManager entityManager);
+	
+	void stopConnection();
 }

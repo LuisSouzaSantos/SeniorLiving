@@ -21,6 +21,7 @@ public class LoginServiceImpl implements LoginService {
 		if(instance == null) {
 			instance = new LoginServiceImpl();
 		}
+		
 		return instance;
 	}
 	

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="501.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
+<Pane prefHeight="501.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.PersonController">
    <children>
       <Pane layoutX="899.0" layoutY="79.0" prefHeight="384.0" prefWidth="220.0" style="-fx-background-color: #F1FDFE;">
          <children>
@@ -78,22 +78,19 @@
             <DropShadow />
          </effect>
       </Pane>
-      <TableView layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="859.0" style="-fx-background-color: #F1FDFE;">
+      <TableView fx:id="personTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="859.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
          <columns>
-            <TableColumn fx:id="columnEmail" prefWidth="151.0" style="-fx-background-color: #47B2E6;" text="Nome" />
-            <TableColumn fx:id="columnNickname" prefWidth="105.0" style="-fx-background-color: #47B2E6;" text="Estado Civil" />
-            <TableColumn fx:id="ColumnActions" prefWidth="110.0" style="-fx-background-color: #47B2E6;" text="Função" />
-            <TableColumn fx:id="ColumnActions2" prefWidth="92.0" style="-fx-background-color: #47B2E6;" text="CPF" />
-            <TableColumn fx:id="ColumnActions31" prefWidth="86.0" style="-fx-background-color: #47B2E6;" text="Telefone" />
-            <TableColumn fx:id="ColumnActions311" prefWidth="154.0" style="-fx-background-color: #47B2E6;" text="Email" />
-            <TableColumn fx:id="ColumnActions3121" minWidth="3.0" prefWidth="78.0" style="-fx-background-color: #47B2E6;" text="Tipo" />
-            <TableColumn fx:id="ColumnActions31211" minWidth="3.0" prefWidth="82.0" style="-fx-background-color: #47B2E6;" text="Ações" />
+            <TableColumn fx:id="nameColumn" prefWidth="243.0" style="-fx-background-color: #47B2E6;" text="Nome" />
+            <TableColumn fx:id="rgColumn" prefWidth="151.0" style="-fx-background-color: #47B2E6;" text="RG" />
+            <TableColumn fx:id="cpfColumn" prefWidth="183.0" style="-fx-background-color: #47B2E6;" text="CPF" />
+            <TableColumn fx:id="emailColumn" prefWidth="148.0" style="-fx-background-color: #47B2E6;" text="Email" />
+            <TableColumn fx:id="actionsColumn" minWidth="0.0" prefWidth="133.0" style="-fx-background-color: #47B2E6;" text="Ações" />
          </columns>
          <effect>
             <DropShadow />
          </effect>
       </TableView>
-      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Nova Pessoa" textFill="WHITE">
+      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#openPersonFormButtonAction" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Nova Pessoa" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

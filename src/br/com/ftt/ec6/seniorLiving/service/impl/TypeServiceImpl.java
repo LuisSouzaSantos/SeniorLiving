@@ -1,18 +1,33 @@
 package br.com.ftt.ec6.seniorLiving.service.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.ftt.ec6.seniorLiving.DAO.TypeDAO;
 import br.com.ftt.ec6.seniorLiving.DAO.impl.TypeDAOImpl;
 import br.com.ftt.ec6.seniorLiving.db.Database;
+import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.Type;
 import br.com.ftt.ec6.seniorLiving.exception.TypeException;
 import br.com.ftt.ec6.seniorLiving.service.TypeService;
 
 public class TypeServiceImpl implements TypeService {
-
+	
+	private static TypeServiceImpl instance;
+	private static TypeDAO typeDAO = TypeDAOImpl.getInstance();
+	
+	private TypeServiceImpl() {}
+	
+	public static TypeServiceImpl getInstance() {
+		if(instance == null) {
+			instance = new TypeServiceImpl();
+		}
+		return instance;
+	}
+	
 	@Override
-	public Type save(String name) throws TypeException {
+	public Type save(String name, RestHome restHome) throws TypeException {
 		if(name == null || name.trim().isEmpty()) { throw new TypeException("Tipo inválido"); }
 		
 		Type similarType = getTypeByName(name);
@@ -21,13 +36,17 @@ public class TypeServiceImpl implements TypeService {
 		
 		Type type = new Type();
 		type.setName(name);
+		type.setRestHome(restHome);
 		
 		EntityManager entityManager = Database.getConnection();
 		entityManager.getTransaction().begin();
-		TypeDAO typeDAO = TypeDAOImpl.getInstance(entityManager);
+		typeDAO.startConnection(entityManager);
+		
 		Type newType = typeDAO.save(type);
+		
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		typeDAO.stopConnection();
 		
 		return newType;
 	}
@@ -42,10 +61,13 @@ public class TypeServiceImpl implements TypeService {
 		
 		EntityManager entityManager = Database.getConnection();
 		entityManager.getTransaction().begin();
-		TypeDAO typeDAO = TypeDAOImpl.getInstance(entityManager);
+		typeDAO.startConnection(entityManager);
+		
 		Type type = typeDAO.update(typeUpdate);
+		
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		typeDAO.stopConnection();
 		
 		return type;
 	}
@@ -53,19 +75,44 @@ public class TypeServiceImpl implements TypeService {
 	@Override
 	public Type getTypeByName(String name) {
 		EntityManager entityManager = Database.getConnection();
-		TypeDAO typeDAO = TypeDAOImpl.getInstance(entityManager);
+		entityManager.getTransaction().begin();
+		typeDAO.startConnection(entityManager);
+		
 		Type type = typeDAO.getTypeByName(name);
+		
 		entityManager.close();
+		typeDAO.stopConnection();
 		
 		return type;
 	}
 
 	@Override
-	public void delete(Long id) {
+	public String delete(Long id) {
 		EntityManager entityManager = Database.getConnection();
-		TypeDAO typeDAO = TypeDAOImpl.getInstance(entityManager);
-		typeDAO.delete(id);
+		entityManager.getTransaction().begin();
+		typeDAO.startConnection(entityManager);
+		
+		String message = typeDAO.delete(id);
+		
+		entityManager.getTransaction().commit();
 		entityManager.close();
+		typeDAO.stopConnection();
+		
+		return message;
+	}
+	
+	@Override
+	public List<Type> getTypeByRestHome(RestHome resthome) {
+		EntityManager entityManager = Database.getConnection();
+		entityManager.getTransaction().begin();
+		typeDAO.startConnection(entityManager);
+		
+		List<Type> typeList = typeDAO.getTypeByRestHome(resthome);
+		
+		entityManager.close();
+		typeDAO.stopConnection();
+		
+		return typeList;
 	}
 
 }

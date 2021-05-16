@@ -1,29 +1,26 @@
 package br.com.ftt.ec6.seniorLiving.DAO.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.ftt.ec6.seniorLiving.DAO.ProductDAO;
 import br.com.ftt.ec6.seniorLiving.entities.Product;
+import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 
-public class ProductDAOImpl implements ProductDAO {
+public class ProductDAOImpl extends DAOImpl<Product> implements ProductDAO {
 
 	private static ProductDAOImpl instance;
-	private EntityManager entityManager;
 	
-	private ProductDAOImpl() {}
+	private ProductDAOImpl() {
+		super.t = Product.class;
+	}
 	
-	public static ProductDAOImpl getInstance(EntityManager entityManager) {
+	public static ProductDAOImpl getInstance() {
 		if(instance == null) {
 			instance = new ProductDAOImpl();
 		}
-		instance.setEntityManager(entityManager);
 		return instance;
-	}
-	
-	@Override
-	public Product save(Product product) {
-		entityManager.persist(product);
-		return product;
 	}
 	
 	@Override
@@ -34,29 +31,36 @@ public class ProductDAOImpl implements ProductDAO {
 						.getSingleResult();
 		}catch(RuntimeException e) {return null;}
 	}
+	
+	@Override
+	public List<Product> getProductByRestHome(RestHome restHome) {
+		try {
+			return super.entityManager.createQuery(getProductByRestHomeQuery(), Product.class)
+						.setParameter("restHome", restHome)
+						.getResultList();
+		}catch(RuntimeException e) {return null;}
+	}
+	
+	@Override
+	public void startConnection(EntityManager entityManager) {
+		instance.setEntityManager(entityManager);
+	}
 
 	@Override
-	public void delete(Long id) {
-		try {
-			this.entityManager.createQuery(removeProductById(), Product.class)
-						.setParameter("id", id)
-						.executeUpdate();
-		}catch(RuntimeException e) {}
-		
+	public void stopConnection() {
+		super.entityManager = null;
+	}
+	
+	private String getProductByRestHomeQuery() {
+		return "SELECT p from Product p where p.restHome = :restHome";
 	}
 	
 	private String findProductByNameQuery() {
 		return "SELECT p from Product p where p.name = :name";
 	}
 	
-	private String removeProductById() {
-		return "DELETE from Product p where p.id = :id";
-	}
-	
 	private void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-
-
 	
 }

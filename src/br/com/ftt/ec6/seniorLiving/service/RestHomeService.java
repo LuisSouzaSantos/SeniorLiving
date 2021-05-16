@@ -13,7 +13,11 @@ public interface RestHomeService {
 	RestHome save(String socialReason, String cnpj, String addressStreet, String addressNumber, String addressState, String addressCep, 
 			String addressNeighborhood, User admin, List<Accommodation> accommodationList, List<User> userList, List<Type> typeList) throws RestHomeException;
 	
+	RestHome update(RestHome restHome) throws RestHomeException;
+	
 	List<RestHome> getAll();
 	
-	void delete(Long id);
+	List<RestHome> getRestHomeByAdmin(User user);
+	
+	String delete(Long id);
 }

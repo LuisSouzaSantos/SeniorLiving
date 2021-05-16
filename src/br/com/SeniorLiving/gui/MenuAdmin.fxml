@@ -131,8 +131,8 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Text>
-                        <ComboBox layoutX="90.0" layoutY="86.0" prefHeight="25.0" prefWidth="241.0" />
-                        <Button layoutX="90.0" layoutY="149.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="241.0" style="-fx-background-color: #4472c4;" text="Selecionar" textFill="#f8f8f8">
+                        <ComboBox fx:id="menuAdminSelectRestHomeComboBox" layoutX="90.0" layoutY="86.0" prefHeight="25.0" prefWidth="241.0" />
+                        <Button layoutX="90.0" layoutY="149.0" mnemonicParsing="false" onMouseClicked="#menuAdminSelectRestHomeButtonAction" prefHeight="31.0" prefWidth="241.0" style="-fx-background-color: #4472c4;" text="Selecionar" textFill="#f8f8f8">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

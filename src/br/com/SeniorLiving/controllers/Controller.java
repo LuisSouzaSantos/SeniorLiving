@@ -1,5 +1,6 @@
 package br.com.SeniorLiving.controllers;
 
+import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ public abstract class Controller {
 	protected static final String VERSION = "v1.0.0";
 	private static User userLogged;
 	private static Role roleActived;
+	private static RestHome restHomeActived;
 
 	private static Stage lastStage;
 	private static Stage currentStage;
@@ -32,6 +34,14 @@ public abstract class Controller {
 		Controller.roleActived = roleActived;
 	}
 	
+	protected RestHome getRestHomeActived() {
+		return restHomeActived;
+	}
+
+	protected void setRestHomeActived(RestHome restHomeActived) {
+		Controller.restHomeActived = restHomeActived;
+	}
+
 	public static void goToNextScene(Stage currentStage, boolean closeCurrentStage, Stage nextStage, boolean isShowAndWait) throws RuntimeException{
 		if(nextStage == null) { throw new RuntimeException("Next Stage parameter cannot be null"); }
 		

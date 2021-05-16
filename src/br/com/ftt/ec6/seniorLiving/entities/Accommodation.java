@@ -2,9 +2,12 @@ package br.com.ftt.ec6.seniorLiving.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -23,8 +26,12 @@ public class Accommodation extends BaseConfig {
 	@Column(unique = true, length = 50, nullable = false)
 	private String name;
 	
-	@Column(unique = true, length = 100, nullable = false)
+	@Column(unique = false, length = 100, nullable = false)
 	private String description;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "rest_home_id")
+	private RestHome restHome;
 	
 	public Long getId() {
 		return id;
@@ -50,6 +57,14 @@ public class Accommodation extends BaseConfig {
 		this.description = description;
 	}
 	
+	public RestHome getRestHome() {
+		return restHome;
+	}
+
+	public void setRestHome(RestHome restHome) {
+		this.restHome = restHome;
+	}
+
 	@Override
 	public String getLinkedToDatabase() {
 		return LINKED_DATABASE;

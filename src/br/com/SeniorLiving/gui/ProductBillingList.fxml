@@ -72,7 +72,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <TableView layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="979.0" style="-fx-background-color: #F1FDFE;">
+      <TableView layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="979.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
          <columns>
             <TableColumn fx:id="columnEmail" prefWidth="121.0" style="-fx-background-color: #47B2E6;" text="Código de Registro" />
             <TableColumn fx:id="columnNickname" prefWidth="266.0" style="-fx-background-color: #47B2E6;" text="Produto" />

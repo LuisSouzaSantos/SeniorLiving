@@ -1,9 +1,12 @@
 package br.com.ftt.ec6.seniorLiving.DAO.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.ftt.ec6.seniorLiving.DAO.RestHomeDAO;
 import br.com.ftt.ec6.seniorLiving.entities.RestHome;
+import br.com.ftt.ec6.seniorLiving.entities.User;
 
 public class RestHomeDAOImpl extends DAOImpl<RestHome> implements RestHomeDAO {
 
@@ -30,4 +33,19 @@ public class RestHomeDAOImpl extends DAOImpl<RestHome> implements RestHomeDAO {
 		super.entityManager = null;
 	}
 
+	@Override
+	public List<RestHome> getRestHomeByAdmin(User user) {
+		try {
+			return super.entityManager.createQuery(getRestHomeByAdminQuery(), RestHome.class)
+					.setParameter("admin", user)
+					.getResultList();
+		}catch(RuntimeException e) {
+			return null;
+		}
+	}
+	
+	private String getRestHomeByAdminQuery() {
+		return "SELECT rh from RestHome rh where rh.admin = :admin";
+	}
+	
 }

@@ -1,9 +1,12 @@
 package br.com.ftt.ec6.seniorLiving.DAO.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.ftt.ec6.seniorLiving.DAO.AccommodationDAO;
 import br.com.ftt.ec6.seniorLiving.entities.Accommodation;
+import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 
 public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements AccommodationDAO {
 
@@ -13,11 +16,10 @@ public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements Acco
 		super.t = Accommodation.class;
 	}
 	
-	public static AccommodationDAOImpl getInstance(EntityManager entityManager) {
+	public static AccommodationDAOImpl getInstance() {
 		if(instance == null) {
 			instance = new AccommodationDAOImpl();
 		}
-		instance.setEntityManager(entityManager);
 		return instance;
 	}
 
@@ -29,27 +31,35 @@ public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements Acco
 						.getSingleResult();
 		}catch(RuntimeException e) {return null;}
 	}
-
-//	@Override
-//	public void delete(Long id) {
-//		try {
-//			super.entityManager.createQuery(removeAccommodationById(), Accommodation.class)
-//						.setParameter("id", id)
-//						.executeUpdate();
-//		}catch(RuntimeException e) {}
-//		
-//	}
 	
-	private String removeAccommodationById() {
-		return "DELETE from Accommodation a where a.id = :id";
+	@Override
+	public List<Accommodation> getAccommodationByRestHome(RestHome restHome) {
+		try {
+			return super.entityManager.createQuery(getAccommodationByRestHomeQuery(), Accommodation.class)
+						.setParameter("restHome", restHome)
+						.getResultList();
+		}catch(RuntimeException e) {return null;}
+	}
+	
+	@Override
+	public void startConnection(EntityManager entityManager) {
+		instance.setEntityManager(entityManager);
+	}
+
+	@Override
+	public void stopConnection() {
+		super.entityManager = null;
 	}
 	
 	private String findAccommodationByNameQuery() {
 		return "SELECT a from Accommodation a where a.name = :name";
 	}
 	
+	private String getAccommodationByRestHomeQuery () {
+		return "SELECT a from Accommodation a where a.restHome = :restHome";
+	}
+	
 	private void setEntityManager(EntityManager entityManager) {
 		super.entityManager = entityManager;
 	}
-
 }

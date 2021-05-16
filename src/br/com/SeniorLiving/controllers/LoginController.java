@@ -12,9 +12,10 @@ import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.exception.LoginException;
 import br.com.ftt.ec6.seniorLiving.service.AuditService;
 import br.com.ftt.ec6.seniorLiving.service.LoginService;
-import br.com.ftt.ec6.seniorLiving.service.callback.LoginInfoCallBack;
 import br.com.ftt.ec6.seniorLiving.service.impl.AuditServiceImpl;
 import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
+import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,7 +35,7 @@ public class LoginController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Login.fxml";
 	private final static AuditService audit = AuditServiceImpl.getInstance();
-	private final static LoginService loginService = LoginServiceImpl.getInstance();
+	private final static LoginService loginService = (LoginService) ServiceProxy.newInstance(LoginServiceImpl.getInstance());
 	
 	@FXML
 	private TextField txtEmail;
@@ -57,6 +58,8 @@ public class LoginController extends Controller implements Initializable {
 	@FXML
 	private Pane loginProgressIndicator;
 	
+	private User userLogged;
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
@@ -68,34 +71,51 @@ public class LoginController extends Controller implements Initializable {
 	}
 	
 	public void performLogin() throws LoginException {
-		//this.initProgressIndicator();
+		this.initProgressIndicator();
 		performAudit(LoginAudit.PERFORM_LOGIN);
-		try {
-			if(validateFields() == false) { return; }
-			
-			String email = txtEmail.getText();
-			String password = txtPassword.getText();
-			
-			User userLogged = loginService.performLogin(email, password);
-			setUserLogged(userLogged);
-			
-			MenuController menuController = new MenuController();
-			FXMLLoader loader = menuController.getFXMLLoader();
-			AnchorPane anchorPane = loader.load();
-			loader.getController();
-			Scene futureScene = new Scene(anchorPane);
-			
-			Stage newStage = Controller.getCurrentStage();		
-			newStage.setScene(futureScene);
-			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-			newStage.getIcons().add(anotherIcon);
-			
-			Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
-		} catch (LoginException e) {
-			loginErrorSignInMessageText.setText(e.getMessage());
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		if(validateFields() == false) { 
+			stopProgressIndicator();
+			return; 
 		}
+		
+		String email = txtEmail.getText();
+		String password = txtPassword.getText();
+		
+		Task<User> task = new Task<User>() {
+			@Override
+			protected User call() throws Exception {
+				return loginService.performLogin(email, password);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			try {
+				userLogged = task.getValue();
+				
+				setUserLogged(userLogged);
+				
+				MenuController menuController = new MenuController();
+				FXMLLoader loader = menuController.getFXMLLoader();
+				AnchorPane anchorPane = loader.load();
+				Scene futureScene = new Scene(anchorPane);
+				
+				Stage newStage = Controller.getCurrentStage();		
+				newStage.setScene(futureScene);
+				Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+				newStage.getIcons().add(anotherIcon);
+				
+				Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
+				stopProgressIndicator();
+			} catch (IOException IO) { }
+		});
+		
+		task.setOnFailed(e -> {
+			loginErrorSignInMessageText.setText(task.getException().getMessage());
+			stopProgressIndicator();
+		});
+		
+		new Thread(task).start();
 	}
 	
 	public void performLogout() {
@@ -182,23 +202,6 @@ public class LoginController extends Controller implements Initializable {
 	private enum LoginAudit{
 		PERFORM_LOGIN,
 		PERFORM_LOGOUT
-	}
-	
-	private void performLoginService(String email, String password, final LoginInfoCallBack callback) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				initProgressIndicator();
-				try {
-					User user = loginService.performLogin(email, password);
-					callback.onSucess(user);
-				} catch (LoginException e) {
-					callback.onFail(e);
-				}finally {
-					stopProgressIndicator();
-				}
-			}
-		}, "PERFORM_LOGIN_SERVICE_THREAD").start();
 	}
 	
 }

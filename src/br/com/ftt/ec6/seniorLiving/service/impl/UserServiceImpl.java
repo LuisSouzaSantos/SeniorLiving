@@ -88,7 +88,9 @@ public class UserServiceImpl implements UserService {
 		EntityManager entityManager =  Database.getConnection();
 		userDAO.startConnection(entityManager);
 		entityManager.getTransaction().begin();
+		
 		String messageInfo = userDAO.delete(id);
+		
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		userDAO.stopConnection();

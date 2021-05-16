@@ -1,61 +1,58 @@
 package br.com.ftt.ec6.seniorLiving.DAO.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.ftt.ec6.seniorLiving.DAO.TypeDAO;
+import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.Type;
 
-public class TypeDAOImpl implements TypeDAO {
+public class TypeDAOImpl extends DAOImpl<Type> implements TypeDAO {
 
 	private static TypeDAOImpl instance;
-	private EntityManager entityManager;
 	
-	private TypeDAOImpl() {}
+	private TypeDAOImpl() {
+		super.t = Type.class;
+	}
 	
-	public static TypeDAOImpl getInstance(EntityManager entityManager) {
+	public static TypeDAOImpl getInstance() {
 		if(instance == null) {
 			instance = new TypeDAOImpl();
 		}
-		instance.setEntityManager(entityManager);
 		return instance;
-	}
-	
-	
-	@Override
-	public Type save(Type type) {
-		entityManager.persist(type);
-		return type;
-	}
-
-	@Override
-	public Type update(Type type) {
-		if(type.getId() == null) { return null; }
-		
-		entityManager.persist(type);
-		return type;
 	}
 
 	@Override
 	public Type getTypeByName(String name) {
 		try {
-			return this.entityManager.createQuery(findTypeByNameQuery(), Type.class)
+			return super.entityManager.createQuery(findTypeByNameQuery(), Type.class)
 						.setParameter("name", name)
 						.getSingleResult();
 		}catch(RuntimeException e) {return null;}
 	}
-
+	
 	@Override
-	public void delete(Long id) {
+	public List<Type> getTypeByRestHome(RestHome restHome) {
 		try {
-			this.entityManager.createQuery(removeTypeById(), Type.class)
-						.setParameter("id", id)
-						.executeUpdate();
-		}catch(RuntimeException e) {}
-		
+			return super.entityManager.createQuery(getTypeByRestHomeQuery(), Type.class)
+						.setParameter("restHome", restHome)
+						.getResultList();
+		}catch(RuntimeException e) {return null;}
 	}
 	
-	private String removeTypeById() {
-		return "DELETE from Type t where t.id = :id";
+	@Override
+	public void startConnection(EntityManager entityManager) {
+		instance.setEntityManager(entityManager);
+	}
+
+	@Override
+	public void stopConnection() {
+		super.entityManager = null;
+	}
+	
+	private String getTypeByRestHomeQuery() {
+		return "SELECT t from Type t where t.restHome = :restHome";
 	}
 	
 	private String findTypeByNameQuery() {
@@ -65,5 +62,6 @@ public class TypeDAOImpl implements TypeDAO {
 	private void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
+
 
 }

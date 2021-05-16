@@ -121,7 +121,6 @@ public class MenuController extends Controller implements Initializable {
 					MenuAdminController menuAdminController = new MenuAdminController();
 					FXMLLoader loader = menuAdminController.getFXMLLoader();
 					AnchorPane anchorPane = loader.load();
-					loader.getController();
 			
 					Scene futureScene = new Scene(anchorPane);
 					Stage newStage = Controller.getCurrentStage();
@@ -146,7 +145,6 @@ public class MenuController extends Controller implements Initializable {
 					MenuAdminController menuAdminController = new MenuAdminController();
 					FXMLLoader loader = menuAdminController.getFXMLLoader();
 					AnchorPane anchorPane = loader.load();
-					loader.getController();
 					
 					Scene futureScene = new Scene(anchorPane);
 					Stage newStage = Controller.getCurrentStage();

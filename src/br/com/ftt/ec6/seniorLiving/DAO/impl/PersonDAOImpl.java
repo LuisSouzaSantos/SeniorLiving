@@ -1,45 +1,55 @@
 package br.com.ftt.ec6.seniorLiving.DAO.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.ftt.ec6.seniorLiving.DAO.PersonDAO;
 import br.com.ftt.ec6.seniorLiving.entities.Person;
+import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 
-public class PersonDAOImpl implements PersonDAO {
+public class PersonDAOImpl extends DAOImpl<Person> implements PersonDAO {
 	
 	private static PersonDAOImpl instance;
-	private EntityManager entityManager;
 	
-	private PersonDAOImpl() {}
+	private PersonDAOImpl() {
+		super.t = Person.class;
+	}
 	
-	public static PersonDAOImpl getInstance(EntityManager entityManager) {
+	public static PersonDAOImpl getInstance() {
 		if(instance == null) {
 			instance = new PersonDAOImpl();
 		}
-		instance.setEntityManager(entityManager);
 		return instance;
 	}
-
-	public Person save(Person person) {
-		entityManager.persist(person);
-		return person;
-	}
-
-	public void delete(Long id) {
+	
+	@Override
+	public List<Person> getPersonByRestHome(RestHome restHome) {
 		try {
-			this.entityManager.createQuery(removePersonById(), Person.class)
-						.setParameter("id", id)
-						.executeUpdate();
-		}catch(RuntimeException e) {}
-		
+			return super.entityManager.createQuery(getTypeByRestHomeQuery(), Person.class)
+						.setParameter("restHome", restHome)
+						.getResultList();
+		}catch(RuntimeException e) {return null;}
 	}
 	
-	private String removePersonById() {
-		return "DELETE from Person p where p.id = :id";
+	@Override
+	public void startConnection(EntityManager entityManager) {
+		instance.setEntityManager(entityManager);
+	}
+
+	@Override
+	public void stopConnection() {
+		super.entityManager = null;
 	}
 	
 	private void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
+	
+	private String getTypeByRestHomeQuery() {
+		return "SELECT p from Person p where p.restHome = :restHome";
+	}
+
+	
 
 }

@@ -12,9 +12,11 @@ import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.entities.support.Address;
 import br.com.ftt.ec6.seniorLiving.entities.support.State;
+import br.com.ftt.ec6.seniorLiving.exception.RestHomeException;
 import br.com.ftt.ec6.seniorLiving.service.RestHomeService;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.service.impl.RestHomeServiceImpl;
+import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.service.impl.UserServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ExternoApi;
 import br.com.ftt.ec6.seniorLiving.utils.SupportProperties;
@@ -22,7 +24,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,8 +39,8 @@ import javafx.util.Callback;
 public class RestHomeFormController extends FormController<RestHomeController> implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/RestHomeForm.fxml";
-	private final RestHomeService restHomeService = RestHomeServiceImpl.getInstance();
-	private final UserService userService =  UserServiceImpl.getInstance();
+	private final RestHomeService restHomeService = (RestHomeService) ServiceProxy.newInstance(RestHomeServiceImpl.getInstance());
+	private final UserService userService = (UserService) ServiceProxy.newInstance(UserServiceImpl.getInstance());
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_CREATE = {"SOCIAL_REASON", "CNPJ", "ADMIN", "CEP", "STREET", "STREET_NUMBER", "STREET_STATE", "STREET_NEIGHBORHOOD"};
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_UPDATE = {"SOCIAL_REASON", "CNPJ", "ADMIN", "CEP", "STREET", "STREET_NUMBER", "STREET_STATE", "STREET_NEIGHBORHOOD"};
 	
@@ -228,26 +229,63 @@ public class RestHomeFormController extends FormController<RestHomeController> i
 	
 	@FXML
 	private void createRestHomeButtonAction() {
-		isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE));
-	}
-	
-	@FXML
-	private void closeRestHomeFormButtonAction() {
-		System.out.println("Oi");
+		try {
+			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
+		
+			String socialReason = formRestHomeSocialReasonField.getText();
+			String cnpj = formRestHomeCNPJField.getText();			
+			User adminUser = formRestHomeAdminComboBox.getValue();
+			String cep = formResetHomeCEPField.getText();
+			String street = formRestHomeStreetField.getText();
+			String streetNumber = formRestHomeStreetNumberField.getText();			
+			String state = formRestHomeStateComboBox.getValue();
+			String streetNeighborhood = formRestHomeNeighborhoodField.getText();
+			
+			RestHome newRestHome = restHomeService.save(socialReason, cnpj, street, streetNumber, state, cep, streetNeighborhood, adminUser, null, null, null);
+			father.addNewRestHomeOnTable(newRestHome);
+			closeMe();
+		}catch(RestHomeException e) {
+			formRestHomeErrorMessageText.setText(e.getMessage());
+		}
 	}
 	
 	@FXML
 	private void updateRestHomeButtonAction() {
-		isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE));
+		try {
+			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
+			
+			String socialReason = formRestHomeSocialReasonField.getText();
+			String cnpj = formRestHomeCNPJField.getText();			
+			User adminUser = formRestHomeAdminComboBox.getValue();
+			String cep = formResetHomeCEPField.getText();
+			String street = formRestHomeStreetField.getText();
+			String streetNumber = formRestHomeStreetNumberField.getText();			
+			String state = formRestHomeStateComboBox.getValue();
+			String streetNeighborhood = formRestHomeNeighborhoodField.getText();
+			
+			this.restHome.setSocialReason(socialReason);
+			this.restHome.setCnpj(cnpj);
+			this.restHome.setAdmin(adminUser);
+			this.restHome.setAddressCep(cep);
+			this.restHome.setAddressStreet(street);
+			this.restHome.setAddressNumber(streetNumber);
+			this.restHome.setAddressState(state);
+			this.restHome.setAddressNeighborhood(streetNeighborhood);
+			
+			RestHome restHomeUpdated = restHomeService.update(restHome);
+			//father.updateRestHomeOnTable(restHomeUpdated, restHomeUpdated);
+			closeMe();
+		}catch(RestHomeException e) {
+			formRestHomeErrorMessageText.setText(e.getMessage());
+		}
+		
 	}
 	
-	
-//	@FXML
-//	private void closeUserFormButtonAction() {
-//		clearForm();
-//		closeMe();
-//	}
-	
+	@FXML
+	private void closeRestHomeFormButtonAction() {
+		closeMe();
+	}
+
 	private boolean isValidFields(List<String> fieldsToBeValidate){
 		cleanErrorMessages();
 		
@@ -301,7 +339,7 @@ public class RestHomeFormController extends FormController<RestHomeController> i
 			errorsList.put("CNPJ", "CNPJ não pode estar em branco.");
 		}
 		
-		if((fieldsToBeValidate.contains("ADMIN")) && (formRestHomeAdminComboBox == null)) { 
+		if((fieldsToBeValidate.contains("ADMIN")) && ((formRestHomeAdminComboBox == null) || (formRestHomeAdminComboBox.getValue() == null))) { 
 			errorsList.put("ADMIN", "Admin não pode estar em branco.");
 		}
 		
@@ -309,29 +347,29 @@ public class RestHomeFormController extends FormController<RestHomeController> i
 			errorsList.put("CEP", "CEP não pode estar em branco.");
 		}
 		
-		if((fieldsToBeValidate.contains("STREET")) && ((formRestHomeStreetField == null) || (formRestHomeStreetField.getText().trim().isEmpty() == false))) {
+		if((fieldsToBeValidate.contains("STREET")) && ((formRestHomeStreetField == null) || (formRestHomeStreetField.getText().trim().isEmpty()))) {
 			errorsList.put("STREET", "Rua não pode estar em branco.");
 		}
 		
-		if((fieldsToBeValidate.contains("STREET_NUMBER")) && ((formRestHomeStreetNumberField == null) || (formRestHomeStreetNumberField.getText().trim().isEmpty() == false))) {
+		if((fieldsToBeValidate.contains("STREET_NUMBER")) && ((formRestHomeStreetNumberField == null) || (formRestHomeStreetNumberField.getText().trim().isEmpty()))) {
 			errorsList.put("STREET_NUMBER", "Número da rua não pode estar em branco.");
 		}
 		
-		if((fieldsToBeValidate.contains("STREET_STATE")) && (formRestHomeStateComboBox == null)) {
-			errorsList.put("STREET", "Número da rua pode estar em branco.");
+		if((fieldsToBeValidate.contains("STREET_STATE")) && ((formRestHomeStateComboBox == null) || (formRestHomeStateComboBox.getValue() == null))) {
+			errorsList.put("STREET", "Estado não pode estar em branco.");
 		}
 		
-		if((fieldsToBeValidate.contains("STREET_NEIGHBORHOOD")) && ((formRestHomeNeighborhoodField == null) || (formRestHomeNeighborhoodField.getText().trim().isEmpty() == false))) {
-			errorsList.put("STREET_NUMBER", "Número da rua não pode estar em branco.");
+		if((fieldsToBeValidate.contains("STREET_NEIGHBORHOOD")) && ((formRestHomeNeighborhoodField == null) || (formRestHomeNeighborhoodField.getText().trim().isEmpty()))) {
+			errorsList.put("STREET_NEIGHBORHOOD", "Bairro não pode estar em branco.");
 		}
 		
 		return errorsList;
 	}
 
 	
-//	private void closeMe() {
-//		this.clearForm();
-//		this.me.close();
-//	}	
+	private void closeMe() {
+		clearForm();
+		this.me.close();
+	}	
 	
 }

@@ -11,8 +11,22 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="501.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
+<Pane prefHeight="501.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.AccommodationController">
    <children>
+      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#openAccommodationFormButtonAction" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Nova Acomodação" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow color="#00000065" height="10.5" offsetX="2.0" offsetY="2.0" radius="2.125" width="0.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
       <Pane layoutX="892.0" layoutY="80.0" prefHeight="302.0" prefWidth="220.0" style="-fx-background-color: #F1FDFE;">
          <children>
             <Pane layoutY="-3.0" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #47B2E6;">
@@ -66,29 +80,14 @@
             <DropShadow />
          </effect>
       </Pane>
-      <TableView layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="843.0" style="-fx-background-color: #F1FDFE;">
+      <TableView fx:id="accommodationTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="843.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
          <columns>
-            <TableColumn fx:id="columnEmail" prefWidth="331.0" style="-fx-background-color: #47B2E6;" text="Nome" />
-            <TableColumn fx:id="columnNickname" prefWidth="342.0" style="-fx-background-color: #47B2E6;" text="Descrição" />
-            <TableColumn fx:id="ColumnActions" prefWidth="169.0" style="-fx-background-color: #47B2E6;" text="Ações" />
+            <TableColumn fx:id="nameColumn" prefWidth="719.0" style="-fx-background-color: #47B2E6;" text="Nome" />
+            <TableColumn fx:id="actionsColumn" prefWidth="123.0" style="-fx-background-color: #47B2E6;" text="Ações" />
          </columns>
          <effect>
             <DropShadow />
          </effect>
       </TableView>
-      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Nova Acomodação" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <effect>
-            <DropShadow color="#00000065" height="10.5" offsetX="2.0" offsetY="2.0" radius="2.125" width="0.0" />
-         </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </Button>
    </children>
 </Pane>

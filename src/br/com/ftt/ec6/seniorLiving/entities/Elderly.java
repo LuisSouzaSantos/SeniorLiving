@@ -49,19 +49,19 @@ public class Elderly extends BaseConfig {
 	private BigDecimal monthlyPayment;
 	
 	@ManyToOne
-	@JoinColumn(name = "curator_id")
+	@JoinColumn(name = "curator_id", nullable = false)
 	private Person curator;
 	
 	@ManyToOne
-	@JoinColumn(name = "sympathetic_id")
+	@JoinColumn(name = "sympathetic_id", nullable = false)
 	private Person sympathetic;
 	
 	@ManyToOne
-	@JoinColumn(name = "accommodation_id")
+	@JoinColumn(name = "accommodation_id", nullable = false)
 	private Accommodation accommodation;
 	
 	@ManyToOne
-	@JoinColumn(name = "rest_home_id")
+	@JoinColumn(name = "rest_home_id", nullable = false)
 	private RestHome restHome;
 	
 	@ManyToMany

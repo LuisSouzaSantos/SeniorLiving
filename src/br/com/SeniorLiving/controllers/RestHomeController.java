@@ -5,13 +5,13 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import br.com.ftt.ec6.seniorLiving.entities.RestHome;
-import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.exception.RestHomeException;
 import br.com.ftt.ec6.seniorLiving.service.RestHomeService;
-import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.service.impl.RestHomeServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.UserServiceImpl;
+import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -32,8 +32,7 @@ import javafx.stage.Stage;
 public class RestHomeController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/RestHomeList.fxml";
-	private final static RestHomeService restHomeService =  RestHomeServiceImpl.getInstance();
-	private final static UserService userService = UserServiceImpl.getInstance();
+	private final static RestHomeService restHomeService = (RestHomeService) ServiceProxy.newInstance(RestHomeServiceImpl.getInstance());
 	
 	
 	@FXML
@@ -166,27 +165,26 @@ public class RestHomeController extends Controller implements Initializable {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
-//				try {
-//					UserFormController userFormController = new UserFormController();
-//					FXMLLoader loader = userFormController.getFXMLLoader();
-//					Pane pane;
-//					pane = loader.load();
-//					
-//					UserFormController userFormControllerLoaded = loader.getController();
-//					userFormControllerLoaded.setCreatedForm(false);
-//					userFormControllerLoaded.setUser(user);
-//					userFormControllerLoaded.setFather(father);
-//					userFormControllerLoaded.performReload();
-//					
-//					Stage stage = new Stage();
-//					Scene scene = new Scene(pane);
-//					stage.setScene(scene);
-//					stage.show();
-//					
-//					userFormControllerLoaded.setStageMe(stage);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
+				try {
+					RestHomeFormController restHomeFormController = new RestHomeFormController();
+					FXMLLoader loader = restHomeFormController.getFXMLLoader();
+					Pane pane = loader.load();
+					
+					RestHomeFormController restHomeFormControllerLoaded = loader.getController();
+					restHomeFormControllerLoaded.setCreatedForm(false);
+					restHomeFormControllerLoaded.setRestHome(restHome);
+					restHomeFormControllerLoaded.setFather(father);
+					restHomeFormControllerLoaded.performReload();
+					
+					Stage stage = new Stage();
+					Scene scene = new Scene(pane);
+					stage.setScene(scene);
+					stage.show();
+					
+					restHomeFormControllerLoaded.setStageMe(stage);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		};
 	}
@@ -195,33 +193,27 @@ public class RestHomeController extends Controller implements Initializable {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
-//				int optionChosen = JOptionPane.showConfirmDialog(null,"Deseja excluir o usuário "+ user.getEmail());
-//				
-//				if(optionChosen != JOptionPane.YES_OPTION) { return; }
-//				
-//				try {
-//					deleteUser(user);
-//					JOptionPane.showMessageDialog(null, "Usuário "+user.getEmail()+" deletado com sucesso.");
-//					removeUserOnTable(user);
-//				}catch (UserException e) {
-//					JOptionPane.showMessageDialog(null, e.getMessage());
-//				}
+				int optionChosen = JOptionPane.showConfirmDialog(null,"Deseja excluir a casa de repouso "+ restHome.getSocialReason()+"("+restHome.getCnpj()+")");
+				
+				if(optionChosen != JOptionPane.YES_OPTION) { return; }
+				
+				try {
+					deleteRestHome(restHome);
+					JOptionPane.showMessageDialog(null, "Casa de Repouso "+restHome.getSocialReason()+"("+restHome.getCnpj()+")"+" deletado com sucesso.");
+					removeRestHomeOnTable(restHome);
+				}catch (RestHomeException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
 				
 			}
 		};
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	private void deleteRestHome(RestHome restHome) throws RestHomeException {
+		String messageInfo = restHomeService.delete(restHome.getId());
+		
+		if(messageInfo == "ERROR") { throw new RestHomeException("Erro ao excluir a casa de repouso "+restHome.getSocialReason()+"("+restHome.getCnpj()+")"); }
+	}
 	
 
 }
