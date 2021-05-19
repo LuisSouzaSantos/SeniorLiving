@@ -37,7 +37,7 @@ public class UserController extends Controller implements Initializable {
 	private final static String EDIT_IMAGE = "/br/com/SeniorLiving/images/edit.png";
 	private final static String DELETE_IMAGE = "/br/com/SeniorLiving/images/delete.png";
 	
-	private final static UserService userService =  (UserService) ServiceProxy.newInstance(UserServiceImpl.getInstance());
+	private final static UserService userService = UserServiceImpl.getInstance();
 	
 	@FXML
 	private TableView<User> userTable;

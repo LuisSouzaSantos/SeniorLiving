@@ -13,7 +13,6 @@ import br.com.ftt.ec6.seniorLiving.exception.UserException;
 import br.com.ftt.ec6.seniorLiving.service.RoleService;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.service.impl.RoleServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.service.impl.UserServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,8 +26,8 @@ import javafx.stage.Stage;
 public class UserFormController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/UserForm.fxml";
-	private final UserService userService =  (UserService) ServiceProxy.newInstance(UserServiceImpl.getInstance());
-	private final RoleService roleService = (RoleService) ServiceProxy.newInstance(RoleServiceImpl.getInstance());
+	private final UserService userService =  UserServiceImpl.getInstance();
+	private final RoleService roleService = RoleServiceImpl.getInstance();
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_CREATE = {"EMAIL", "NICKNAME", "PASSWORD", "PASSWORD_CONFIRMATION", "ROLE"};
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_UPDATE = {"EMAIL", "NICKNAME", "ROLE"};
 	

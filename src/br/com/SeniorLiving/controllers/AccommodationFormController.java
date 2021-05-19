@@ -12,7 +12,6 @@ import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.exception.AccommodationException;
 import br.com.ftt.ec6.seniorLiving.service.AccommodationService;
 import br.com.ftt.ec6.seniorLiving.service.impl.AccommodationServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,7 +24,7 @@ import javafx.stage.Stage;
 public class AccommodationFormController extends Controller implements Initializable {
 	
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/AccommodationForm.fxml";
-	private final AccommodationService accommodationService = (AccommodationService) ServiceProxy.newInstance(AccommodationServiceImpl.getInstance());
+	private final AccommodationService accommodationService = AccommodationServiceImpl.getInstance();
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_CREATE = {"NAME", "DESCRIPTION"};
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_UPDATE = {"NAME", "DESCRIPTION"};
 	

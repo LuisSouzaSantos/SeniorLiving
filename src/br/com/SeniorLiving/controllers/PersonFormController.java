@@ -18,7 +18,6 @@ import br.com.ftt.ec6.seniorLiving.entities.support.State;
 import br.com.ftt.ec6.seniorLiving.service.PersonService;
 import br.com.ftt.ec6.seniorLiving.service.TypeService;
 import br.com.ftt.ec6.seniorLiving.service.impl.PersonServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.service.impl.TypeServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ExternoApi;
 import br.com.ftt.ec6.seniorLiving.utils.MaritalStatus;
@@ -45,8 +44,8 @@ import javafx.util.StringConverter;
 public class PersonFormController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/PersonForm.fxml";
-	private final static PersonService personService = (PersonService) ServiceProxy.newInstance(PersonServiceImpl.getInstance());
-	private final static TypeService typeService = (TypeService) ServiceProxy.newInstance(TypeServiceImpl.getInstance());
+	private final static PersonService personService = PersonServiceImpl.getInstance();
+	private final static TypeService typeService = TypeServiceImpl.getInstance();
 	private static List<Type> typeSelectedList = new ArrayList<>();
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_CREATE = {"NAME", "NACIONALITY", "CIVIL_STATE", "JOB", "RG", "CPF", "PHONE", "TYPE", "EMAIL", "CEP", "STREET", "STREET_NUMBER", "STATE", "NEIGHBORHOOD", "BIRTH_DATE"};
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_UPDATE = {"NAME", "NACIONALITY", "CIVIL_STATE", "JOB", "RG", "CPF", "PHONE", "TYPE", "EMAIL", "CEP", "STREET", "STREET_NUMBER", "STATE", "NEIGHBORHOOD", "BIRTH_DATE"};

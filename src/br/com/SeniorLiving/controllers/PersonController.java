@@ -11,7 +11,6 @@ import br.com.ftt.ec6.seniorLiving.entities.Person;
 import br.com.ftt.ec6.seniorLiving.exception.UserException;
 import br.com.ftt.ec6.seniorLiving.service.PersonService;
 import br.com.ftt.ec6.seniorLiving.service.impl.PersonServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -31,7 +30,7 @@ import javafx.stage.Stage;
 public class PersonController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/PersonList.fxml";
-	private final static PersonService personService = (PersonService) ServiceProxy.newInstance(PersonServiceImpl.getInstance());
+	private final static PersonService personService = PersonServiceImpl.getInstance();
 	
 	@FXML
 	private TableView<Person> personTable;

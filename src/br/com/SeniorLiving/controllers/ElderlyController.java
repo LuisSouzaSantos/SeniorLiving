@@ -1,58 +1,51 @@
 package br.com.SeniorLiving.controllers;
 
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
+import br.com.ftt.ec6.seniorLiving.entities.Elderly;
+import br.com.ftt.ec6.seniorLiving.exception.UserException;
+import br.com.ftt.ec6.seniorLiving.service.ElderlyService;
+import br.com.ftt.ec6.seniorLiving.service.impl.ElderlyServiceImpl;
+import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class ElderlyController extends Controller implements Initializable {
 
-	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Elderly.fxml";
+	private final static ElderlyService elderlyService = ElderlyServiceImpl.getInstance();
+	private final static String UI_PATH = "/br/com/SeniorLiving/gui/ElderlyList.fxml";
 
 	@FXML
-	private TextField txtNome;
+	private TableView<Elderly> elderlyTable;
 	
 	@FXML
-	private TextField txtEstadoCivil;
-	
+	private TableColumn<Elderly, String> nameColumn;
 	@FXML
-	private TextField dpBirthDate;
-	
+	private TableColumn<Elderly, LocalDate> birthDateColumn;
 	@FXML
-	private TextField txtRg;
-	
+	private TableColumn<Elderly, String> curatorColumn;
 	@FXML
-	private TextField txtPgMensal;
-	
+	private TableColumn<Elderly, String> sympatheticColumn;
 	@FXML
-	private TextField txtCpf;
-	
-	@FXML
-	private TextField txtNacionalidade;
-	
-	@FXML
-	private ComboBox cbCurador;
-	
-	@FXML
-	private ComboBox cbSolidario;
-	
-	@FXML
-	private ComboBox cbAcomodacao;
-		
-	@FXML
-	private Label labelErrorName;
-	
-	@FXML
-	private Button btSave;
-	
-	@FXML
-	private Button btCancel;
+	private TableColumn<Elderly, Pane> actionsColumn;
 	
 	
 	@Override
@@ -60,15 +53,150 @@ public class ElderlyController extends Controller implements Initializable {
 		initializeNodes();
 	}
 	
-	private void initializeNodes() {
-		//Constraints.setTextFieldMaxLength(txtEmail, 255);
-		//Constraints.setTextFieldMaxLength(txtPassword, 255);
-	}
-
-
 	@Override
 	public FXMLLoader getFXMLLoader() {
-	return new FXMLLoader(getClass().getResource(UI_PATH));
+		return new FXMLLoader(getClass().getResource(UI_PATH));
+	}
+	
+	private void initializeNodes() {
+		load();
+	}
+	
+	public void reloadMe() {
+		elderlyTable.getItems().clear();
+    	load();
+    }
+    
+    public void addNewElderlyOnTable(Elderly elderly) {
+	    if((elderly == null) || (elderly.getId() == null)) { return; }
+	   
+	    if(elderlyTable == null) { return; }
 
-}
+	    elderlyTable.getItems().add(elderly);
+    }
+    
+    public void removeElderlyOnTable(Elderly elderly) {
+    	if((elderly == null) || (elderly.getId() == null)) { return; }
+    	
+    	if(elderlyTable == null) { return; }
+    	
+    	elderlyTable.getItems().remove(elderly);
+    }
+	
+	
+	private void load() {
+		List<Elderly> elderlyList = elderlyService.getElderlyByRestHome(getRestHomeActived());
+		
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+		curatorColumn.setCellValueFactory(new PropertyValueFactory<>("curator"));
+		sympatheticColumn.setCellValueFactory(new PropertyValueFactory<>("sympathetic"));
+		
+		elderlyList.forEach(type -> {
+			elderlyTable.getItems().add(type);
+		});
+
+		ElderlyController currentElderlyController = this;
+		
+		actionsColumn.setCellFactory(param -> new TableCell<Elderly, Pane>() {
+			@Override
+	        protected void updateItem(Pane item, boolean empty) {
+	            super.updateItem(item, empty);
+	            if(empty == false) {
+	            	Elderly elderly = elderlyTable.getItems().get(getIndex());
+	            	
+	            	Pane pane = new Pane();
+	            	ImageView editImage = ViewUtils.createImageView("EDIT:"+Long.toString(elderly.getId()), EDIT_IMAGE, 25.0, 25.0, true, true, Cursor.HAND);
+	    			ImageView deleteImage = ViewUtils.createImageView("DELETE:"+Long.toString(elderly.getId()), DELETE_IMAGE, 25.0, 25.0, true, true, Cursor.HAND);
+	    			editImage.setLayoutX(10.0);
+	            	deleteImage.setLayoutX(60.0);
+	            	
+	    			editImage.setOnMouseClicked(editElderlyButtonAction(elderly, currentElderlyController));
+	    			deleteImage.setOnMouseClicked(deleteElderlyButtonAction(elderly));
+	            	
+	            	pane.getChildren().addAll(editImage, deleteImage);
+	            	setGraphic(pane);
+	            	this.setItem(item);
+	            }  
+	        }
+		});
+	}
+	
+	@FXML
+	private void openElderlyFormButtonAction() throws IOException {
+		ElderlyFormController elderlyFormController = new ElderlyFormController();
+		FXMLLoader loader = elderlyFormController.getFXMLLoader();
+		Pane pane = loader.load();
+
+		ElderlyFormController elderlyFormControllerLoaded = loader.getController();
+		elderlyFormControllerLoaded.setCreatedForm(true);
+		elderlyFormControllerLoaded.setElderly(null);
+		elderlyFormControllerLoaded.setFather(this);
+		elderlyFormControllerLoaded.performReload();
+		
+		Stage stage = new Stage();
+		Scene scene = new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
+		
+		elderlyFormControllerLoaded.setMe(stage);
+	}
+	
+	private EventHandler<Event> editElderlyButtonAction(Elderly elderly, ElderlyController father) {
+		return new EventHandler<Event>() {
+			@Override
+			public void handle(Event arg0) {
+				try {
+					ElderlyFormController elderlyFormController = new ElderlyFormController();
+					FXMLLoader loader = elderlyFormController.getFXMLLoader();
+					Pane pane = loader.load();
+
+					ElderlyFormController elderlyFormControllerLoaded = loader.getController();
+					elderlyFormControllerLoaded.setCreatedForm(false);
+					elderlyFormControllerLoaded.setElderly(elderly);
+					elderlyFormControllerLoaded.setFather(father);
+					elderlyFormControllerLoaded.performReload();
+					
+					Stage stage = new Stage();
+					Scene scene = new Scene(pane);
+					stage.setScene(scene);
+					stage.show();
+					
+					elderlyFormControllerLoaded.setMe(stage);
+				}catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+	}
+	
+	private EventHandler<Event> deleteElderlyButtonAction(Elderly elderly) {
+		return new EventHandler<Event>() {
+			@Override
+			public void handle(Event arg0) {
+				int optionChosen = JOptionPane.showConfirmDialog(null,"Deseja excluir o idoso "+ elderly.getName());
+				
+				if(optionChosen != JOptionPane.YES_OPTION) { return; }
+				
+				try {
+					deleteElderly(elderly);
+					JOptionPane.showMessageDialog(null, "Idoso "+elderly.getName()+" deletado com sucesso.");
+					removeElderlyOnTable(elderly);
+				}catch (UserException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+				
+			}
+		};
+	}
+	
+	private void deleteElderly(Elderly elderly) throws UserException {
+		String messageInfo = elderlyService.delete(elderly.getId());
+		
+		if(messageInfo == "ERROR") { throw new UserException("Erro ao excluir o idosp "+elderly.getName()); }
+	}
+
+	
+
+
 }

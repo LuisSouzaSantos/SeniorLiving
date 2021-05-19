@@ -115,4 +115,32 @@ public class PersonServiceImpl implements PersonService {
 		return personList;
 	}
 
+	@Override
+	public Person getById(Long id) {
+		EntityManager entityManager = Database.getConnection();
+		entityManager.getTransaction().begin();
+		personDAO.startConnection(entityManager);
+		
+		Person person = personDAO.getById(id);
+		
+		entityManager.close();
+		personDAO.stopConnection();
+		
+		return person;
+	}
+
+	@Override
+	public List<Person> getPersonByRestHomeAndType(RestHome restHome, Type type) {
+		EntityManager entityManager = Database.getConnection();
+		entityManager.getTransaction().begin();
+		personDAO.startConnection(entityManager);
+		
+		List<Person> personList = personDAO.getPersonByRestHomeAndType(restHome, type);
+		
+		entityManager.close();
+		personDAO.stopConnection();
+		
+		return personList;
+	}
+
 }

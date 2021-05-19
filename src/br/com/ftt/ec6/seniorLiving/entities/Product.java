@@ -56,6 +56,12 @@ public class Product extends BaseConfig {
 	public void setRestHome(RestHome restHome) {
 		this.restHome = restHome;
 	}
+	
+	@Override
+	public String toString() {
+		return this.name;
+	}
+	
 	@Override
 	public String getLinkedToDatabase() {
 		return LINKED_DATABASE;

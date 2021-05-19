@@ -11,27 +11,26 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="501.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.ProductController">
+<Pane prefHeight="524.0" prefWidth="1190.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.ProductController">
    <children>
-      <Pane layoutX="892.0" layoutY="80.0" prefHeight="275.0" prefWidth="220.0" style="-fx-background-color: #F1FDFE;">
+      <Pane layoutX="896.0" layoutY="78.0" prefHeight="416.0" prefWidth="264.0" style="-fx-background-color: #F1FDFE;">
          <children>
-            <Pane layoutY="-3.0" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #47B2E6;">
+            <Pane prefHeight="49.0" prefWidth="264.0" style="-fx-background-color: #47B2E6;">
                <children>
-                  <Label layoutX="73.0" layoutY="13.0" text="Pesquisa" textFill="WHITE">
+                  <Label layoutX="95.0" layoutY="11.0" text="Pesquisa" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <TextField layoutX="10.0" layoutY="94.0" prefHeight="25.0" prefWidth="200.0" />
+            <TextField layoutX="10.0" layoutY="94.0" prefHeight="25.0" prefWidth="240.0" />
             <Label layoutX="14.0" layoutY="61.0" text="Nome">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField layoutX="10.0" layoutY="163.0" prefHeight="25.0" prefWidth="200.0" />
-            <Button layoutX="14.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Buscar" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="150.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Buscar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -45,12 +44,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Label layoutX="14.0" layoutY="135.0" text="Descrição">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Button layoutX="115.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #F1FDFE; -fx-border-radius: 100px 100px 100px 100px;" text="Limpar" textFill="#ff0101">
+            <Button layoutX="151.0" layoutY="150.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #F1FDFE; -fx-border-radius: 100px 100px 100px 100px;" text="Limpar" textFill="#ff0101">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -66,7 +60,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <TableView fx:id="productTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="843.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
+      <TableView fx:id="productTable" layoutX="37.0" layoutY="78.0" prefHeight="416.0" prefWidth="832.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
          <columns>
             <TableColumn fx:id="nameColumn" prefWidth="723.0" style="-fx-background-color: #47B2E6;" text="Nome" />
             <TableColumn fx:id="actionsColumn" prefWidth="119.0" style="-fx-background-color: #47B2E6;" text="Ações" />
@@ -75,7 +69,7 @@
             <DropShadow />
          </effect>
       </TableView>
-      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#openProductFormButtonAction" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Novo Produto" textFill="WHITE">
+      <Button layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#openProductFormButtonAction" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Novo Produto" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

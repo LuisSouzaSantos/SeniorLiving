@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import br.com.ftt.ec6.seniorLiving.entities.Type;
 import br.com.ftt.ec6.seniorLiving.exception.UserException;
 import br.com.ftt.ec6.seniorLiving.service.TypeService;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.service.impl.TypeServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
 import javafx.event.Event;
@@ -31,7 +30,7 @@ import javafx.stage.Stage;
 public class TypeController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/TypeList.fxml";
-	private final static TypeService typeService = (TypeService) ServiceProxy.newInstance(TypeServiceImpl.getInstance());
+	private final static TypeService typeService = TypeServiceImpl.getInstance();
 
 	
 	@FXML

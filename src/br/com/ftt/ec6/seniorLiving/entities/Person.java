@@ -187,6 +187,11 @@ public class Person extends BaseConfig {
 	}
 	
 	@Override
+	public String toString() {
+		return this.name+"(CPF:"+this.rg+")";
+	}
+	
+	@Override
 	public String getLinkedToDatabase() {
 		return LINKED_DATABASE;
 	}

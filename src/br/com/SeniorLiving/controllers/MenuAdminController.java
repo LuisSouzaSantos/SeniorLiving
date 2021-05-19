@@ -88,6 +88,10 @@ public class MenuAdminController extends Controller implements Initializable {
 				return selectProductOptionButtonEvent();
 			case "PersonController":
 				return selectPersonOptionButtonEvent();
+			case "ElderlyController":
+				return selectElderlyOptionButtonEvent();
+			case "BillingController":
+				return selectBillingOptionButtonEvent();
 			default:
 				return null;
 		}
@@ -178,6 +182,36 @@ public class MenuAdminController extends Controller implements Initializable {
 					cleanContentContainer();
 					PersonController personController = new PersonController();
 					FXMLLoader loader = personController.getFXMLLoader();
+					Pane pane = loader.load();
+					contentContainer.getChildren().add(pane);
+				}catch(IOException e) { e.printStackTrace(); }	
+			}
+		};
+	}
+	
+	private EventHandler<Event> selectElderlyOptionButtonEvent() {
+		return new EventHandler<Event>() {
+			@Override
+			public void handle(Event arg0) {
+				try {
+					cleanContentContainer();
+					ElderlyController elderlyController = new ElderlyController();
+					FXMLLoader loader = elderlyController.getFXMLLoader();
+					Pane pane = loader.load();
+					contentContainer.getChildren().add(pane);
+				}catch(IOException e) { e.printStackTrace(); }	
+			}
+		};
+	}
+	
+	private EventHandler<Event> selectBillingOptionButtonEvent() {
+		return new EventHandler<Event>() {
+			@Override
+			public void handle(Event arg0) {
+				try {
+					cleanContentContainer();
+					BillingController billingController = new BillingController();
+					FXMLLoader loader = billingController.getFXMLLoader();
 					Pane pane = loader.load();
 					contentContainer.getChildren().add(pane);
 				}catch(IOException e) { e.printStackTrace(); }	

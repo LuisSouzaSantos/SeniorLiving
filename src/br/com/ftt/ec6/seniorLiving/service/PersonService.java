@@ -16,5 +16,9 @@ public interface PersonService {
 	
 	List<Person> getPersonByRestHome(RestHome restHome);
 	
+	List<Person> getPersonByRestHomeAndType(RestHome restHome, Type type);
+	
+	Person getById(Long id);
+	
 	String delete(Long id);
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="849.0" style="-fx-background-color: #fdfdfd;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserFormController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="849.0" style="-fx-background-color: #fdfdfd;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.BillingFormController">
    <children>
       <Pane layoutY="-2.0" prefHeight="64.0" prefWidth="849.0" style="-fx-background-color: #47B2E6;">
          <children>
@@ -47,11 +47,11 @@
       </Button>
       <TableView fx:id="billingProductTable" editable="true" layoutX="73.0" layoutY="251.0" prefHeight="300.0" prefWidth="703.0" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
         <columns>
-          <TableColumn fx:id="productColumn" prefWidth="197.0" style="-fx-background-color: #47B2E6;" text="Produto" />
-          <TableColumn fx:id="unitaryValueColumn" prefWidth="136.0" style="-fx-background-color: #47B2E6;" text="Valor Unitário " />
-            <TableColumn fx:id="quantityColumn" prefWidth="125.0" style="-fx-background-color: #47B2E6;" text="Quantidade" />
-            <TableColumn fx:id="amountValue" prefWidth="163.0" style="-fx-background-color: #47B2E6;" text="Valor Total" />
-            <TableColumn fx:id="actionsColumn" prefWidth="81.0" style="-fx-background-color: #47B2E6;" text="Ações" />
+          <TableColumn fx:id="productColumn" prefWidth="140.0" style="-fx-background-color: #47B2E6;" text="Produto" />
+          <TableColumn fx:id="unitaryValueColumn" prefWidth="156.0" style="-fx-background-color: #47B2E6;" text="Valor Unitário " />
+            <TableColumn fx:id="quantityColumn" prefWidth="164.0" style="-fx-background-color: #47B2E6;" text="Quantidade" />
+            <TableColumn fx:id="amountValue" prefWidth="168.0" style="-fx-background-color: #47B2E6;" text="Valor Total" />
+            <TableColumn fx:id="actionsColumn" prefWidth="74.0" style="-fx-background-color: #47B2E6;" text="Ações" />
         </columns>
       </TableView>
       <Text fx:id="formBillingErrorMessageText" fill="#cc0000" layoutX="245.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{ERROR}" textAlignment="CENTER" wrappingWidth="358.5771484375">

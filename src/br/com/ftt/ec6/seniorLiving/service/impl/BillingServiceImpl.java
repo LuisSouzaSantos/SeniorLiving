@@ -10,6 +10,7 @@ import br.com.ftt.ec6.seniorLiving.DAO.impl.BillingDAOImpl;
 import br.com.ftt.ec6.seniorLiving.db.Database;
 import br.com.ftt.ec6.seniorLiving.entities.Billing;
 import br.com.ftt.ec6.seniorLiving.entities.BillingProduct;
+import br.com.ftt.ec6.seniorLiving.entities.Elderly;
 import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.exception.BillingException;
 import br.com.ftt.ec6.seniorLiving.service.BillingService;
@@ -17,6 +18,7 @@ import br.com.ftt.ec6.seniorLiving.service.BillingService;
 public class BillingServiceImpl implements BillingService {
 
 	private static BillingServiceImpl instance;
+	private static BillingDAO billingDAO = BillingDAOImpl.getInstance();
 	
 	private BillingServiceImpl() {}
 	
@@ -28,18 +30,51 @@ public class BillingServiceImpl implements BillingService {
 	}
 	
 	@Override
-	public Billing save(String registrationCode, RestHome restHome, LocalDate month,
+	public Billing save(Elderly elderly, RestHome restHome, LocalDate month,
 			List<BillingProduct> billingProductList) throws BillingException {
-		// TODO Auto-generated method stub
+		
+		EntityManager entityManager = Database.getConnection();
+		entityManager.getTransaction().begin();
+		billingDAO.startConnection(entityManager);
+		
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		billingDAO.stopConnection();
+		
+		
+		return null;
+	}
+	
+	
+	@Override
+	public Billing update(Billing billing) {
+		EntityManager entityManager = Database.getConnection();
+		entityManager.getTransaction().begin();
+		billingDAO.startConnection(entityManager);
+		
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		billingDAO.stopConnection();
 		return null;
 	}
 
 	@Override
-	public void delete(Long id) {
+	public String delete(Long id) {
 		EntityManager entityManager = Database.getConnection();
-		BillingDAO billingDAO = BillingDAOImpl.getInstance(entityManager);
-		billingDAO.delete(id);
+		entityManager.getTransaction().begin();
+		billingDAO.startConnection(entityManager);
+		
+		String message = billingDAO.delete(id);
+		
+		entityManager.getTransaction().commit();
 		entityManager.close();
+		billingDAO.stopConnection();
+		
+		return message;
 	}
+
+	
 
 }

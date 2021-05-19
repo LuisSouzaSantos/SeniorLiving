@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import br.com.ftt.ec6.seniorLiving.DAO.PersonDAO;
 import br.com.ftt.ec6.seniorLiving.entities.Person;
 import br.com.ftt.ec6.seniorLiving.entities.RestHome;
+import br.com.ftt.ec6.seniorLiving.entities.Type;
 
 public class PersonDAOImpl extends DAOImpl<Person> implements PersonDAO {
 	
@@ -32,6 +33,20 @@ public class PersonDAOImpl extends DAOImpl<Person> implements PersonDAO {
 		}catch(RuntimeException e) {return null;}
 	}
 	
+	
+
+	@Override
+	public List<Person> getPersonByRestHomeAndType(RestHome restHome, Type type) {
+		try {
+			return super.entityManager.createQuery(getPersonByRestHomeAndTypeQuery(), Person.class)
+						.setParameter("restHome", restHome)
+						.setParameter("type", type)
+						.getResultList();
+		}catch(RuntimeException e) {
+			e.getStackTrace();
+			return null;
+		}
+	}
 	@Override
 	public void startConnection(EntityManager entityManager) {
 		instance.setEntityManager(entityManager);
@@ -49,6 +64,11 @@ public class PersonDAOImpl extends DAOImpl<Person> implements PersonDAO {
 	private String getTypeByRestHomeQuery() {
 		return "SELECT p from Person p where p.restHome = :restHome";
 	}
+	
+	private String getPersonByRestHomeAndTypeQuery() {
+		return "SELECT p from Person p JOIN p.typeList t where p.restHome = :restHome and t = :type";
+	}
+
 
 	
 

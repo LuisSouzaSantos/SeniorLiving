@@ -11,7 +11,6 @@ import br.com.ftt.ec6.seniorLiving.entities.Product;
 import br.com.ftt.ec6.seniorLiving.exception.ProductException;
 import br.com.ftt.ec6.seniorLiving.service.ProductService;
 import br.com.ftt.ec6.seniorLiving.service.impl.ProductServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +23,7 @@ import javafx.stage.Stage;
 public class ProductFormController extends Controller implements Initializable {
 	
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/ProductForm.fxml";
-	private final ProductService productService = (ProductService) ServiceProxy.newInstance(ProductServiceImpl.getInstance());
+	private final ProductService productService = ProductServiceImpl.getInstance();
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_CREATE = {"NAME", "DESCRIPTION"};
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_UPDATE = {"NAME", "DESCRIPTION"};
 	

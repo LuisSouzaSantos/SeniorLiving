@@ -11,7 +11,6 @@ import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.exception.RestHomeException;
 import br.com.ftt.ec6.seniorLiving.service.RestHomeService;
 import br.com.ftt.ec6.seniorLiving.service.impl.RestHomeServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -32,7 +31,7 @@ import javafx.stage.Stage;
 public class RestHomeController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/RestHomeList.fxml";
-	private final static RestHomeService restHomeService = (RestHomeService) ServiceProxy.newInstance(RestHomeServiceImpl.getInstance());
+	private final static RestHomeService restHomeService = RestHomeServiceImpl.getInstance();
 	
 	
 	@FXML

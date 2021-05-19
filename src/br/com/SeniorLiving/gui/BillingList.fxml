@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="484.0" prefWidth="1114.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
+<Pane prefHeight="524.0" prefWidth="1190.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.BillingController">
    <children>
-      <Pane layoutX="838.0" layoutY="76.0" prefHeight="265.0" prefWidth="260.0" style="-fx-background-color: #F1FDFE;">
+      <Pane layoutX="896.0" layoutY="78.0" prefHeight="416.0" prefWidth="264.0" style="-fx-background-color: #F1FDFE;">
          <children>
-            <Pane layoutY="-3.0" prefHeight="49.0" prefWidth="260.0" style="-fx-background-color: #47B2E6;">
+            <Pane layoutY="-3.0" prefHeight="49.0" prefWidth="264.0" style="-fx-background-color: #47B2E6;">
                <children>
                   <Label layoutX="93.0" layoutY="10.0" text="Pesquisa" textFill="WHITE">
                      <font>
@@ -25,13 +25,13 @@
                </children>
             </Pane>
             <TextField layoutX="10.0" layoutY="88.0" prefHeight="25.0" prefWidth="240.0" />
-            <Label layoutX="14.0" layoutY="57.0" text="Código de Registro">
+            <Label layoutX="11.0" layoutY="72.0" text="Nome do Idoso">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
             <TextField layoutX="10.0" layoutY="148.0" prefHeight="25.0" prefWidth="240.0" />
-            <Button layoutX="14.0" layoutY="206.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Buscar" textFill="WHITE">
+            <Button layoutX="14.0" layoutY="278.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Buscar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -45,12 +45,12 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Label layoutX="14.0" layoutY="120.0" text="Casa de Repouso">
+            <Label layoutX="12.0" layoutY="131.0" text="Data de Vencimento">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button layoutX="136.0" layoutY="206.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #F1FDFE; -fx-border-radius: 100px 100px 100px 100px;" text="Limpar" textFill="#ff0101">
+            <Button layoutX="154.0" layoutY="278.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #F1FDFE; -fx-border-radius: 100px 100px 100px 100px;" text="Limpar" textFill="#ff0101">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -61,23 +61,29 @@
                   <Insets />
                </opaqueInsets>
             </Button>
+            <TextField layoutX="12.0" layoutY="209.0" prefHeight="25.0" prefWidth="240.0" />
+            <Label layoutX="12.0" layoutY="192.0" text="Total">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow />
          </effect>
       </Pane>
-      <TableView layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="798.0" style="-fx-background-color: #F1FDFE;">
+      <TableView fx:id="billingTable" layoutX="37.0" layoutY="78.0" prefHeight="416.0" prefWidth="832.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
          <columns>
-            <TableColumn fx:id="columnEmail" prefWidth="254.0" style="-fx-background-color: #47B2E6;" text="Código de Registro" />
-            <TableColumn fx:id="columnNickname" prefWidth="189.0" style="-fx-background-color: #47B2E6;" text="Casa de Respouso" />
-            <TableColumn fx:id="ColumnActions2" prefWidth="211.0" style="-fx-background-color: #47B2E6;" text="Data" />
-            <TableColumn fx:id="ColumnActions312111" minWidth="0.0" prefWidth="143.0" style="-fx-background-color: #47B2E6;" text="Ações" />
+            <TableColumn fx:id="elderlyColumn" prefWidth="305.0" style="-fx-background-color: #47B2E6;" text="Idoso" />
+            <TableColumn fx:id="dueDateColumn" prefWidth="226.0" style="-fx-background-color: #47B2E6;" text="Data de Vencimento" />
+            <TableColumn fx:id="amountColumn" prefWidth="140.0" style="-fx-background-color: #47B2E6;" text="Total" />
+            <TableColumn fx:id="actionsColumn" minWidth="0.0" prefWidth="160.0" style="-fx-background-color: #47B2E6;" text="Ações" />
          </columns>
          <effect>
             <DropShadow />
          </effect>
       </TableView>
-      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="175.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Faturamento com Produto" textFill="WHITE">
+      <Button layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#openBillingFormButtonAction" prefHeight="32.0" prefWidth="175.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Faturamento com Produto" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

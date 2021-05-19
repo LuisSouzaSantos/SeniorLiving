@@ -8,12 +8,9 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import br.com.ftt.ec6.seniorLiving.entities.Product;
-import br.com.ftt.ec6.seniorLiving.entities.Type;
-import br.com.ftt.ec6.seniorLiving.exception.ProductException;
 import br.com.ftt.ec6.seniorLiving.exception.UserException;
 import br.com.ftt.ec6.seniorLiving.service.ProductService;
 import br.com.ftt.ec6.seniorLiving.service.impl.ProductServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -33,7 +30,7 @@ import javafx.stage.Stage;
 public class ProductController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/ProductList.fxml";
-	private final static ProductService productService = (ProductService) ServiceProxy.newInstance(ProductServiceImpl.getInstance());
+	private final static ProductService productService = ProductServiceImpl.getInstance();
 
 	@FXML
 	private TableView<Product> productTable;

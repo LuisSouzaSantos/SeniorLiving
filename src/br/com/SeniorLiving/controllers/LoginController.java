@@ -14,7 +14,6 @@ import br.com.ftt.ec6.seniorLiving.service.AuditService;
 import br.com.ftt.ec6.seniorLiving.service.LoginService;
 import br.com.ftt.ec6.seniorLiving.service.impl.AuditServiceImpl;
 import br.com.ftt.ec6.seniorLiving.service.impl.LoginServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +34,7 @@ public class LoginController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/Login.fxml";
 	private final static AuditService audit = AuditServiceImpl.getInstance();
-	private final static LoginService loginService = (LoginService) ServiceProxy.newInstance(LoginServiceImpl.getInstance());
+	private final static LoginService loginService = LoginServiceImpl.getInstance();
 	
 	@FXML
 	private TextField txtEmail;

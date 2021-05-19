@@ -11,20 +11,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="501.0" prefWidth="1195.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
+<Pane prefHeight="524.0" prefWidth="1190.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.UserController">
    <children>
-      <TableView fx:id="userTable" layoutX="20.0" layoutY="76.0" prefHeight="390.0" prefWidth="843.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
+      <TableView fx:id="userTable" layoutX="37.0" layoutY="78.0" prefHeight="416.0" prefWidth="832.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
         <columns>
           <TableColumn fx:id="emailColumn" prefWidth="374.0" style="-fx-background-color: #47B2E6;" text="Email" />
-          <TableColumn fx:id="nicknameColumn" prefWidth="254.0" style="-fx-background-color: #47B2E6;" text="Apelido" />
-            <TableColumn fx:id="statusColumn" prefWidth="106.0" style="-fx-background-color: #47B2E6;" text="Status" />
-            <TableColumn fx:id="actionsColumn" prefWidth="117.0" style="-fx-background-color: #47B2E6;" text="Ações" />
+          <TableColumn fx:id="nicknameColumn" prefWidth="200.0" style="-fx-background-color: #47B2E6;" text="Apelido" />
+            <TableColumn fx:id="statusColumn" prefWidth="127.0" style="-fx-background-color: #47B2E6;" text="Status" />
+            <TableColumn fx:id="actionsColumn" prefWidth="130.0" style="-fx-background-color: #47B2E6;" text="Ações" />
         </columns>
          <effect>
             <DropShadow />
          </effect>
       </TableView>
-      <Pane layoutX="886.0" layoutY="79.0" prefHeight="384.0" prefWidth="264.0" style="-fx-background-color: #F1FDFE;">
+      <Pane layoutX="896.0" layoutY="78.0" prefHeight="416.0" prefWidth="264.0" style="-fx-background-color: #F1FDFE;">
          <children>
             <Pane prefHeight="49.0" prefWidth="264.0" style="-fx-background-color: #47B2E6;">
                <children>
@@ -35,19 +35,19 @@
                   </Label>
                </children>
             </Pane>
-            <TextField layoutX="10.0" layoutY="90.0" prefHeight="25.0" prefWidth="238.0" />
+            <TextField layoutX="10.0" layoutY="90.0" prefHeight="25.0" prefWidth="240.0" />
             <Label layoutX="11.0" layoutY="70.0" text="Email">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField layoutX="10.0" layoutY="212.0" prefHeight="25.0" prefWidth="238.0" />
+            <TextField layoutX="10.0" layoutY="212.0" prefHeight="25.0" prefWidth="240.0" />
             <Label layoutX="11.0" layoutY="192.0" text="Ativo">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField layoutX="10.0" layoutY="150.0" prefHeight="25.0" prefWidth="238.0" />
+            <TextField layoutX="10.0" layoutY="150.0" prefHeight="25.0" prefWidth="240.0" />
             <Button layoutX="14.0" layoutY="302.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Buscar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -83,7 +83,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <Button layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#createNewUserButtonAction" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Novo usuário" textFill="WHITE">
+      <Button layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#createNewUserButtonAction" prefHeight="32.0" prefWidth="139.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Novo usuário" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

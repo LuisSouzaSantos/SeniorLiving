@@ -11,7 +11,6 @@ import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.Type;
 import br.com.ftt.ec6.seniorLiving.exception.TypeException;
 import br.com.ftt.ec6.seniorLiving.service.TypeService;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.service.impl.TypeServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +23,7 @@ import javafx.stage.Stage;
 public class TypeFormController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/TypeForm.fxml";
-	private final TypeService typeService = (TypeService) ServiceProxy.newInstance(TypeServiceImpl.getInstance());
+	private final TypeService typeService = TypeServiceImpl.getInstance();
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_CREATE = {"NAME"};
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_UPDATE = {"NAME"};
 	

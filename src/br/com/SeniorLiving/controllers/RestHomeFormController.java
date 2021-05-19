@@ -16,7 +16,6 @@ import br.com.ftt.ec6.seniorLiving.exception.RestHomeException;
 import br.com.ftt.ec6.seniorLiving.service.RestHomeService;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.service.impl.RestHomeServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.service.impl.UserServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ExternoApi;
 import br.com.ftt.ec6.seniorLiving.utils.SupportProperties;
@@ -39,8 +38,8 @@ import javafx.util.Callback;
 public class RestHomeFormController extends FormController<RestHomeController> implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/RestHomeForm.fxml";
-	private final RestHomeService restHomeService = (RestHomeService) ServiceProxy.newInstance(RestHomeServiceImpl.getInstance());
-	private final UserService userService = (UserService) ServiceProxy.newInstance(UserServiceImpl.getInstance());
+	private final RestHomeService restHomeService = RestHomeServiceImpl.getInstance();
+	private final UserService userService = UserServiceImpl.getInstance();
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_CREATE = {"SOCIAL_REASON", "CNPJ", "ADMIN", "CEP", "STREET", "STREET_NUMBER", "STREET_STATE", "STREET_NEIGHBORHOOD"};
 	private final static String[] FIELDS_TO_BE_VALIDATE_IN_UPDATE = {"SOCIAL_REASON", "CNPJ", "ADMIN", "CEP", "STREET", "STREET_NUMBER", "STREET_STATE", "STREET_NEIGHBORHOOD"};
 	

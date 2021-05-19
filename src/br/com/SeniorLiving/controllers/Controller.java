@@ -10,6 +10,7 @@ public abstract class Controller {
 
 	protected final static String EDIT_IMAGE = "/br/com/SeniorLiving/images/edit.png";
 	protected final static String DELETE_IMAGE = "/br/com/SeniorLiving/images/delete.png";
+	protected final static String LESS_IMAGE =  "/br/com/SeniorLiving/images/less.png";
 	protected static final String VERSION = "v1.0.0";
 	private static User userLogged;
 	private static Role roleActived;

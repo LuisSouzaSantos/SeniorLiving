@@ -42,7 +42,8 @@ public abstract class DAOImpl<T> {
 	}
 
 	public T getById(Long id) {
-		return entityManager.createQuery(getByIdQuery(), t).getSingleResult();
+		return entityManager.find(t, id);
+				//.createQuery(getByIdQuery(), t).getSingleResult();
 	}
 	
 	private String getAllQuery() {

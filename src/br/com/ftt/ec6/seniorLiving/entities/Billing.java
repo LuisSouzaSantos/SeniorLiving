@@ -13,10 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "billing", uniqueConstraints = {@UniqueConstraint(columnNames = {"registration_code"})})
+@Table(name = "billing")
 public class Billing extends BaseConfig {
 	
 	@Transient
@@ -26,9 +25,6 @@ public class Billing extends BaseConfig {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true, length = 255, name = "registration_code", nullable = false)
-	private String registrationCode;
-	
 	@Column(nullable = false)
 	private LocalDate month;
 	
@@ -36,9 +32,14 @@ public class Billing extends BaseConfig {
 	@JoinColumn(name = "rest_home_id")
 	private RestHome restHome;
 	
+	@ManyToOne
+	@JoinColumn(name =  "elderly_id")
+	private Elderly elderly;
+	
 	@OneToMany(mappedBy = "billing")
 	private List<BillingProduct> billingProductList;
 	
+
 	public Long getId() {
 		return id;
 	}
@@ -46,15 +47,7 @@ public class Billing extends BaseConfig {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	public String getRegistrationCode() {
-		return registrationCode;
-	}
-	
-	public void setRegistrationCode(String registrationCode) {
-		this.registrationCode = registrationCode;
-	}
-	
+
 	public LocalDate getMonth() {
 		return month;
 	}
@@ -63,20 +56,28 @@ public class Billing extends BaseConfig {
 		this.month = month;
 	}
 
-	public List<BillingProduct> getBillingProductList() {
-		return billingProductList;
-	}
-	
-	public void setBillingProductList(List<BillingProduct> billingProductList) {
-		this.billingProductList = billingProductList;
-	}
-	
 	public RestHome getRestHome() {
 		return restHome;
 	}
 
 	public void setRestHome(RestHome restHome) {
 		this.restHome = restHome;
+	}
+
+	public Elderly getElderly() {
+		return elderly;
+	}
+
+	public void setElderly(Elderly elderly) {
+		this.elderly = elderly;
+	}
+
+	public List<BillingProduct> getBillingProductList() {
+		return billingProductList;
+	}
+
+	public void setBillingProductList(List<BillingProduct> billingProductList) {
+		this.billingProductList = billingProductList;
 	}
 
 	@Override

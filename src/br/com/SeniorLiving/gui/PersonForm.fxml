@@ -14,7 +14,7 @@
    <children>
       <Pane layoutY="-2.0" prefHeight="64.0" prefWidth="777.0" style="-fx-background-color: #47B2E6;">
          <children>
-            <Text fill="WHITE" layoutX="297.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de  Paciente">
+            <Text fill="WHITE" layoutX="297.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de Pessoa">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

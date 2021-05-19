@@ -11,7 +11,6 @@ import br.com.ftt.ec6.seniorLiving.entities.Accommodation;
 import br.com.ftt.ec6.seniorLiving.exception.UserException;
 import br.com.ftt.ec6.seniorLiving.service.AccommodationService;
 import br.com.ftt.ec6.seniorLiving.service.impl.AccommodationServiceImpl;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -32,7 +31,7 @@ public class AccommodationController extends Controller implements Initializable
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/AccommodationList.fxml";
 	
-	private final static AccommodationService accommodationService = (AccommodationService) ServiceProxy.newInstance(AccommodationServiceImpl.getInstance());
+	private final static AccommodationService accommodationService = AccommodationServiceImpl.getInstance();
 
 	@FXML
 	private TableView<Accommodation> accommodationTable;

@@ -4,17 +4,21 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import br.com.ftt.ec6.seniorLiving.utils.MaritalStatus;
 
 @Entity
 @Table(name = "elderly")
@@ -30,8 +34,9 @@ public class Elderly extends BaseConfig {
 	@Column(length = 100, nullable = false)
 	private String name;
 	
-	@Column(name = "marital_status", length = 50, nullable = false)
-	private String maritalStatus;
+	@Column(name = "marital_status", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private MaritalStatus maritalStatus;
 	
 	@Column(length = 30, nullable = false)
 	private String nationality;
@@ -64,11 +69,7 @@ public class Elderly extends BaseConfig {
 	@JoinColumn(name = "rest_home_id", nullable = false)
 	private RestHome restHome;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "elderly_billing",
-			joinColumns = @JoinColumn(name="elderly_id"),
-			inverseJoinColumns = @JoinColumn(name="billing_id"))
+	@OneToMany(mappedBy = "elderly", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Billing> billingList;
 	
 	public Long getId() {
@@ -87,14 +88,14 @@ public class Elderly extends BaseConfig {
 		this.name = name;
 	}
 	
-	public String getMaritalStatus() {
+	public MaritalStatus getMaritalStatus() {
 		return maritalStatus;
 	}
-	
-	public void setMaritalStatus(String maritalStatus) {
+
+	public void setMaritalStatus(MaritalStatus maritalStatus) {
 		this.maritalStatus = maritalStatus;
 	}
-	
+
 	public String getNationality() {
 		return nationality;
 	}
@@ -173,6 +174,12 @@ public class Elderly extends BaseConfig {
 
 	public void setBillingList(List<Billing> billingList) {
 		this.billingList = billingList;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.name+"("+this.cpf+")";
 	}
 
 	@Override
