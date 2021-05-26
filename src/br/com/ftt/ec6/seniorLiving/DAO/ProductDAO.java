@@ -14,6 +14,10 @@ public interface ProductDAO {
 	
 	Product getProductByName(String name);
 	
+	Product getProductByNameAndRestHome(String name, RestHome restHome);
+	
+	Product getById(Long id);
+	
 	List<Product> getProductByRestHome(RestHome restHome);
 	
 	String delete(Long id);

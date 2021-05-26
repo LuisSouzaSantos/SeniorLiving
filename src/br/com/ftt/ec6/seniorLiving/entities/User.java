@@ -53,6 +53,22 @@ public class User extends BaseConfig {
 			inverseJoinColumns = @JoinColumn(name="role_id"))
 	private List<Role> roleList;
 	
+	public User() {
+		
+	}
+	
+	public User(User user) {
+		this.id = user.getId();
+		this.email = user.getEmail();
+		this.nickname = user.getNickname();
+		this.password = user.getPassword();
+		this.passwordConfirmation = user.getPasswordConfirmation();
+		this.active = user.getActive();
+		this.codeChangePassword = user.getCodeChangePassword();
+		this.codeChangePasswordUsed = user.getCodeChangePasswordUsed();
+		this.roleList = user.getRoleList();
+	}
+
 	public Long getId() {
 		return id;
 	}

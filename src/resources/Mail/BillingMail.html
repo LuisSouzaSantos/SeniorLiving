@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Faturamento</title>
+    <style>
+            .global{
+                display: flex;
+                justify-content: center;
+            }
+
+            .container{
+                width: 900px;
+                height: 100%;
+                background-color: #FFFAFA;
+            }
+
+            .title{
+                text-align: center;
+                color: white;
+            }
+
+            .partition{
+                width: 90%;
+            }
+
+            .elderlyProductContainer{
+                padding: 50px;
+            }
+
+            .elderlyResumeContent{
+                display: flex;
+                justify-content: center;
+            }
+
+            .elderlyProductItemsTableTitle{
+                padding: 30px;
+            }
+
+            .elderlyProductItemsTableContent{
+                padding: 30px;
+            }
+
+            .resumeItem{
+                color: white;
+                font-size: 15px;
+            }
+
+            .elderlyProductItems{
+                display: flex;
+                justify-content: center;
+            }
+
+            .elderlyFooter{
+                margin-top: 30px;
+            }
+
+            .elderlyFooterContent{
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .footer{
+                height: 50px;
+            }
+
+    </style>
+</head>
+<body>
+    <div class="global">
+        <div class="container">
+            <div class="header">
+                <span><h5>Senior Living</h5></span>
+                <h3 class="title">{{REST_HOME_NAME}}</h3>
+            </div>
+            <div class="content">
+                <div class="elderlyResume">
+                    <div class="elderlyResumeContent">
+                        <ul>
+                            <li class="resumeItem">Paciente: {{ELDERLY_NAME}}</li>
+                            <li class="resumeItem">Idade: {{ELDERLY_AGE}}</li>
+                        </ul>
+                        <ul>
+                            <li class="resumeItem">CPF: {{ELDERLY_CPF}}</li>
+                            <li class="resumeItem">RG: {{ELDERLY_RG}}</li>
+                        </ul>
+                        <ul>
+                            <li class="resumeItem">Acomodação: {{ELDERLY_ACCOMMODATION}}</li>
+                            <li class="resumeItem">Valor Mensal: {{ELDERLY_MONTHLY_PAYMENT}}</li>
+                        <ul>
+                    </div>
+                </div>
+                <hr class="partition"/>
+                <div class="elderlyProductContainer">
+                    <div class="elderlyProductItems">
+                        <div class="elderlyProductItemsContent">
+                            <table>
+                                <tr class="elderlyProductItemsTableTitle">
+                                    <th>Nome do Produto</th>
+                                    <th>Valor Unitário</th>
+                                    <th>Quantidade</th>
+                                    <th>Total</th>
+                                </tr>
+                                <tr class="elderlyProductItemsTableContent">
+                                    <td>{{PRODUCT_NAME}}</td>
+                                    <td>{{PRODUCT_UNITARY_VALUE}}</td>
+                                    <td>{{PRODUCT_QUANTITY}}</td>
+                                    <td>{{PRODUCT_AMOUNT}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="elderlyFooter">
+                        <div class="elderlyFooterContent">
+                            <span>Valor Total: {{PRODUCTS_ITEM_AMOUNT}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -14,6 +14,10 @@ public interface TypeDAO {
 	
 	Type getTypeByName(String name);
 	
+	Type getTypeByNameAndRestHome(String name, RestHome restHome);
+	
+	Type getById(Long Id);
+	
 	String delete(Long id);
 	
 	List<Type> getAll();

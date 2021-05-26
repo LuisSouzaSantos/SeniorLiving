@@ -3,35 +3,38 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <Pane prefHeight="524.0" prefWidth="1190.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.BillingController">
    <children>
-      <Pane layoutX="896.0" layoutY="78.0" prefHeight="416.0" prefWidth="264.0" style="-fx-background-color: #F1FDFE;">
+      <Pane layoutX="841.0" layoutY="78.0" prefHeight="416.0" prefWidth="319.0" style="-fx-background-color: #F1FDFE;">
          <children>
-            <Pane layoutY="-3.0" prefHeight="49.0" prefWidth="264.0" style="-fx-background-color: #47B2E6;">
+            <Pane layoutY="-3.0" prefHeight="49.0" prefWidth="319.0" style="-fx-background-color: #47B2E6;">
                <children>
-                  <Label layoutX="93.0" layoutY="10.0" text="Pesquisa" textFill="WHITE">
+                  <Label layoutX="123.0" layoutY="11.0" text="Pesquisa" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <TextField layoutX="10.0" layoutY="88.0" prefHeight="25.0" prefWidth="240.0" />
-            <Label layoutX="11.0" layoutY="72.0" text="Nome do Idoso">
+            <TextField fx:id="textFieldEldelyName" layoutX="10.0" layoutY="88.0" prefHeight="32.0" prefWidth="289.0" />
+            <Label layoutX="11.0" layoutY="70.0" text="Nome do Idoso">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField layoutX="10.0" layoutY="148.0" prefHeight="25.0" prefWidth="240.0" />
-            <Button layoutX="14.0" layoutY="278.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Buscar" textFill="WHITE">
+            <Button fx:id="billingSearchButton" layoutX="33.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#billingSearchButtonAction" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Buscar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -45,12 +48,12 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Label layoutX="12.0" layoutY="131.0" text="Data de Vencimento">
+            <Label layoutX="11.0" layoutY="127.0" text="Data Inicial">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button layoutX="154.0" layoutY="278.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #F1FDFE; -fx-border-radius: 100px 100px 100px 100px;" text="Limpar" textFill="#ff0101">
+            <Button layoutX="178.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#cleanSearchButtonAction" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #F1FDFE; -fx-border-radius: 100px 100px 100px 100px;" text="Limpar" textFill="#ff0101">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -61,21 +64,29 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <TextField layoutX="12.0" layoutY="209.0" prefHeight="25.0" prefWidth="240.0" />
-            <Label layoutX="12.0" layoutY="192.0" text="Total">
+            <Label layoutX="11.0" layoutY="244.0" text="Valor Máximo">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
+            <Slider fx:id="sliderMaxValue" layoutX="9.0" layoutY="268.0" prefHeight="14.0" prefWidth="224.0" />
+            <DatePicker fx:id="dataPicckerBeginDate" layoutX="10.0" layoutY="145.0" prefHeight="32.0" prefWidth="289.0" />
+            <Label layoutX="11.0" layoutY="183.0" text="Data Final">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dataPicckerFinalDate" layoutX="10.0" layoutY="201.0" prefHeight="32.0" prefWidth="289.0" />
+            <Text fx:id="textMaxValue" layoutX="258.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
          </children>
          <effect>
             <DropShadow />
          </effect>
       </Pane>
-      <TableView fx:id="billingTable" layoutX="37.0" layoutY="78.0" prefHeight="416.0" prefWidth="832.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
+      <TableView fx:id="billingTable" layoutX="37.0" layoutY="78.0" prefHeight="416.0" prefWidth="781.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
          <columns>
-            <TableColumn fx:id="elderlyColumn" prefWidth="305.0" style="-fx-background-color: #47B2E6;" text="Idoso" />
-            <TableColumn fx:id="dueDateColumn" prefWidth="226.0" style="-fx-background-color: #47B2E6;" text="Data de Vencimento" />
+            <TableColumn fx:id="elderlyColumn" prefWidth="240.0" style="-fx-background-color: #47B2E6;" text="Idoso" />
+            <TableColumn fx:id="dueDateColumn" prefWidth="240.0" style="-fx-background-color: #47B2E6;" text="Data de Vencimento" />
             <TableColumn fx:id="amountColumn" prefWidth="140.0" style="-fx-background-color: #47B2E6;" text="Total" />
             <TableColumn fx:id="actionsColumn" minWidth="0.0" prefWidth="160.0" style="-fx-background-color: #47B2E6;" text="Ações" />
          </columns>
@@ -97,5 +108,10 @@
             <Insets />
          </opaqueInsets>
       </Button>
+      <Pane fx:id="billingProgressIndicator" layoutX="-2.0" opacity="0.6" prefHeight="524.0" prefWidth="1197.0" style="-fx-background-color: #000000;" visible="false">
+         <children>
+            <ProgressIndicator layoutX="584.0" layoutY="242.0" styleClass="progressIndicator" stylesheets="@progressIndicator.css" />
+         </children>
+      </Pane>
    </children>
 </Pane>

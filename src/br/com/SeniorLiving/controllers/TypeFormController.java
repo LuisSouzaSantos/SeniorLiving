@@ -9,14 +9,15 @@ import java.util.ResourceBundle;
 
 import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.Type;
-import br.com.ftt.ec6.seniorLiving.exception.TypeException;
 import br.com.ftt.ec6.seniorLiving.service.TypeService;
 import br.com.ftt.ec6.seniorLiving.service.impl.TypeServiceImpl;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -43,6 +44,9 @@ public class TypeFormController extends Controller implements Initializable {
 	@FXML
 	private Button typeFormCancelButton;
 	
+	@FXML
+	private Pane typeFormProgressIndicator;
+	
 	private Stage me;
 	private boolean isCreatedForm;
 	private Type type;
@@ -64,34 +68,82 @@ public class TypeFormController extends Controller implements Initializable {
 	
 	@FXML
 	private void createNewTypeButtonAction() {
-		try {
-			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
+		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
+		
+		String name = formTypeNameField.getText();
+		RestHome restHome = getRestHomeActived();
 			
-			String name = formTypeNameField.getText();
-			RestHome restHome = getRestHomeActived();
+		Task<Type> newTypeTask = createNewTypeTask(name, restHome);
 			
-			typeService.save(name, restHome);
+		new Thread(newTypeTask).start();
+	}
+	
+	private Task<Type> createNewTypeTask(String name, RestHome restHome){
+		Task<Type> task = new Task<Type>() {
+			@Override
+			protected Type call() throws Exception {
+				initProgressIndicator();
+				return typeService.save(name, restHome);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Type typeCreated = task.getValue();
 			closeMe();
-		}catch(TypeException e) {
-			formTypeErrorMessageText.setText(e.getMessage());
-		}
+			father.addNewTypeOnTable(typeCreated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formTypeErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
 	}
 	
 	@FXML
 	private void updateTypeButtonAction() {
-		try {
-			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
+		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
 			
-			String name = formTypeNameField.getText();
+		String name = formTypeNameField.getText();
 			
-			this.type.setName(name);
+		Task<Type> typeTask = updateAccommodationTask(name);
 			
-			typeService.update(this.type);
-			closeMe();
-		}catch(TypeException e) {
-			formTypeErrorMessageText.setText(e.getMessage());
-		}
+		new Thread(typeTask).start();
 	}
+	
+	private Task<Type> updateAccommodationTask(String name) {
+		Task<Type> task = new Task<Type>() {
+			@Override
+			protected Type call() throws Exception {
+				initProgressIndicator();
+				
+				type.setName(name);
+				
+				return typeService.update(type);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Type typeUpdated = task.getValue();
+			closeMe();
+			father.updateTypeOnTable(typeUpdated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formTypeErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
+	}
+	
 	
 	@FXML
 	private void closeTypeFormButtonAction() {
@@ -193,6 +245,14 @@ public class TypeFormController extends Controller implements Initializable {
 
 	public void setFather(TypeController father) {
 		this.father = father;
+	}
+	
+	private void initProgressIndicator() {
+		typeFormProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		typeFormProgressIndicator.setVisible(false);
 	}
 
 }

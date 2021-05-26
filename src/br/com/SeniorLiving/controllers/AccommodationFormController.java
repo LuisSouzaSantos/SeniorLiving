@@ -9,15 +9,16 @@ import java.util.ResourceBundle;
 
 import br.com.ftt.ec6.seniorLiving.entities.Accommodation;
 import br.com.ftt.ec6.seniorLiving.entities.RestHome;
-import br.com.ftt.ec6.seniorLiving.exception.AccommodationException;
 import br.com.ftt.ec6.seniorLiving.service.AccommodationService;
 import br.com.ftt.ec6.seniorLiving.service.impl.AccommodationServiceImpl;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -44,6 +45,9 @@ public class AccommodationFormController extends Controller implements Initializ
 	private Button accommodationFormCreateButton;
 	@FXML
 	private Button accommodationFormUpdateButton;
+	
+	@FXML
+	private Pane accommodationFormProgressIndicator;
 
 	private Stage me;
 	private boolean isCreatedForm;
@@ -74,36 +78,81 @@ public class AccommodationFormController extends Controller implements Initializ
 	
 	@FXML
 	private void createNewAccommodationButtonAction() {
-		try {
-			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
+		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
 			
-			String name = formAccommodationNameField.getText();
-			String description = formAccommodationDescriptionFieldArea.getText();
-			RestHome restHome = getRestHomeActived();
+		String name = formAccommodationNameField.getText();
+		String description = formAccommodationDescriptionFieldArea.getText();
+		RestHome restHome = getRestHomeActived();
 			
-			accommodationService.save(name, description, restHome);
-			closeMe();
-		}catch(AccommodationException e) {
-			formAccommodationErrorMessageText.setText(e.getMessage());
-		}	
+		Task<Accommodation> createNewAccommodation = createAccommodation(name, description, restHome);
+		new Thread(createNewAccommodation).start();
 	}
 	
-	@FXML
-	private void createUpdateAccommodationButtonAction() {
-		try {
-			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
-			
-			String name = formAccommodationNameField.getText();
-			String description = formAccommodationDescriptionFieldArea.getText();
-			
-			accommodation.setName(name);
-			accommodation.setDescription(description);
-			
-			accommodationService.update(accommodation);
+	private Task<Accommodation> createAccommodation(String name, String description, RestHome restHome) {
+		Task<Accommodation> task = new Task<Accommodation>() {
+			@Override
+			protected Accommodation call() throws Exception {
+				initProgressIndicator();
+				return accommodationService.save(name, description, restHome);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Accommodation accommodationCreated = task.getValue();
 			closeMe();
-		}catch(AccommodationException e) {
-			formAccommodationErrorMessageText.setText(e.getMessage());
-		}	
+			father.addNewAccommodationOnTable(accommodationCreated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formAccommodationErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
+	}
+
+	@FXML
+	private void updateAccommodationButtonAction() {
+		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
+			
+		String name = formAccommodationNameField.getText();
+		String description = formAccommodationDescriptionFieldArea.getText();
+		
+		Task<Accommodation> updateAccommodationTask = updateAccommodationTask(name, description);
+		new Thread(updateAccommodationTask).start();
+	}
+	
+	private Task<Accommodation> updateAccommodationTask(String name, String description) {
+		Task<Accommodation> task = new Task<Accommodation>() {
+			@Override
+			protected Accommodation call() throws Exception {
+				initProgressIndicator();
+				
+				accommodation.setName(name);
+				accommodation.setDescription(description);
+				
+				return accommodationService.update(accommodation);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Accommodation accommodationUpdated = task.getValue();
+			closeMe();
+			father.updateAccommodationOnTable(accommodationUpdated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formAccommodationErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
 	}
 	
 	@FXML
@@ -210,6 +259,14 @@ public class AccommodationFormController extends Controller implements Initializ
 
 	public void setFather(AccommodationController father) {
 		this.father = father;
+	}
+	
+	private void initProgressIndicator() {
+		accommodationFormProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		accommodationFormProgressIndicator.setVisible(false);
 	}
 
 }

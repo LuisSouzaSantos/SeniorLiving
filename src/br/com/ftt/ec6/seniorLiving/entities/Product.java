@@ -9,10 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "product", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
+@Table(name = "product")
 public class Product extends BaseConfig {
 	
 	@Transient
@@ -22,7 +21,7 @@ public class Product extends BaseConfig {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true, length = 50, nullable = false)
+	@Column(unique = false, length = 50, nullable = false)
 	private String name;
 	
 	@Column(length = 100, nullable = false)

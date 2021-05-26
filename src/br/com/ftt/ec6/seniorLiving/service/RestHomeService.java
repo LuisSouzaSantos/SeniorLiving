@@ -19,5 +19,7 @@ public interface RestHomeService {
 	
 	List<RestHome> getRestHomeByAdmin(User user);
 	
+	List<RestHome> getRestHomeByFilter(String socialReason, String cnpj, String uf, String cep);
+	
 	String delete(Long id);
 }

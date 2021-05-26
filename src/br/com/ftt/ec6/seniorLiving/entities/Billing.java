@@ -3,6 +3,7 @@ package br.com.ftt.ec6.seniorLiving.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Billing extends BaseConfig {
 	@JoinColumn(name =  "elderly_id")
 	private Elderly elderly;
 	
-	@OneToMany(mappedBy = "billing")
+	@OneToMany(mappedBy = "billing", cascade = CascadeType.REMOVE)
 	private List<BillingProduct> billingProductList;
 	
 

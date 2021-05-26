@@ -9,17 +9,18 @@ import java.util.ResourceBundle;
 
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import br.com.ftt.ec6.seniorLiving.entities.User;
-import br.com.ftt.ec6.seniorLiving.exception.UserException;
 import br.com.ftt.ec6.seniorLiving.service.RoleService;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.service.impl.RoleServiceImpl;
 import br.com.ftt.ec6.seniorLiving.service.impl.UserServiceImpl;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -62,6 +63,9 @@ public class UserFormController extends Controller implements Initializable {
 	@FXML
 	private Button userFormUpdateButton;
 	
+	@FXML
+	private Pane userFormProgressIndicator;
+	
 	private Stage me;
 	private boolean isCreatedForm;
 	private User user;
@@ -99,60 +103,103 @@ public class UserFormController extends Controller implements Initializable {
 	
 	@FXML
 	private void createNewUserButtonAction() {
-		try {
-			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
+		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
 			
-			String[] roleNameArray = new String[2]; 
+		String[] roleNameArray = new String[2]; 
 			
-			if(formUserAdminGeralCheckBox.isSelected()) {
-				roleNameArray[0] = "ADMIN_GERAL";
-			}
-			
-			if(formUserAdminLocalCheckBox.isSelected()) {
-				roleNameArray[1] = "ADMIN_LOCAL";
-			}
-			
-			List<Role> roleList =  roleService.findRoleListByRoleNameArray(roleNameArray);
-			
-			User user = userService.save(formUserEmailField.getText(), formUserNicknameField.getText(), formUserPasswordField.getText(), formUserPasswordConfirmationField.getText(), roleList);
-			closeMe();
-			father.addNewUserOnTable(user);
-		}catch(UserException ex) {
-			formUserErrorMessageText.setText(ex.getMessage());
+		if(formUserAdminGeralCheckBox.isSelected()) {
+			roleNameArray[0] = "ADMIN_GERAL";
 		}
+			
+		if(formUserAdminLocalCheckBox.isSelected()) {
+			roleNameArray[1] = "ADMIN_LOCAL";
+		}
+			
+		Task<User> creatNewUser = createNewUserTask(formUserEmailField.getText(), formUserNicknameField.getText(), formUserPasswordField.getText(), formUserPasswordConfirmationField.getText(), roleNameArray);
+		
+		new Thread(creatNewUser).start();
 	}
 	
+	private Task<User> createNewUserTask(String email, String nickName, String password, String passwordConfirmation, String[] roleNameArray) {
+		Task<User> task = new Task<User>() {
+			@Override
+			protected User call() throws Exception {
+				initProgressIndicator();
+				List<Role> roleList =  roleService.findRoleListByRoleNameArray(roleNameArray);
+				return userService.save(email, nickName, password, passwordConfirmation, roleList);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			User userCreated = task.getValue();
+			closeMe();
+			father.addNewUserOnTable(userCreated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formUserErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
+	}
+
 	@FXML
 	private void updateUserButtonAction() {
+		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
 			
-		try {
-			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
+		String[] roleNameArray = new String[2]; 
 			
-			String[] roleNameArray = new String[2]; 
-			
-			if(formUserAdminGeralCheckBox.isSelected()) {
-				roleNameArray[0] = "ADMIN_GERAL";
-			}
-			
-			if(formUserAdminLocalCheckBox.isSelected()) {
-				roleNameArray[1] = "ADMIN_LOCAL";
-			}
-			
-			List<Role> roleList =  roleService.findRoleListByRoleNameArray(roleNameArray);
-			this.user.getRoleList().clear();
-			
-			this.user.setEmail(formUserEmailField.getText());
-			this.user.setNickname(formUserNicknameField.getText());
-			this.user.setRoleList(roleList);
-			
-			userService.update(this.user);
-			closeMe();
-			father.reloadMe();
-		}catch(UserException ex) {
-			formUserErrorMessageText.setText(ex.getMessage());
+		if(formUserAdminGeralCheckBox.isSelected()) {
+			roleNameArray[0] = "ADMIN_GERAL";
 		}
+			
+		if(formUserAdminLocalCheckBox.isSelected()) {
+			roleNameArray[1] = "ADMIN_LOCAL";
+		}
+			
+		Task<User> updateUser = updateUserTask(formUserEmailField.getText(), formUserNicknameField.getText(), roleNameArray);
+			
+		new Thread(updateUser).start();
 	}
 	
+	private Task<User> updateUserTask(String email, String nickName, String[] roleNameArray) {
+		Task<User> task = new Task<User>() {
+			@Override
+			protected User call() throws Exception {
+				initProgressIndicator();
+				
+				List<Role> roleList =  roleService.findRoleListByRoleNameArray(roleNameArray);
+				user.getRoleList().clear();
+				
+				user.setEmail(email);
+				user.setNickname(nickName);
+				user.setRoleList(roleList);
+				
+				return userService.update(user);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			User userUpdated = task.getValue();
+			closeMe();
+			father.updateUserOnTable(userUpdated);
+			stopProgressIndicator();			
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formUserErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
+	}
+
 	@FXML
 	private void closeUserFormButtonAction() {
 		clearForm();
@@ -252,6 +299,14 @@ public class UserFormController extends Controller implements Initializable {
 			formUserAdminLocalCheckBox.setSelected(true);
 		}
 		
+	}
+	
+	private void initProgressIndicator() {
+		userFormProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		userFormProgressIndicator.setVisible(false);
 	}
 	
 	private void closeMe() {

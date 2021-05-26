@@ -42,16 +42,16 @@ public class Person extends BaseConfig {
 	@Column(nullable = false, length = 30)
 	private String job;
 	
-	@Column(nullable = false, unique = true, length = 30)
+	@Column(nullable = false, unique = false, length = 30)
 	private String rg;
 	
-	@Column(nullable = false, unique = true, length = 11)
+	@Column(nullable = false, unique = false, length = 11)
 	private String cpf;
 	
 	@Column(nullable = false)
 	private String phone;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = false)
 	private String email;
 	
 	@Column(nullable = false, name = "address_street", length = 100)

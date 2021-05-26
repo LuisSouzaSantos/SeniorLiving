@@ -12,7 +12,6 @@ import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.entities.support.Address;
 import br.com.ftt.ec6.seniorLiving.entities.support.State;
-import br.com.ftt.ec6.seniorLiving.exception.RestHomeException;
 import br.com.ftt.ec6.seniorLiving.service.RestHomeService;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
 import br.com.ftt.ec6.seniorLiving.service.impl.RestHomeServiceImpl;
@@ -21,6 +20,7 @@ import br.com.ftt.ec6.seniorLiving.utils.ExternoApi;
 import br.com.ftt.ec6.seniorLiving.utils.SupportProperties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,6 +32,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -85,6 +86,9 @@ public class RestHomeFormController extends FormController<RestHomeController> i
 	private Button restHomeFormUdpateButton;
 	@FXML
 	private Button restHomeFormCloseButton;
+	
+	@FXML
+	private Pane restHomeProgressIndicator;
 	
 	private RestHome restHome;
 	
@@ -228,58 +232,105 @@ public class RestHomeFormController extends FormController<RestHomeController> i
 	
 	@FXML
 	private void createRestHomeButtonAction() {
-		try {
-			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
+		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
 		
-			String socialReason = formRestHomeSocialReasonField.getText();
-			String cnpj = formRestHomeCNPJField.getText();			
-			User adminUser = formRestHomeAdminComboBox.getValue();
-			String cep = formResetHomeCEPField.getText();
-			String street = formRestHomeStreetField.getText();
-			String streetNumber = formRestHomeStreetNumberField.getText();			
-			String state = formRestHomeStateComboBox.getValue();
-			String streetNeighborhood = formRestHomeNeighborhoodField.getText();
+		String socialReason = formRestHomeSocialReasonField.getText();
+		String cnpj = formRestHomeCNPJField.getText();			
+		User adminUser = formRestHomeAdminComboBox.getValue();
+		String cep = formResetHomeCEPField.getText();
+		String street = formRestHomeStreetField.getText();
+		String streetNumber = formRestHomeStreetNumberField.getText();			
+		String state = formRestHomeStateComboBox.getValue();
+		String streetNeighborhood = formRestHomeNeighborhoodField.getText();
 			
-			RestHome newRestHome = restHomeService.save(socialReason, cnpj, street, streetNumber, state, cep, streetNeighborhood, adminUser, null, null, null);
-			father.addNewRestHomeOnTable(newRestHome);
-			closeMe();
-		}catch(RestHomeException e) {
-			formRestHomeErrorMessageText.setText(e.getMessage());
-		}
+		Task<RestHome> createNewRestHomeTask = createNewRestHomeTask(socialReason, cnpj, adminUser, cep, street, streetNumber, state, streetNeighborhood);
+			
+		new Thread(createNewRestHomeTask).start();
 	}
 	
+	private Task<RestHome> createNewRestHomeTask(String socialReason, String cnpj, User adminUser, String cep,
+			String street, String streetNumber, String state, String streetNeighborhood) {
+		
+		Task<RestHome> task = new Task<RestHome>() {
+			@Override
+			protected RestHome call() throws Exception {
+				initProgressIndicator();
+				return restHomeService.save(socialReason, cnpj, street, streetNumber, state, cep, streetNeighborhood, adminUser, null, null, null);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			RestHome restHomeCreated = task.getValue();
+			closeMe();
+			father.addNewRestHomeOnTable(restHomeCreated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formRestHomeErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
+	}
+
 	@FXML
 	private void updateRestHomeButtonAction() {
-		try {
-			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
+		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
 			
-			String socialReason = formRestHomeSocialReasonField.getText();
-			String cnpj = formRestHomeCNPJField.getText();			
-			User adminUser = formRestHomeAdminComboBox.getValue();
-			String cep = formResetHomeCEPField.getText();
-			String street = formRestHomeStreetField.getText();
-			String streetNumber = formRestHomeStreetNumberField.getText();			
-			String state = formRestHomeStateComboBox.getValue();
-			String streetNeighborhood = formRestHomeNeighborhoodField.getText();
+		String socialReason = formRestHomeSocialReasonField.getText();
+		String cnpj = formRestHomeCNPJField.getText();			
+		User adminUser = formRestHomeAdminComboBox.getValue();
+		String cep = formResetHomeCEPField.getText();
+		String street = formRestHomeStreetField.getText();
+		String streetNumber = formRestHomeStreetNumberField.getText();			
+		String state = formRestHomeStateComboBox.getValue();
+		String streetNeighborhood = formRestHomeNeighborhoodField.getText();
 			
-			this.restHome.setSocialReason(socialReason);
-			this.restHome.setCnpj(cnpj);
-			this.restHome.setAdmin(adminUser);
-			this.restHome.setAddressCep(cep);
-			this.restHome.setAddressStreet(street);
-			this.restHome.setAddressNumber(streetNumber);
-			this.restHome.setAddressState(state);
-			this.restHome.setAddressNeighborhood(streetNeighborhood);
+		Task<RestHome> restHomeUpdate = updateRestHomeTask(socialReason, cnpj, adminUser, cep, street, streetNumber, state, streetNeighborhood);
 			
-			RestHome restHomeUpdated = restHomeService.update(restHome);
-			//father.updateRestHomeOnTable(restHomeUpdated, restHomeUpdated);
-			closeMe();
-		}catch(RestHomeException e) {
-			formRestHomeErrorMessageText.setText(e.getMessage());
-		}
-		
+		new Thread(restHomeUpdate).start();
 	}
 	
+	private Task<RestHome> updateRestHomeTask(String socialReason, String cnpj, User adminUser, String cep,
+			String street, String streetNumber, String state, String streetNeighborhood) {
+		Task<RestHome> task = new Task<RestHome>() {
+			@Override
+			protected RestHome call() throws Exception {
+				initProgressIndicator();
+				
+				restHome.setSocialReason(socialReason);
+				restHome.setCnpj(cnpj);
+				restHome.setAdmin(adminUser);
+				restHome.setAddressCep(cep);
+				restHome.setAddressStreet(street);
+				restHome.setAddressNumber(streetNumber);
+				restHome.setAddressState(state);
+				restHome.setAddressNeighborhood(streetNeighborhood);
+				
+				return restHomeService.update(restHome);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			RestHome restHomeUpdated = task.getValue();
+			closeMe();
+			father.updateRestHomeOnTable(restHomeUpdated);
+			stopProgressIndicator();			
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formRestHomeErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
+	}
+
 	@FXML
 	private void closeRestHomeFormButtonAction() {
 		closeMe();
@@ -369,6 +420,14 @@ public class RestHomeFormController extends FormController<RestHomeController> i
 	private void closeMe() {
 		clearForm();
 		this.me.close();
-	}	
+	}
+	
+	private void initProgressIndicator() {
+		restHomeProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		restHomeProgressIndicator.setVisible(false);
+	}
 	
 }

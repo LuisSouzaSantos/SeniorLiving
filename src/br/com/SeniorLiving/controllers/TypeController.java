@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import br.com.ftt.ec6.seniorLiving.entities.Type;
-import br.com.ftt.ec6.seniorLiving.exception.UserException;
+import br.com.ftt.ec6.seniorLiving.exception.TypeException;
 import br.com.ftt.ec6.seniorLiving.service.TypeService;
 import br.com.ftt.ec6.seniorLiving.service.impl.TypeServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
@@ -47,18 +47,13 @@ public class TypeController extends Controller implements Initializable {
 	}
 	
 	private void initializeNodes() {
-		load();
+		load(typeService.getTypeByRestHome(getRestHomeActived()));
 	}
 
 	@Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
 	}
-	
-	public void reloadMe() {
-		typeTable.getItems().clear();
-    	load();
-    }
     
     public void addNewTypeOnTable(Type type) {
 	    if((type == null) || (type.getId() == null)) { return; }
@@ -66,6 +61,7 @@ public class TypeController extends Controller implements Initializable {
 	    if(typeTable == null) { return; }
 
 	    typeTable.getItems().add(type);
+	    typeTable.refresh();
     }
     
     public void removeTypeOnTable(Type type) {
@@ -74,11 +70,19 @@ public class TypeController extends Controller implements Initializable {
     	if(typeTable == null) { return; }
     	
     	typeTable.getItems().remove(type);
+    	typeTable.refresh();
+    }
+    
+    public void updateTypeOnTable(Type type) {
+    	if((type == null) || (type.getId() == null)) { return; }
+    	
+    	if(typeTable == null) { return; }
+    	
+    	typeTable.getItems().clear();
+    	load(typeService.getTypeByRestHome(getRestHomeActived()));
     }
 	
-	private void load() {
-		List<Type> types = typeService.getTypeByRestHome(getRestHomeActived());
-		
+	private void load(List<Type> types) {
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
 		types.forEach(type -> {
@@ -172,7 +176,7 @@ public class TypeController extends Controller implements Initializable {
 					deleteType(type);
 					JOptionPane.showMessageDialog(null, "Tipo "+type.getName()+" deletado com sucesso.");
 					removeTypeOnTable(type);
-				}catch (UserException e) {
+				}catch (TypeException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				
@@ -180,10 +184,12 @@ public class TypeController extends Controller implements Initializable {
 		};
 	}
 	
-	private void deleteType(Type type) throws UserException {
+	private void deleteType(Type type) throws TypeException {
 		String messageInfo = typeService.delete(type.getId());
 		
-		if(messageInfo == "ERROR") { throw new UserException("Erro ao excluir o tipo "+type.getName()); }
+		if(messageInfo == "ERROR") { throw new TypeException("Erro ao excluir o tipo "+type.getName()); }
+		
+		if(messageInfo != "SUCCESS") { throw new TypeException(messageInfo); }
 	}
 
 }

@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.exception.UserException;
 import br.com.ftt.ec6.seniorLiving.service.UserService;
-import br.com.ftt.ec6.seniorLiving.service.impl.ServiceProxy;
 import br.com.ftt.ec6.seniorLiving.service.impl.UserServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -52,7 +53,17 @@ public class UserController extends Controller implements Initializable {
 	private TableColumn<User, Pane> actionsColumn;
 	
 	@FXML
-	private Button newUserButton; 
+	private TextField searchUserEmailField;
+	@FXML
+	private TextField searchUserNicknameField;
+	@FXML
+	private TextField searchUserActiveField;
+	
+	@FXML
+	private Button newUserButton;
+	
+	@FXML
+	private Pane userProgressIndicator;
 	
     @Override
     public void initialize(URL url, ResourceBundle db) {
@@ -68,17 +79,13 @@ public class UserController extends Controller implements Initializable {
     	return new FXMLLoader(getClass().getResource(UI_USER_FORM_PATH));
     }
     
-    public void reloadMe() {
-    	userTable.getItems().clear();
-    	load();
-    }
-    
     public void addNewUserOnTable(User user) {
 	    if((user == null) || (user.getId() == null)) { return; }
 	   
 	    if(userTable == null) { return; }
 
 	    userTable.getItems().add(user);
+	    userTable.refresh();
     }
     
     public void removeUserOnTable(User user) {
@@ -87,29 +94,24 @@ public class UserController extends Controller implements Initializable {
     	if(userTable == null) { return; }
     	
     	userTable.getItems().remove(user);
+    	userTable.refresh();
     }
     
-    public void updateUserOnTable(User oldUser, User userUpdated) {
+    public void updateUserOnTable(User userUpdated) {
     	if(userTable == null) { return; }
     	
-    	if((oldUser == null) || (userUpdated == null)) { return; }
-    	
-    	if(oldUser.getId().equals(userUpdated.getId()) == false) {
-    		userTable.getItems().clear();
-        	load();
-    		return; 
-    	}
+    	if(userUpdated == null) { return; }
     	
     	userTable.getItems().clear();
-    	load();
+    	load(userService.getAll());
     }
 	
 	private void initializeNodes() {
-		load();
+		load(userService.getAll());
 	}
 	
-	private void load() {
-		List<User> users =  userService.getAll();
+	private void load(List<User> userList) {
+		List<User> users = userList;
 		
 		emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 		nicknameColumn.setCellValueFactory(new PropertyValueFactory<>("nickname"));
@@ -163,6 +165,35 @@ public class UserController extends Controller implements Initializable {
 		stage.show();
 		
 		userFormControllerLoaded.setStageMe(stage);
+	}
+	
+	@FXML
+	private void userSearchButtonAction() {
+		Task<List<User>> task = new Task<List<User>>() {
+			@Override
+			protected List<User> call() throws Exception {
+				initProgressIndicator();
+				userTable.getItems().clear();
+				return userService.getUserByFilter(searchUserEmailField.getText(), searchUserNicknameField.getText(), searchUserActiveField.getText());
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			List<User> userList = task.getValue();
+			
+			load(userList);
+
+			stopProgressIndicator();
+		});
+		
+		new Thread(task).start();
+	}
+	
+	@FXML
+	private void cleanSearchButtonAction() {
+		searchUserEmailField.clear();
+		searchUserNicknameField.clear();
+		searchUserActiveField.clear();
 	}
 	
 	private EventHandler<Event> editUserButtonAction(User user, UserController father) {
@@ -219,24 +250,13 @@ public class UserController extends Controller implements Initializable {
 		
 		if(messageInfo == "ERROR") { throw new UserException("Erro ao excluir o usuário "+user.getEmail()); }
 	}
+	
+	private void initProgressIndicator() {
+		userProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		userProgressIndicator.setVisible(false);
+	}
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

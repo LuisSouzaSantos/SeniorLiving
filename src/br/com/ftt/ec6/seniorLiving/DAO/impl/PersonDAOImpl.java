@@ -25,28 +25,53 @@ public class PersonDAOImpl extends DAOImpl<Person> implements PersonDAO {
 	}
 	
 	@Override
+	public Person getPersonByRgAndRestHome(String rg, RestHome restHome) {
+		try {
+			return super.entityManager.createQuery(findPersonByRGAndRestHome(), Person.class)
+						.setParameter("rg", rg)
+						.setParameter("restHome", restHome)
+						.getSingleResult();
+		}catch(RuntimeException e) {return null;}
+	}
+
+	@Override
+	public Person getPersonByCPFAndRestHome(String cpf, RestHome restHome) {
+		try {
+			return super.entityManager.createQuery(findPersonByCPFAndRestHome(), Person.class)
+						.setParameter("cpf", cpf)
+						.setParameter("restHome", restHome)
+						.getSingleResult();
+		}catch(RuntimeException e) {return null;}
+	}
+	
+	@Override
 	public List<Person> getPersonByRestHome(RestHome restHome) {
 		try {
-			return super.entityManager.createQuery(getTypeByRestHomeQuery(), Person.class)
+			return super.entityManager.createQuery(findTypeByRestHomeQuery(), Person.class)
 						.setParameter("restHome", restHome)
 						.getResultList();
 		}catch(RuntimeException e) {return null;}
 	}
 	
-	
-
 	@Override
 	public List<Person> getPersonByRestHomeAndType(RestHome restHome, Type type) {
 		try {
-			return super.entityManager.createQuery(getPersonByRestHomeAndTypeQuery(), Person.class)
+			return super.entityManager.createQuery(findPersonByRestHomeAndTypeQuery(), Person.class)
 						.setParameter("restHome", restHome)
 						.setParameter("type", type)
 						.getResultList();
-		}catch(RuntimeException e) {
-			e.getStackTrace();
-			return null;
-		}
+		}catch(RuntimeException e) { return null; }
 	}
+	
+	@Override
+	public List<Person> getPersonByType(Type type) {
+		try {
+			return super.entityManager.createQuery(findPersonByType(), Person.class)
+						.setParameter("type", type)
+						.getResultList();
+		}catch(RuntimeException e) { return null; }
+	}
+	
 	@Override
 	public void startConnection(EntityManager entityManager) {
 		instance.setEntityManager(entityManager);
@@ -58,18 +83,27 @@ public class PersonDAOImpl extends DAOImpl<Person> implements PersonDAO {
 	}
 	
 	private void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
+		super.entityManager = entityManager;
 	}
 	
-	private String getTypeByRestHomeQuery() {
-		return "SELECT p from Person p where p.restHome = :restHome";
+	private String findTypeByRestHomeQuery() {
+		return "SELECT p from Person p WHERE p.restHome = :restHome";
 	}
 	
-	private String getPersonByRestHomeAndTypeQuery() {
+	private String findPersonByRestHomeAndTypeQuery() {
 		return "SELECT p from Person p JOIN p.typeList t where p.restHome = :restHome and t = :type";
 	}
-
-
 	
-
+	private String findPersonByType() {
+		return "SELECT p from Person p JOIN p.typeList t where t = :type";
+	}
+	
+	private String findPersonByRGAndRestHome() {
+		return "SELECT p from Person p WHERE p.rg = :rg AND p.restHome = :restHome";
+	}
+	
+	private String findPersonByCPFAndRestHome() {
+		return "SELECT p from Person p WHERE p.cpf = :cpf AND p.restHome = :restHome";
+	}
+	
 }

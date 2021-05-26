@@ -8,10 +8,11 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import br.com.ftt.ec6.seniorLiving.entities.Person;
-import br.com.ftt.ec6.seniorLiving.exception.UserException;
+import br.com.ftt.ec6.seniorLiving.exception.PersonException;
 import br.com.ftt.ec6.seniorLiving.service.PersonService;
 import br.com.ftt.ec6.seniorLiving.service.impl.PersonServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,6 +46,9 @@ public class PersonController extends Controller implements Initializable {
 	private TableColumn<Person, String> emailColumn;
 	@FXML
 	private TableColumn<Person, Pane> actionsColumn;
+	
+	@FXML
+	private Pane personProgressIndicator;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -52,7 +56,7 @@ public class PersonController extends Controller implements Initializable {
 	}
 	
 	private void initializeNodes() {
-		load();
+		load(personService.getPersonByRestHome(getRestHomeActived()));
 	}
 
 	@Override
@@ -60,30 +64,35 @@ public class PersonController extends Controller implements Initializable {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
 	}
 	
-	public void reloadMe() {
-		personTable.getItems().clear();
-    	load();
-    }
     
-    public void addNewTypeOnTable(Person person) {
+    public void addNewPersonOnTable(Person person) {
 	    if((person == null) || (person.getId() == null)) { return; }
 	   
 	    if(personTable == null) { return; }
 
 	    personTable.getItems().add(person);
+	    personTable.refresh();
     }
     
-    public void removeTypeOnTable(Person person) {
+    public void removePersonOnTable(Person person) {
     	if((person == null) || (person.getId() == null)) { return; }
     	
     	if(personTable == null) { return; }
     	
     	personTable.getItems().remove(person);
+    	personTable.refresh();
+    }
+    
+    public void updatePersonOnTable(Person person) {
+    	if((person == null) || (person.getId() == null)) { return; }
+    	
+    	if(personTable == null) { return; }
+    	
+    	personTable.getItems().clear();
+    	load(personService.getPersonByRestHome(getRestHomeActived()));
     }
 	
-	private void load() {
-		List<Person> personList = personService.getPersonByRestHome(getRestHomeActived());
-		
+	private void load(List<Person> personList) {
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		rgColumn.setCellValueFactory(new PropertyValueFactory<>("rg"));
 		cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
@@ -121,46 +130,86 @@ public class PersonController extends Controller implements Initializable {
 	
 	@FXML
 	private void openPersonFormButtonAction() throws IOException {
-		PersonFormController personFormController = new PersonFormController();
-		FXMLLoader loader = personFormController.getFXMLLoader();
-		Pane pane = loader.load();
+		Task<Object[]> task = new Task<Object[]>() {
+			@Override
+			protected Object[] call() throws Exception {
+				initProgressIndicator();
+				PersonFormController personFormController = new PersonFormController();
+				FXMLLoader loader = personFormController.getFXMLLoader();
+				Pane pane = loader.load();
+
+				Object[] object = new Object[2];
+				
+				object[0] = pane;
+				object[1] = loader.getController();
+				
+				return object;
+			}
+		};
 		
-		PersonFormController personFormControllerLoaded = loader.getController();
-		personFormControllerLoaded.setCreatedForm(true);
-		personFormControllerLoaded.setPerson(null);
-		personFormControllerLoaded.setFather(this);
-		personFormControllerLoaded.performReload();
-		
-		Stage stage = new Stage();
-		Scene scene = new Scene(pane);
-		stage.setScene(scene);
-		stage.show();
-		
-		personFormControllerLoaded.setMe(stage);
+		task.setOnSucceeded(e -> {
+			Object[] object = task.getValue();
+			
+			Pane pane = (Pane) object[0];
+			PersonFormController personFormControllerLoaded = (PersonFormController) object[1];
+			personFormControllerLoaded.setCreatedForm(true);
+			personFormControllerLoaded.setPerson(null);
+			personFormControllerLoaded.setFather(this);
+			personFormControllerLoaded.performReload();
+			
+			Stage stage = new Stage();
+			Scene scene = new Scene(pane);
+			stage.setScene(scene);
+			stage.show();
+			
+			personFormControllerLoaded.setMe(stage);
+			stopProgressIndicator();
+		});
+	
+		new Thread(task).start();
 	}
 	
 	private EventHandler<Event> editPersonButtonAction(Person person, PersonController father) {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
-				try {
-					PersonFormController personFormController = new PersonFormController();
-					FXMLLoader loader = personFormController.getFXMLLoader();
-					Pane pane = loader.load();
+				Task<Object[]> task = new Task<Object[]>() {
+					@Override
+					protected Object[] call() throws Exception {
+						initProgressIndicator();
+						PersonFormController personFormController = new PersonFormController();
+						FXMLLoader loader = personFormController.getFXMLLoader();
+						Pane pane = loader.load();
+
+						Object[] object = new Object[2];
+							
+						object[0] = pane;
+						object[1] = loader.getController();
+							
+						return object;
+					}
+				};
 					
-					PersonFormController personFormControllerLoaded = loader.getController();
+				task.setOnSucceeded(e -> {
+					Object[] object = task.getValue();
+						
+					Pane pane = (Pane) object[0];
+					PersonFormController personFormControllerLoaded = (PersonFormController) object[1];
 					personFormControllerLoaded.setCreatedForm(false);
 					personFormControllerLoaded.setPerson(person);
 					personFormControllerLoaded.setFather(father);
 					personFormControllerLoaded.performReload();
-					
+						
 					Stage stage = new Stage();
 					Scene scene = new Scene(pane);
 					stage.setScene(scene);
 					stage.show();
-					
+						
 					personFormControllerLoaded.setMe(stage);
-				}catch(IOException e) {}
+					stopProgressIndicator();
+				});
+					
+				new Thread(task).start();
 			}
 		};
 	}
@@ -176,8 +225,8 @@ public class PersonController extends Controller implements Initializable {
 				try {
 					deletePerson(person);
 					JOptionPane.showMessageDialog(null, "Pessoa "+person.getName()+"("+person.getCpf()+")"+" deletada com sucesso.");
-					removeTypeOnTable(person);
-				}catch (UserException e) {
+					removePersonOnTable(person);
+				}catch (PersonException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				
@@ -185,10 +234,20 @@ public class PersonController extends Controller implements Initializable {
 		};
 	}
 	
-	private void deletePerson(Person person) throws UserException {
+	private void deletePerson(Person person) throws PersonException {
 		String messageInfo = personService.delete(person.getId());
 		
-		if(messageInfo == "ERROR") { throw new UserException("Erro ao excluir a pessoa "+person.getName()+"("+person.getCpf()+")"); }
+		if(messageInfo == "ERROR") { throw new PersonException("Erro ao excluir a pessoa "+person.getName()+"("+person.getCpf()+")"); }
+		
+		if(messageInfo != "SUCCESS") { throw new PersonException(messageInfo); }
+	}
+	
+	private void initProgressIndicator() {
+		personProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		personProgressIndicator.setVisible(false);
 	}
 
 }

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.Pane?>
@@ -152,6 +153,11 @@
       </Button>
       <ComboBox fx:id="formPersonCivilStateComboBox" layoutX="42.0" layoutY="252.0" prefHeight="37.0" prefWidth="314.0" />
       <ListView fx:id="formPersonTypeListView" layoutX="48.0" layoutY="641.0" prefHeight="64.0" prefWidth="314.0" />
+      <Pane fx:id="personFormProgressIndicator" layoutX="-6.0" layoutY="-3.0" opacity="0.6" prefHeight="837.0" prefWidth="787.0" style="-fx-background-color: #000000;" visible="false">
+         <children>
+            <ProgressIndicator layoutX="379.0" layoutY="399.0" styleClass="progressIndicator" stylesheets="@progressIndicator.css" />
+         </children>
+      </Pane>
    </children>
    <effect>
       <DropShadow />

@@ -41,10 +41,10 @@ public class Elderly extends BaseConfig {
 	@Column(length = 30, nullable = false)
 	private String nationality;
 	
-	@Column(length = 30, unique = true, nullable = false)
+	@Column(length = 30, unique = false, nullable = false)
 	private String rg;
 	
-	@Column(length = 11, unique = true, nullable = false)
+	@Column(length = 11, unique = false, nullable = false)
 	private String cpf;
 	
 	@Column(nullable = false, name = "birth_date")

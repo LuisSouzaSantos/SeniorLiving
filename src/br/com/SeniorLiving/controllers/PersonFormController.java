@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import br.com.ftt.ec6.seniorLiving.entities.Person;
+import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.Type;
 import br.com.ftt.ec6.seniorLiving.entities.support.Address;
 import br.com.ftt.ec6.seniorLiving.entities.support.State;
@@ -24,6 +25,7 @@ import br.com.ftt.ec6.seniorLiving.utils.MaritalStatus;
 import br.com.ftt.ec6.seniorLiving.utils.SupportProperties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -37,6 +39,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -122,6 +125,9 @@ public class PersonFormController extends Controller implements Initializable {
 	@FXML
 	private Button personFormCancelButton;
 	
+	@FXML
+	private Pane personFormProgressIndicator;
+	
 	private Stage me;
 	private boolean isCreatedForm;
 	private Person person;
@@ -161,9 +167,41 @@ public class PersonFormController extends Controller implements Initializable {
 		String neighborhood = formPersonNeighborhoodField.getText();
 		LocalDate birthDate = formPersonBirthDateDatePicker.getValue();
 		
-		personService.save(name, maritalStatus, nacionality, job, rg, cpf, birthDate, phone, email, street, streetNumber, state, cep, neighborhood, getRestHomeActived(), typeList);
+		Task<Person> taskPerson = createNewPersonTask(name, maritalStatus, nacionality, job, rg, cpf, birthDate, phone, email, street, streetNumber, state, cep, neighborhood, getRestHomeActived(), typeList);
+
+		new Thread(taskPerson).start();
 	}
-	
+
+	private Task<Person> createNewPersonTask(String name, MaritalStatus maritalStatus, String nacionality, String job,
+			String rg, String cpf, LocalDate birthDate, String phone, String email, String street, String streetNumber,
+			String state, String cep, String neighborhood, RestHome restHomeActived, List<Type> typeList) {
+		
+		Task<Person> task = new Task<Person>() {
+			@Override
+			protected Person call() throws Exception {
+				initProgressIndicator();
+				
+				return personService.save(name, maritalStatus, nacionality, job, rg, cpf, birthDate, phone, email, street, streetNumber, state, cep, neighborhood, getRestHomeActived(), typeList);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Person personCreated = task.getValue();
+			closeMe();
+			father.addNewPersonOnTable(personCreated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formPersonErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
+	}
+
 	@FXML
 	private void updatePersonButtonAction() {
 		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
@@ -184,24 +222,56 @@ public class PersonFormController extends Controller implements Initializable {
 		String neighborhood = formPersonNeighborhoodField.getText();
 		LocalDate birthDate = formPersonBirthDateDatePicker.getValue();
 		
-		person.setName(name);
-		person.setNationality(nacionality);
-		person.setMaritalStatus(maritalStatus);
-		person.setJob(job);
-		person.setRg(rg);
-		person.setCpf(cpf);
-		person.setPhone(phone);
-		person.setTypeList(typeList);
-		person.setEmail(email);
-		person.setAddressCep(cep);
-		person.setAddressStreet(street);
-		person.setAddressNumber(streetNumber);
-		person.setAddressState(state);
-		person.setAddressNeighborhood(neighborhood);
-		person.setBirthDate(birthDate);
+		Task<Person> taskPerson = updatePersonTask(name, maritalStatus, nacionality, job, rg, cpf, birthDate, phone, email, street, streetNumber, state, cep, neighborhood, getRestHomeActived(), typeList);
 		
-		personService.update(person);
+		new Thread(taskPerson).start();
 	}
+	
+	private Task<Person> updatePersonTask(String name, MaritalStatus maritalStatus, String nacionality, String job,
+			String rg, String cpf, LocalDate birthDate, String phone, String email, String street, String streetNumber,
+			String state, String cep, String neighborhood, RestHome restHomeActived, List<Type> typeList) {
+		
+		Task<Person> task = new Task<Person>() {
+			@Override
+			protected Person call() throws Exception {
+				initProgressIndicator();
+				
+				person.setName(name);
+				person.setNationality(nacionality);
+				person.setMaritalStatus(maritalStatus);
+				person.setJob(job);
+				person.setRg(rg);
+				person.setCpf(cpf);
+				person.setPhone(phone);
+				person.setTypeList(typeList);
+				person.setEmail(email);
+				person.setAddressCep(cep);
+				person.setAddressStreet(street);
+				person.setAddressNumber(streetNumber);
+				person.setAddressState(state);
+				person.setAddressNeighborhood(neighborhood);
+				person.setBirthDate(birthDate);
+				
+				return personService.update(person);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Person personUpdated = task.getValue();
+			closeMe();
+			father.updatePersonOnTable(personUpdated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formPersonErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
+	} 
 	
 	@FXML
 	private void closePersonFormButtonAction() {
@@ -553,7 +623,13 @@ public class PersonFormController extends Controller implements Initializable {
 	public void setFather(PersonController father) {
 		this.father = father;
 	}
-
 	
-
+	private void initProgressIndicator() {
+		personFormProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		personFormProgressIndicator.setVisible(false);
+	}
+	
 }

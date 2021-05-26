@@ -3,87 +3,21 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <Pane prefHeight="524.0" prefWidth="1190.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.SeniorLiving.controllers.ElderlyController">
    <children>
-      <Pane layoutX="896.0" layoutY="78.0" prefHeight="416.0" prefWidth="264.0" style="-fx-background-color: #F1FDFE;">
-         <children>
-            <Pane prefHeight="49.0" prefWidth="264.0" style="-fx-background-color: #47B2E6;">
-               <children>
-                  <Label layoutX="93.0" layoutY="10.0" text="Pesquisa" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <TextField layoutX="10.0" layoutY="88.0" prefHeight="25.0" prefWidth="240.0" />
-            <Label layoutX="11.0" layoutY="72.0" text="Nome">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <TextField layoutX="10.0" layoutY="257.0" prefHeight="25.0" prefWidth="240.0" />
-            <TextField layoutX="10.0" layoutY="148.0" prefHeight="25.0" prefWidth="240.0" />
-            <Button layoutX="14.0" layoutY="316.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #47B2E6; -fx-border-radius: 100px 100px 100px 100px;" text="Buscar" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <effect>
-                  <DropShadow color="#00000065" height="10.5" offsetX="2.0" offsetY="2.0" radius="2.125" width="0.0" />
-               </effect>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Button>
-            <Label layoutX="11.0" layoutY="131.0" text="Data de Nascimento">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Button layoutX="136.0" layoutY="316.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #F1FDFE; -fx-border-radius: 100px 100px 100px 100px;" text="Limpar" textFill="#ff0101">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Button>
-            <TextField layoutX="10.0" layoutY="205.0" prefHeight="25.0" prefWidth="240.0" />
-            <Label layoutX="11.0" layoutY="189.0" text="RG">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="11.0" layoutY="240.0" text="CPF">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-         </children>
-         <effect>
-            <DropShadow />
-         </effect>
-      </Pane>
-      <TableView fx:id="elderlyTable" layoutX="37.0" layoutY="78.0" prefHeight="416.0" prefWidth="832.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
+      <TableView fx:id="elderlyTable" layoutX="37.0" layoutY="78.0" prefHeight="416.0" prefWidth="1117.0" style="-fx-background-color: #F1FDFE;" stylesheets="@../../ftt/ec6/seniorLiving/application/application.css">
          <columns>
-            <TableColumn fx:id="nameColumn" prefWidth="183.99996948242188" style="-fx-background-color: #47B2E6;" text="Nome" />
-            <TableColumn fx:id="birthDateColumn" prefWidth="147.0" style="-fx-background-color: #47B2E6;" text="Data de Nascimento" />
-            <TableColumn fx:id="curatorColumn" minWidth="3.0" prefWidth="184.0" style="-fx-background-color: #47B2E6;" text="Curador" />
-            <TableColumn fx:id="sympatheticColumn" minWidth="3.0" prefWidth="186.0" style="-fx-background-color: #47B2E6;" text="Solidário" />
+            <TableColumn fx:id="nameColumn" prefWidth="246.0" style="-fx-background-color: #47B2E6;" text="Nome" />
+            <TableColumn fx:id="birthDateColumn" prefWidth="246.0" style="-fx-background-color: #47B2E6;" text="Data de Nascimento" />
+            <TableColumn fx:id="curatorColumn" minWidth="3.0" prefWidth="246.0" style="-fx-background-color: #47B2E6;" text="Curador" />
+            <TableColumn fx:id="sympatheticColumn" minWidth="3.0" prefWidth="246.0" style="-fx-background-color: #47B2E6;" text="Solidário" />
             <TableColumn fx:id="actionsColumn" minWidth="0.0" prefWidth="130.0" style="-fx-background-color: #47B2E6;" text="Ações" />
          </columns>
          <effect>
@@ -104,5 +38,10 @@
             <Insets />
          </opaqueInsets>
       </Button>
+      <Pane fx:id="elderlyProgressIndicator" opacity="0.6" prefHeight="524.0" prefWidth="1190.0" style="-fx-background-color: #000000;" visible="false">
+         <children>
+            <ProgressIndicator layoutX="581.0" layoutY="242.0" styleClass="progressIndicator" stylesheets="@progressIndicator.css" />
+         </children>
+      </Pane>
    </children>
 </Pane>

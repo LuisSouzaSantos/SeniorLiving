@@ -12,6 +12,7 @@ import br.com.ftt.ec6.seniorLiving.exception.RestHomeException;
 import br.com.ftt.ec6.seniorLiving.service.RestHomeService;
 import br.com.ftt.ec6.seniorLiving.service.impl.RestHomeServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -32,7 +34,6 @@ public class RestHomeController extends Controller implements Initializable {
 
 	private final static String UI_PATH = "/br/com/SeniorLiving/gui/RestHomeList.fxml";
 	private final static RestHomeService restHomeService = RestHomeServiceImpl.getInstance();
-	
 	
 	@FXML
 	private TableView<RestHome> restHomeTable;
@@ -49,7 +50,19 @@ public class RestHomeController extends Controller implements Initializable {
 	private TableColumn<RestHome, Pane> actionsColumn;
 	
 	@FXML
+	private TextField searchRestHomeSocialReasonField;
+	@FXML
+	private TextField searchRestHomeCNPJField;
+	@FXML
+	private TextField searchRestHomeUfField;
+	@FXML
+	private TextField searchRestHomeCEPField;
+
+	@FXML
 	private Button createNewRestHomeButton;
+	
+	@FXML
+	private Pane restHomeProgressIndicator;
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -62,13 +75,8 @@ public class RestHomeController extends Controller implements Initializable {
 	}
 	
 	private void initializeNodes() {
-		load();
+		load(restHomeService.getAll());
 	}
-	
-	public void reloadMe() {
-		restHomeTable.getItems().clear();
-    	load();
-    }
     
     public void addNewRestHomeOnTable(RestHome restHome) {
 	    if((restHome == null) || (restHome.getId() == null)) { return; }
@@ -76,6 +84,7 @@ public class RestHomeController extends Controller implements Initializable {
 	    if(restHomeTable == null) { return; }
 
 	    restHomeTable.getItems().add(restHome);
+	    restHomeTable.refresh();
     }
     
     public void removeRestHomeOnTable(RestHome restHome) {
@@ -84,26 +93,19 @@ public class RestHomeController extends Controller implements Initializable {
     	if(restHomeTable == null) { return; }
     	
     	restHomeTable.getItems().remove(restHome);
+    	restHomeTable.refresh();
     }
     
-    public void updateRestHomeOnTable(RestHome oldRestHome, RestHome restHomeUpdated) {
+    public void updateRestHomeOnTable(RestHome restHomeUpdated) {
     	if(restHomeTable == null) { return; }
     	
-    	if((oldRestHome == null) || (restHomeUpdated == null)) { return; }
-    	
-    	if(oldRestHome.getId().equals(restHomeUpdated.getId()) == false) {
-    		restHomeTable.getItems().clear();
-        	load();
-    		return; 
-    	}
-    	
+    	if(restHomeUpdated == null) { return; }
+   	
     	restHomeTable.getItems().clear();
-    	load();
+    	load(restHomeService.getAll());
     }
 	
-	private void load() {
-		List<RestHome> restHomeList = restHomeService.getAll();
-		
+	private void load(List<RestHome> restHomeList) {
 		socialReasonColumn.setCellValueFactory(new PropertyValueFactory<>("socialReason"));
 		cnpjColumn.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
 		addressStateColumn.setCellValueFactory(new PropertyValueFactory<>("addressState"));
@@ -142,48 +144,88 @@ public class RestHomeController extends Controller implements Initializable {
 	
 	@FXML
 	private void openNewRestHomeFormButton() throws IOException {
-		RestHomeFormController restHomeFormController = new RestHomeFormController();
-		FXMLLoader loader = restHomeFormController.getFXMLLoader();
-		Pane pane = loader.load();
+		Task<Object[]> task = new Task<Object[]>() {
+			@Override
+			protected Object[] call() throws Exception {
+				initProgressIndicator();
+				RestHomeFormController restHomeFormController = new RestHomeFormController();
+				FXMLLoader loader = restHomeFormController.getFXMLLoader();
+				Pane pane = loader.load();
+
+				Object[] object = new Object[2];
+				
+				object[0] = pane;
+				object[1] = loader.getController();
+				
+				return object;
+			}
+		};
 		
-		RestHomeFormController restHomeFormControllerLoaded = loader.getController();
-		restHomeFormControllerLoaded.setCreatedForm(true);
-		restHomeFormControllerLoaded.setRestHome(null);
-		restHomeFormControllerLoaded.setFather(this);
-		restHomeFormControllerLoaded.performReload();
+		task.setOnSucceeded(e -> {
+			Object[] object = task.getValue();
+			
+			Pane pane = (Pane) object[0];
+			
+			RestHomeFormController restHomeFormControllerLoaded = (RestHomeFormController) object[1];
+			restHomeFormControllerLoaded.setCreatedForm(true);
+			restHomeFormControllerLoaded.setRestHome(null);
+			restHomeFormControllerLoaded.setFather(this);
+			restHomeFormControllerLoaded.performReload();
+			
+			Stage stage = new Stage();
+			Scene scene = new Scene(pane);
+			stage.setScene(scene);
+			stage.show();
+			
+			restHomeFormControllerLoaded.setStageMe(stage);
+			stopProgressIndicator();
+		});
 		
-		Stage stage = new Stage();
-		Scene scene = new Scene(pane);
-		stage.setScene(scene);
-		stage.show();
-		
-		restHomeFormControllerLoaded.setStageMe(stage);
+		new Thread(task).start();
 	}
 	
 	private EventHandler<Event> editRestHomeButtonAction(RestHome restHome, RestHomeController father) {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
-				try {
-					RestHomeFormController restHomeFormController = new RestHomeFormController();
-					FXMLLoader loader = restHomeFormController.getFXMLLoader();
-					Pane pane = loader.load();
+				Task<Object[]> task = new Task<Object[]>() {
+					@Override
+					protected Object[] call() throws Exception {
+						initProgressIndicator();
+						RestHomeFormController restHomeFormController = new RestHomeFormController();
+						FXMLLoader loader = restHomeFormController.getFXMLLoader();
+						Pane pane = loader.load();
+
+						Object[] object = new Object[2];
+							
+						object[0] = pane;
+						object[1] = loader.getController();
+							
+						return object;
+					}
+				};
 					
-					RestHomeFormController restHomeFormControllerLoaded = loader.getController();
+				task.setOnSucceeded(e -> {
+					Object[] object = task.getValue();
+						
+					Pane pane = (Pane) object[0];
+						
+					RestHomeFormController restHomeFormControllerLoaded = (RestHomeFormController) object[1];
 					restHomeFormControllerLoaded.setCreatedForm(false);
 					restHomeFormControllerLoaded.setRestHome(restHome);
 					restHomeFormControllerLoaded.setFather(father);
 					restHomeFormControllerLoaded.performReload();
-					
+						
 					Stage stage = new Stage();
 					Scene scene = new Scene(pane);
 					stage.setScene(scene);
 					stage.show();
-					
+						
 					restHomeFormControllerLoaded.setStageMe(stage);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+					stopProgressIndicator();
+				});
+				
+				new Thread(task).start();
 			}
 		};
 	}
@@ -208,10 +250,51 @@ public class RestHomeController extends Controller implements Initializable {
 		};
 	}
 	
+	@FXML
+	private void restHomeSearchButtonAction() {
+		Task<List<RestHome>> task = new Task<List<RestHome>>() {
+			@Override
+			protected List<RestHome> call() throws Exception {
+				initProgressIndicator();
+				restHomeTable.getItems().clear();
+				return restHomeService.getRestHomeByFilter(searchRestHomeSocialReasonField.getText(), 
+															searchRestHomeCNPJField.getText(), 
+																searchRestHomeUfField.getText(), searchRestHomeCEPField.getText());
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			List<RestHome> restHomeList = task.getValue();
+			
+			load(restHomeList);
+
+			stopProgressIndicator();
+		});
+		
+		new Thread(task).start();
+		
+	}
+	
+	@FXML
+	private void cleanSearchButtonAction() {
+		searchRestHomeSocialReasonField.clear();
+		searchRestHomeCNPJField.clear();
+		searchRestHomeUfField.clear();
+		searchRestHomeCEPField.clear();
+	}
+	
 	private void deleteRestHome(RestHome restHome) throws RestHomeException {
 		String messageInfo = restHomeService.delete(restHome.getId());
 		
 		if(messageInfo == "ERROR") { throw new RestHomeException("Erro ao excluir a casa de repouso "+restHome.getSocialReason()+"("+restHome.getCnpj()+")"); }
+	}
+	
+	private void initProgressIndicator() {
+		restHomeProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		restHomeProgressIndicator.setVisible(false);
 	}
 	
 

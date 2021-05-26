@@ -7,15 +7,18 @@ import javax.persistence.EntityManager;
 import br.com.ftt.ec6.seniorLiving.DAO.ProductDAO;
 import br.com.ftt.ec6.seniorLiving.DAO.impl.ProductDAOImpl;
 import br.com.ftt.ec6.seniorLiving.db.Database;
+import br.com.ftt.ec6.seniorLiving.entities.BillingProduct;
 import br.com.ftt.ec6.seniorLiving.entities.Product;
 import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.exception.ProductException;
+import br.com.ftt.ec6.seniorLiving.service.BillingProductService;
 import br.com.ftt.ec6.seniorLiving.service.ProductService;
 
 public class ProductServiceImpl implements ProductService {
 	
 	private static ProductServiceImpl instance;
 	private static ProductDAO productDAO = ProductDAOImpl.getInstance();
+	private static BillingProductService billingProductService = BillingProductServiceImpl.getInstance();
 	
 	private ProductServiceImpl() {}
 	
@@ -32,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		if(description == null || description.trim().isEmpty()) { throw new ProductException("Descrição do produto inválida"); }
 		
-		Product similarProduct = getProductByName(name);
+		Product similarProduct = getProductByNameAndRestHome(name, restHome);
 		
 		if(similarProduct != null) { throw new ProductException("Produto já existe"); }
 		
@@ -62,6 +65,10 @@ public class ProductServiceImpl implements ProductService {
 		
 		if(product.getDescription() == null || product.getDescription().trim().isEmpty()) { throw new ProductException("Descrição do produto inválida"); }
 		
+		Product similarProduct = getProductByNameAndRestHome(product.getName(), product.getRestHome());
+		
+		if((similarProduct != null) && (similarProduct.getId().equals(product.getId()))) { throw new ProductException("Produto já existe"); }
+		
 		EntityManager entityManager = Database.getConnection();
 		entityManager.getTransaction().begin();
 		productDAO.startConnection(entityManager);
@@ -81,7 +88,16 @@ public class ProductServiceImpl implements ProductService {
 		entityManager.getTransaction().begin();
 		productDAO.startConnection(entityManager);
 		
-		String message = productDAO.delete(id);
+		Product product = productDAO.getById(id);
+		List<BillingProduct> productBillingList = billingProductService.getBillingProductByProduct(product);
+		
+		String message = "";
+		
+		if(productBillingList == null || productBillingList.isEmpty()) {
+			message = productDAO.delete(id);
+		}else {
+			message = "Esse produto está vinculado a um faturamento";
+		}
 		
 		entityManager.getTransaction().commit();
 		entityManager.close();
@@ -114,6 +130,18 @@ public class ProductServiceImpl implements ProductService {
 		entityManager.close();
 		productDAO.stopConnection();
 		return productList;
+	}
+	
+	private Product getProductByNameAndRestHome(String name, RestHome restHome) {
+		EntityManager entityManager = Database.getConnection();
+		entityManager.getTransaction().begin();
+		productDAO.startConnection(entityManager);
+		
+		Product product = productDAO.getProductByNameAndRestHome(name, restHome);
+		
+		entityManager.close();
+		productDAO.stopConnection();
+		return product;
 	}
 
 

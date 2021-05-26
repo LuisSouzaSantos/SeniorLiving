@@ -7,15 +7,18 @@ import javax.persistence.EntityManager;
 import br.com.ftt.ec6.seniorLiving.DAO.TypeDAO;
 import br.com.ftt.ec6.seniorLiving.DAO.impl.TypeDAOImpl;
 import br.com.ftt.ec6.seniorLiving.db.Database;
+import br.com.ftt.ec6.seniorLiving.entities.Person;
 import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.Type;
 import br.com.ftt.ec6.seniorLiving.exception.TypeException;
+import br.com.ftt.ec6.seniorLiving.service.PersonService;
 import br.com.ftt.ec6.seniorLiving.service.TypeService;
 
 public class TypeServiceImpl implements TypeService {
 	
 	private static TypeServiceImpl instance;
 	private static TypeDAO typeDAO = TypeDAOImpl.getInstance();
+	private static PersonService personService = PersonServiceImpl.getInstance();
 	
 	private TypeServiceImpl() {}
 	
@@ -30,7 +33,7 @@ public class TypeServiceImpl implements TypeService {
 	public Type save(String name, RestHome restHome) throws TypeException {
 		if(name == null || name.trim().isEmpty()) { throw new TypeException("Tipo inválido"); }
 		
-		Type similarType = getTypeByName(name);
+		Type similarType = getTypeByNameAndRestHome(name, restHome);
 		
 		if(similarType != null) { throw new TypeException("Tipo já existe"); }
 		
@@ -55,9 +58,9 @@ public class TypeServiceImpl implements TypeService {
 	public Type update(Type typeUpdate) throws TypeException {
 		if(typeUpdate == null || typeUpdate.getName().trim().isEmpty()) { throw new TypeException("Tipo inválido"); }
 		
-		Type similarType = getTypeByName(typeUpdate.getName());
+		Type similarType = getTypeByNameAndRestHome(typeUpdate.getName(), typeUpdate.getRestHome());
 		
-		if(similarType != null && similarType.getId().equals(typeUpdate.getId())) { throw new TypeException("Tipo já existe"); }
+		if((similarType != null) && (similarType.getId().equals(typeUpdate.getId()) == false)) { throw new TypeException("Tipo já existe"); }
 		
 		EntityManager entityManager = Database.getConnection();
 		entityManager.getTransaction().begin();
@@ -92,7 +95,16 @@ public class TypeServiceImpl implements TypeService {
 		entityManager.getTransaction().begin();
 		typeDAO.startConnection(entityManager);
 		
-		String message = typeDAO.delete(id);
+		Type type = typeDAO.getById(id);
+		List<Person> persons = personService.getPersonByType(type);
+		
+		String message = "";
+		
+		if(persons == null || persons.isEmpty()) {
+			message = typeDAO.delete(id);
+		}else {
+			message = "Há pessoas vinculadas com esse tipo";
+		}
 		
 		entityManager.getTransaction().commit();
 		entityManager.close();
@@ -113,6 +125,19 @@ public class TypeServiceImpl implements TypeService {
 		typeDAO.stopConnection();
 		
 		return typeList;
+	}
+	
+	private Type getTypeByNameAndRestHome(String name, RestHome restHome) {
+		EntityManager entityManager = Database.getConnection();
+		entityManager.getTransaction().begin();
+		typeDAO.startConnection(entityManager);
+		
+		Type type = typeDAO.getTypeByNameAndRestHome(name, restHome);
+		
+		entityManager.close();
+		typeDAO.stopConnection();
+		
+		return type;
 	}
 
 }

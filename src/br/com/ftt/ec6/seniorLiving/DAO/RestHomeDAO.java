@@ -15,9 +15,15 @@ public interface RestHomeDAO {
 	
 	String delete(Long id);
 	
+	RestHome getRestHomeByCNPJ(String cnpj);
+	
+	RestHome getRestHomeBySocialReason(String socialReason);
+	
 	List<RestHome> getAll();
 	
 	List<RestHome> getRestHomeByAdmin(User user);
+	
+	List<RestHome> getRestHomeByFilter(String socialReason, String cnpj, String uf, String cep);
 	
 	void startConnection(EntityManager entityManager);
 	

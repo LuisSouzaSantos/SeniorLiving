@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import br.com.ftt.ec6.seniorLiving.entities.Product;
-import br.com.ftt.ec6.seniorLiving.exception.UserException;
+import br.com.ftt.ec6.seniorLiving.exception.ProductException;
 import br.com.ftt.ec6.seniorLiving.service.ProductService;
 import br.com.ftt.ec6.seniorLiving.service.impl.ProductServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
@@ -46,18 +46,13 @@ public class ProductController extends Controller implements Initializable {
 	}
 	
 	private void initializeNodes() {
-		load();
+		load(productService.getProductByRestHome(getRestHomeActived()));
 	}
 
 	@Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
 	}
-	
-	public void reloadMe() {
-		productTable.getItems().clear();
-    	load();
-    }
     
     public void addNewProductOnTable(Product product) {
 	    if((product == null) || (product.getId() == null)) { return; }
@@ -65,6 +60,16 @@ public class ProductController extends Controller implements Initializable {
 	    if(productTable == null) { return; }
 
 	    productTable.getItems().add(product);
+	    productTable.refresh();
+    }
+    
+    public void updateProductOnTable(Product product) {
+    	if((product == null) || (product.getId() == null)) { return; }
+    	
+    	if(productTable == null) { return; }
+    	
+    	productTable.getItems().clear();
+    	load(productService.getProductByRestHome(getRestHomeActived()));
     }
     
     public void removeProductOnTable(Product product) {
@@ -73,11 +78,10 @@ public class ProductController extends Controller implements Initializable {
     	if(productTable == null) { return; }
     	
     	productTable.getItems().remove(product);
+    	productTable.refresh();
     }
     
-	private void load() {
-		List<Product> productList = productService.getProductByRestHome(getRestHomeActived());
-		
+	private void load(List<Product> productList) {
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
 		productList.forEach(product -> {
@@ -169,8 +173,8 @@ public class ProductController extends Controller implements Initializable {
 				try {
 					deleteProduct(product);
 					JOptionPane.showMessageDialog(null, "Produto "+product.getName()+" deletado com sucesso.");
-					addNewProductOnTable(product);
-				}catch (UserException e) {
+					removeProductOnTable(product);
+				}catch (ProductException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				
@@ -178,10 +182,12 @@ public class ProductController extends Controller implements Initializable {
 		};
 	}
 	
-	private void deleteProduct(Product product) throws UserException {
+	private void deleteProduct(Product product) throws ProductException {
 		String messageInfo = productService.delete(product.getId());
 		
-		if(messageInfo == "ERROR") { throw new UserException("Erro ao excluir o produto "+product.getName()); }
+		if(messageInfo == "ERROR") { throw new ProductException("Erro ao excluir o produto "+product.getName()); }
+		
+		if(messageInfo != "SUCCESS") { throw new ProductException(messageInfo); }
 	}
 	
 }

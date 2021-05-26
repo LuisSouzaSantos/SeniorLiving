@@ -18,11 +18,8 @@ public abstract class DAOImpl<T> {
 	public String delete(Long id) {
 		try {
 			T entity = entityManager.find(t, id);
-//			entityManager.createQuery(removeByIdQuery())
-//						.setParameter("id", id)
-//						.executeUpdate();,
 			entityManager.remove(entity);
-			return "SUCESS";
+			return "SUCCESS";
 		}catch(RuntimeException e) {
 			return "ERROR";
 		}
@@ -48,14 +45,6 @@ public abstract class DAOImpl<T> {
 	
 	private String getAllQuery() {
 		return "SELECT t FROM "+t.getName()+" t";
-	}
-	
-	private String getByIdQuery() {
-		return "SELECT t FROM "+t.getName()+" t where t.id = :id";
-	}
-	
-	private String removeByIdQuery() {
-		return "DELETE FROM "+t.getName()+" t where t.id = :id";
 	}
 
 }

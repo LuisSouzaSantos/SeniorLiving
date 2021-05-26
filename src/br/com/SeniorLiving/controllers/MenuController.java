@@ -10,6 +10,7 @@ import br.com.ftt.ec6.seniorLiving.entities.Audit;
 import br.com.ftt.ec6.seniorLiving.entities.Role;
 import br.com.ftt.ec6.seniorLiving.service.AuditService;
 import br.com.ftt.ec6.seniorLiving.service.impl.AuditServiceImpl;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -49,6 +50,9 @@ public class MenuController extends Controller implements Initializable {
 	
 	@FXML
 	private Text menuSoftwareVersion;
+	
+	@FXML
+	private Pane menuProgressIndicator;
 	
 	
 	@Override
@@ -100,12 +104,12 @@ public class MenuController extends Controller implements Initializable {
 		String roleName = role.getName();
 		
 		switch (roleName) {
-		case "ADMIN_GERAL":
-			return enterAdminGeralMenuEvent(role);
-		case "ADMIN_LOCAL":
-			return enterAdminLocalMenuEvent(role);
-		default:
-			return null;
+			case "ADMIN_GERAL":
+				return enterAdminGeralMenuEvent(role);
+			case "ADMIN_LOCAL":
+				return enterAdminLocalMenuEvent(role);
+			default:
+				return null;
 		}
 	}
 	
@@ -115,21 +119,33 @@ public class MenuController extends Controller implements Initializable {
 			@Override
 			public void handle(Event arg0) {
 				performAudit(MenuAudit.ADMIN_GERAL_BUTTON_CLICKED);
-				try {
-					setRoleActived(role);
+				initProgressIndicator();
+				
+				Task<AnchorPane> task = new Task<AnchorPane>() {
+					@Override
+					protected AnchorPane call() throws Exception {
+						setRoleActived(role);
+						
+						MenuAdminController menuAdminController = new MenuAdminController();
+						FXMLLoader loader = menuAdminController.getFXMLLoader();
+						AnchorPane anchorPane = loader.load();
+						
+						return anchorPane;
+					}
+				};
+				
+				task.setOnSucceeded(e -> {
+					AnchorPane anchorPane = task.getValue();
 					
-					MenuAdminController menuAdminController = new MenuAdminController();
-					FXMLLoader loader = menuAdminController.getFXMLLoader();
-					AnchorPane anchorPane = loader.load();
-			
 					Scene futureScene = new Scene(anchorPane);
 					Stage newStage = Controller.getCurrentStage();
 					newStage.setScene(futureScene);
-					
 					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
-				}catch(IOException e) { e.printStackTrace(); }	
+					stopProgressIndicator();
+				});
+				
+				new Thread(task).start();
 			}
-	
 		};
 	}
 	
@@ -139,23 +155,34 @@ public class MenuController extends Controller implements Initializable {
 			@Override
 			public void handle(Event arg0) {
 				performAudit(MenuAudit.ADMIN_LOCAL_BUTTON_CLICKED);
-				try {
-					setRoleActived(role);
-					
-					MenuAdminController menuAdminController = new MenuAdminController();
-					FXMLLoader loader = menuAdminController.getFXMLLoader();
-					AnchorPane anchorPane = loader.load();
+				initProgressIndicator();
+				
+				Task<AnchorPane> task = new Task<AnchorPane>() {
+					@Override
+					protected AnchorPane call() throws Exception {
+						setRoleActived(role);
+						
+						MenuAdminController menuAdminController = new MenuAdminController();
+						FXMLLoader loader = menuAdminController.getFXMLLoader();
+						AnchorPane anchorPane = loader.load();
+						
+						return anchorPane;
+					}
+				};
+				
+				task.setOnSucceeded(e -> {
+					AnchorPane anchorPane = task.getValue();
 					
 					Scene futureScene = new Scene(anchorPane);
 					Stage newStage = Controller.getCurrentStage();
 					newStage.setScene(futureScene);
-					
 					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
-				}catch(IOException e){ e.printStackTrace(); }
+					stopProgressIndicator();
+				});
+				
+				new Thread(task).start();
 			}
-			
 		};
-		
 	}
 	
 	@FXML
@@ -179,6 +206,14 @@ public class MenuController extends Controller implements Initializable {
 	
 	private void initVersion() {
 		menuSoftwareVersion.setText(Controller.VERSION);
+	}
+	
+	private void initProgressIndicator() {
+		menuProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		menuProgressIndicator.setVisible(false);
 	}
 	
 	private void performAudit(MenuAudit menuAudit) {

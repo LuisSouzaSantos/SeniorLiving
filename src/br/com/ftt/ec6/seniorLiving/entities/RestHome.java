@@ -15,10 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "rest_home", uniqueConstraints = {@UniqueConstraint(columnNames = {"cnpj"})})
+@Table(name = "rest_home")
 public class RestHome extends BaseConfig {
 	
 	@Transient
@@ -31,7 +30,7 @@ public class RestHome extends BaseConfig {
 	@Column(unique = true, length = 14, nullable = false)
 	private String cnpj;
 	
-	@Column(name = "social_reason", length = 100, nullable = false)
+	@Column(name = "social_reason", unique = true, length = 100, nullable = false)
 	private String socialReason;
 	
 	@Column(name = "address_street", length = 100, nullable = false)
@@ -74,7 +73,6 @@ public class RestHome extends BaseConfig {
 	
 	@OneToMany(mappedBy = "restHome", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Elderly> elderlyList;
-	
 	
 	public Long getId() {
 		return id;

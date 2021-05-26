@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import br.com.ftt.ec6.seniorLiving.entities.Accommodation;
 import br.com.ftt.ec6.seniorLiving.entities.Elderly;
 import br.com.ftt.ec6.seniorLiving.entities.Person;
+import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.entities.Type;
 import br.com.ftt.ec6.seniorLiving.service.AccommodationService;
 import br.com.ftt.ec6.seniorLiving.service.ElderlyService;
@@ -25,6 +26,7 @@ import br.com.ftt.ec6.seniorLiving.service.impl.TypeServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.MaritalStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,6 +35,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -69,7 +72,6 @@ public class ElderlyFormController extends Controller implements Initializable {
 	@FXML
 	private ComboBox<Accommodation> formElderlyAccommodationComboBox;
 
-	
 	@FXML
 	private Text formElderlyErrorNameMessageText;
 	@FXML
@@ -99,6 +101,9 @@ public class ElderlyFormController extends Controller implements Initializable {
 	private Button elderlyFormUpdateButton;
 	@FXML
 	private Button elderlyFormCancelButton;
+	
+	@FXML
+	private Pane elderlyFormProgressIndicator;
 	
 	private Stage me;
 	private boolean isCreatedForm;
@@ -134,10 +139,40 @@ public class ElderlyFormController extends Controller implements Initializable {
 		Accommodation accommodation = formElderlyAccommodationComboBox.getValue();
 		BigDecimal monthlyPayment = new BigDecimal(formElderlyMonthlyPaymentField.getText());
 		
-		
-		elderlyService.save(name, maritalStatus, nacionality, rg, cpf, birthDate, monthlyPayment, curator, sympathetic, getRestHomeActived(), accommodation, null);
+		Task<Elderly> elderlyTask = createNewElderlyTask(name, maritalStatus, nacionality, rg, cpf, birthDate, monthlyPayment, curator, sympathetic, getRestHomeActived(), accommodation, null);
+
+		new Thread(elderlyTask).start();
 	}
 	
+	private Task<Elderly> createNewElderlyTask(String name, MaritalStatus maritalStatus, String nacionality, String rg,
+			String cpf, LocalDate birthDate, BigDecimal monthlyPayment, Person curator, Person sympathetic,
+			RestHome restHomeActived, Accommodation accommodation, Object object) {
+		
+		Task<Elderly> task = new Task<Elderly>() {
+			@Override
+			protected Elderly call() throws Exception {
+				initProgressIndicator();
+				return elderlyService.save(name, maritalStatus, nacionality, rg, cpf, birthDate, monthlyPayment, curator, sympathetic, getRestHomeActived(), accommodation, null);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Elderly elderlyCreated = task.getValue();
+			closeMe();
+			father.addNewElderlyOnTable(elderlyCreated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formElderlyErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
+	}
+
 	@FXML
 	private void updateElderlyButtonAction() {
 		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
@@ -153,21 +188,52 @@ public class ElderlyFormController extends Controller implements Initializable {
 		Accommodation accommodation = formElderlyAccommodationComboBox.getValue();
 		BigDecimal monthlyPayment = new BigDecimal(formElderlyMonthlyPaymentField.getText());
 		
+		Task<Elderly> elderlyTask = updateElderlyTask(name, nacionality, maritalStatus, rg, cpf, birthDate, curator, sympathetic, accommodation, monthlyPayment);
 		
-		elderly.setName(name);
-		elderly.setNationality(nacionality);
-		elderly.setMaritalStatus(maritalStatus);
-		elderly.setRg(rg);
-		elderly.setCpf(cpf);
-		elderly.setBirthDate(birthDate);
-		elderly.setCurator(curator);
-		elderly.setSympathetic(sympathetic);
-		elderly.setAccommodation(accommodation);
-		elderly.setMonthlyPayment(monthlyPayment);
-
-		elderlyService.update(elderly);
+		new Thread(elderlyTask).start();
 	}
 	
+	private Task<Elderly> updateElderlyTask(String name, String nacionality, MaritalStatus maritalStatus, String rg,
+			String cpf, LocalDate birthDate, Person curator, Person sympathetic, Accommodation accommodation,
+			BigDecimal monthlyPayment) {
+		
+		Task<Elderly> task = new Task<Elderly>() {
+			@Override
+			protected Elderly call() throws Exception {
+				initProgressIndicator();
+				
+				elderly.setName(name);
+				elderly.setNationality(nacionality);
+				elderly.setMaritalStatus(maritalStatus);
+				elderly.setRg(rg);
+				elderly.setCpf(cpf);
+				elderly.setBirthDate(birthDate);
+				elderly.setCurator(curator);
+				elderly.setSympathetic(sympathetic);
+				elderly.setAccommodation(accommodation);
+				elderly.setMonthlyPayment(monthlyPayment);
+
+				return elderlyService.update(elderly);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Elderly elderlyUpdated = task.getValue();
+			closeMe();
+			father.updateElderlyOnTable(elderlyUpdated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formElderlyErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
+	}
+
 	@FXML
 	private void closeElderlyFormButtonAction() {
 		clearForm();
@@ -175,6 +241,8 @@ public class ElderlyFormController extends Controller implements Initializable {
 	}
 	
 	private void initializeNodes(){
+		if(father == null) { return; } 
+		
 		cleanErrorMessages();
 		clearForm();
 		buttonFormAvailable();
@@ -394,18 +462,15 @@ public class ElderlyFormController extends Controller implements Initializable {
 		formElderlyBirthDateDatePicker.setConverter(new StringConverter<LocalDate>() {
 			private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			
-			
 			@Override
 			public String toString(LocalDate localDate) {
 				if(localDate==null) { return ""; }
-		         
 		        return dateTimeFormatter.format(localDate);
 			}
 			
 			@Override
 			public LocalDate fromString(String dateString) {
 				if(dateString==null || dateString.trim().isEmpty()){ return null; }
-				
 		        return LocalDate.parse(dateString,dateTimeFormatter);
 			}
 		});
@@ -441,6 +506,14 @@ public class ElderlyFormController extends Controller implements Initializable {
 
 	public void setCreatedForm(boolean isCreatedForm) {
 		this.isCreatedForm = isCreatedForm;
+	}
+	
+	private void initProgressIndicator() {
+		elderlyFormProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		elderlyFormProgressIndicator.setVisible(false);
 	}
 
 }

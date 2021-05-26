@@ -13,6 +13,7 @@ import br.com.ftt.ec6.seniorLiving.exception.UserException;
 import br.com.ftt.ec6.seniorLiving.service.ElderlyService;
 import br.com.ftt.ec6.seniorLiving.service.impl.ElderlyServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -47,6 +48,8 @@ public class ElderlyController extends Controller implements Initializable {
 	@FXML
 	private TableColumn<Elderly, Pane> actionsColumn;
 	
+	@FXML
+	private Pane elderlyProgressIndicator;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -59,13 +62,8 @@ public class ElderlyController extends Controller implements Initializable {
 	}
 	
 	private void initializeNodes() {
-		load();
+		load(elderlyService.getElderlyByRestHome(getRestHomeActived()));
 	}
-	
-	public void reloadMe() {
-		elderlyTable.getItems().clear();
-    	load();
-    }
     
     public void addNewElderlyOnTable(Elderly elderly) {
 	    if((elderly == null) || (elderly.getId() == null)) { return; }
@@ -73,6 +71,7 @@ public class ElderlyController extends Controller implements Initializable {
 	    if(elderlyTable == null) { return; }
 
 	    elderlyTable.getItems().add(elderly);
+	    elderlyTable.refresh();
     }
     
     public void removeElderlyOnTable(Elderly elderly) {
@@ -81,12 +80,19 @@ public class ElderlyController extends Controller implements Initializable {
     	if(elderlyTable == null) { return; }
     	
     	elderlyTable.getItems().remove(elderly);
+    	elderlyTable.refresh();
+    }
+    
+    public void updateElderlyOnTable(Elderly elderly) {
+    	if((elderly == null) || (elderly.getId() == null)) { return; }
+    	
+    	if(elderlyTable == null) { return; }
+    	
+    	elderlyTable.getItems().clear();
+    	load(elderlyService.getElderlyByRestHome(getRestHomeActived()));
     }
 	
-	
-	private void load() {
-		List<Elderly> elderlyList = elderlyService.getElderlyByRestHome(getRestHomeActived());
-		
+	private void load(List<Elderly> elderlyList) {		
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 		curatorColumn.setCellValueFactory(new PropertyValueFactory<>("curator"));
@@ -124,34 +130,71 @@ public class ElderlyController extends Controller implements Initializable {
 	
 	@FXML
 	private void openElderlyFormButtonAction() throws IOException {
-		ElderlyFormController elderlyFormController = new ElderlyFormController();
-		FXMLLoader loader = elderlyFormController.getFXMLLoader();
-		Pane pane = loader.load();
+		Task<Object[]> task = new Task<Object[]>() {
+			@Override
+			protected Object[] call() throws Exception {
+				initProgressIndicator();
+				ElderlyFormController elderlyFormController = new ElderlyFormController();
+				FXMLLoader loader = elderlyFormController.getFXMLLoader();
+				Pane pane = loader.load();
 
-		ElderlyFormController elderlyFormControllerLoaded = loader.getController();
-		elderlyFormControllerLoaded.setCreatedForm(true);
-		elderlyFormControllerLoaded.setElderly(null);
-		elderlyFormControllerLoaded.setFather(this);
-		elderlyFormControllerLoaded.performReload();
+				Object[] object = new Object[2];
+				
+				object[0] = pane;
+				object[1] = loader.getController();
+				
+				return object;
+			}
+		};
 		
-		Stage stage = new Stage();
-		Scene scene = new Scene(pane);
-		stage.setScene(scene);
-		stage.show();
-		
-		elderlyFormControllerLoaded.setMe(stage);
+		task.setOnSucceeded(e -> {
+			Object[] object = task.getValue();
+			
+			Pane pane = (Pane) object[0];
+			ElderlyFormController elderlyFormControllerLoaded  = (ElderlyFormController) object[1];
+			elderlyFormControllerLoaded.setCreatedForm(true);
+			elderlyFormControllerLoaded.setElderly(null);
+			elderlyFormControllerLoaded.setFather(this);
+			elderlyFormControllerLoaded.performReload();
+			
+			Stage stage = new Stage();
+			Scene scene = new Scene(pane);
+			stage.setScene(scene);
+			stage.show();
+			
+			elderlyFormControllerLoaded.setMe(stage);
+			stopProgressIndicator();
+		});
+	
+		new Thread(task).start();
 	}
 	
 	private EventHandler<Event> editElderlyButtonAction(Elderly elderly, ElderlyController father) {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
-				try {
-					ElderlyFormController elderlyFormController = new ElderlyFormController();
-					FXMLLoader loader = elderlyFormController.getFXMLLoader();
-					Pane pane = loader.load();
+				Task<Object[]> task = new Task<Object[]>() {
+					@Override
+					protected Object[] call() throws Exception {
+						initProgressIndicator();
+						ElderlyFormController elderlyFormController = new ElderlyFormController();
+						FXMLLoader loader = elderlyFormController.getFXMLLoader();
+						Pane pane = loader.load();
 
-					ElderlyFormController elderlyFormControllerLoaded = loader.getController();
+						Object[] object = new Object[2];
+						
+						object[0] = pane;
+						object[1] = loader.getController();
+						
+						return object;
+					}
+				};
+				
+				task.setOnSucceeded(e -> {
+					Object[] object = task.getValue();
+					
+					Pane pane = (Pane) object[0];
+					ElderlyFormController elderlyFormControllerLoaded  = (ElderlyFormController) object[1];
 					elderlyFormControllerLoaded.setCreatedForm(false);
 					elderlyFormControllerLoaded.setElderly(elderly);
 					elderlyFormControllerLoaded.setFather(father);
@@ -163,9 +206,10 @@ public class ElderlyController extends Controller implements Initializable {
 					stage.show();
 					
 					elderlyFormControllerLoaded.setMe(stage);
-				}catch (IOException e) {
-					e.printStackTrace();
-				}
+					stopProgressIndicator();
+				});
+			
+				new Thread(task).start();
 			}
 		};
 	}
@@ -194,6 +238,14 @@ public class ElderlyController extends Controller implements Initializable {
 		String messageInfo = elderlyService.delete(elderly.getId());
 		
 		if(messageInfo == "ERROR") { throw new UserException("Erro ao excluir o idosp "+elderly.getName()); }
+	}
+	
+	private void initProgressIndicator() {
+		elderlyProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		elderlyProgressIndicator.setVisible(false);
 	}
 
 	

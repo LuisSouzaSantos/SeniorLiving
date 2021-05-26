@@ -16,6 +16,10 @@ import br.com.ftt.ec6.seniorLiving.utils.BCrypt;
 
 public class UserServiceImpl implements UserService {
 	
+	private static final String EMAIL_PATTERN = 
+	        "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+	        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	
 	private static UserServiceImpl instance;
 	private RoleService roleService = RoleServiceImpl.getInstance();
 	private UserDAO userDAO = UserDAOImpl.getInstance();
@@ -33,17 +37,23 @@ public class UserServiceImpl implements UserService {
 	public User save(String email, String nickname, String password, String passwordConfirmation, List<Role> roleList) throws UserException {
 		validateUserParameters(email, nickname, password, passwordConfirmation, roleList);
 		
-		if(roleService.checkRoleList(roleList) == false) { throw new UserException("Lista de papéis invalida"); }
+		if(email.matches(EMAIL_PATTERN) == false) { throw new UserException("O Email informado não está nos padrões"); }
+		
+		if(roleService.checkRoleList(roleList) == false) { throw new UserException("Lista de papéis inválida"); }
 		
 		EntityManager entityManagerConnection = Database.getConnection();
 		userDAO.startConnection(entityManagerConnection);
-		
 		entityManagerConnection.getTransaction().begin();
+		
 		User userRetrieved = userDAO.getUserByEmail(email);
 		
 		if(userRetrieved != null) { throw new UserException("Já existe um usuário com esse email cadastrado na aplicação"); }
 		
-		if(checkPassword(password, passwordConfirmation) == false) { throw new UserException("Senha de confirmação está divergente da senha"); }
+		User userRetrievedByNickname = userDAO.getUserByNickname(nickname);
+		
+		if(userRetrievedByNickname != null) { throw new UserException("Já existe um usuário com esse apelido cadastrado na aplicação"); }
+		
+		if(checkPassword(password, passwordConfirmation) == false) { throw new UserException("Senha de confirmação está divergente da senha "); }
 		
 		User user = new User();
 		user.setEmail(email);
@@ -51,6 +61,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(new String(BCrypt.hashpw(password, BCrypt.gensalt())));
 		user.setRoleList(roleList);
 		user.setActive(true);
+		
 		userDAO.save(user);
 		
 		entityManagerConnection.getTransaction().commit();
@@ -66,18 +77,26 @@ public class UserServiceImpl implements UserService {
 		
 		validateUserUpdateParameters(user.getEmail(), user.getNickname(), user.getPassword(), user.getPasswordConfirmation(), user.getRoleList());
 		
+		if(user.getEmail().matches(EMAIL_PATTERN) == false) { throw new UserException("O Email informado não está nos padrões"); }
+		
 		if(roleService.checkRoleList(user.getRoleList()) == false) { throw new UserException("Lista de papéis invalida"); }
 		
 		EntityManager entityManagerConnection = Database.getConnection();
 		userDAO.startConnection(entityManagerConnection);
-		
 		entityManagerConnection.getTransaction().begin();
+		
 		User userRetrieved = userDAO.getUserByEmail(user.getEmail());
 		
 		if((userRetrieved != null) && (userRetrieved.getId().equals(user.getId()) == false)) { throw new UserException("Já existe um usuário com esse email cadastrado na aplicação"); }
 		
+		User userRetrievedByNickname = userDAO.getUserByNickname(user.getNickname());
+		
+		if((userRetrievedByNickname != null) && (userRetrievedByNickname.getId().equals(user.getId()) == false)) { throw new UserException("Já existe um usuário com esse apelido cadastrado na aplicação"); }
+		
 		userDAO.update(user);
+		
 		entityManagerConnection.getTransaction().commit();
+		entityManagerConnection.close();
 		userDAO.stopConnection();
 		
 		return user;
@@ -126,7 +145,23 @@ public class UserServiceImpl implements UserService {
 		EntityManager entityManager = Database.getConnection();
 		entityManager.getTransaction().begin();
 		userDAO.startConnection(entityManager);
+		
 		List<User> users = userDAO.getUsersByRole(roleName);
+		
+		entityManager.close();
+		userDAO.stopConnection();
+		
+		return users;
+	}
+	
+	@Override
+	public List<User> getUserByFilter(String email, String nickname, String active){
+		EntityManager entityManager = Database.getConnection();
+		entityManager.getTransaction().begin();
+		userDAO.startConnection(entityManager);
+		
+		List<User> users = userDAO.getUserByFilter(email, nickname, active);
+		
 		entityManager.close();
 		userDAO.stopConnection();
 		

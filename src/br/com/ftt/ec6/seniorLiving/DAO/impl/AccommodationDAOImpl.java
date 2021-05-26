@@ -33,9 +33,19 @@ public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements Acco
 	}
 	
 	@Override
+	public Accommodation getAccommodationByNameAndRestHome(String name, RestHome restHome) {
+		try {
+			return super.entityManager.createQuery(findAccommodationByNameAndRestHomeQuery(), Accommodation.class)
+						.setParameter("name", name)
+						.setParameter("restHome", restHome)
+						.getSingleResult();
+		}catch(RuntimeException e) {return null;}
+	}
+	
+	@Override
 	public List<Accommodation> getAccommodationByRestHome(RestHome restHome) {
 		try {
-			return super.entityManager.createQuery(getAccommodationByRestHomeQuery(), Accommodation.class)
+			return super.entityManager.createQuery(findAccommodationByRestHomeQuery(), Accommodation.class)
 						.setParameter("restHome", restHome)
 						.getResultList();
 		}catch(RuntimeException e) {return null;}
@@ -55,8 +65,12 @@ public class AccommodationDAOImpl extends DAOImpl<Accommodation> implements Acco
 		return "SELECT a from Accommodation a where a.name = :name";
 	}
 	
-	private String getAccommodationByRestHomeQuery () {
+	private String findAccommodationByRestHomeQuery () {
 		return "SELECT a from Accommodation a where a.restHome = :restHome";
+	}
+	
+	private String findAccommodationByNameAndRestHomeQuery() {
+		return "SELECT a from Accommodation a where a.name = :name AND a.restHome = :restHome";
 	}
 	
 	private void setEntityManager(EntityManager entityManager) {

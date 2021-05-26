@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
@@ -85,6 +86,11 @@
             <Image url="@../images/add.png" />
          </image>
       </ImageView>
+      <Pane fx:id="billingFormProgressIndicator" layoutX="-3.0" layoutY="-2.0" opacity="0.6" prefHeight="656.0" prefWidth="858.0" style="-fx-background-color: #000000;" visible="false">
+         <children>
+            <ProgressIndicator layoutX="415.0" layoutY="308.0" styleClass="progressIndicator" stylesheets="@progressIndicator.css" />
+         </children>
+      </Pane>
    </children>
    <effect>
       <DropShadow />

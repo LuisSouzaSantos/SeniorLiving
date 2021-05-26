@@ -34,7 +34,9 @@ public class LoginServiceImpl implements LoginService {
 		EntityManager entityManager =  Database.getConnection();
 		entityManager.getTransaction().begin();
 		userDAO.startConnection(entityManager);
+		
 		User user = userDAO.getUserByEmail(email);
+		
 		entityManager.close();
 		userDAO.stopConnection();
 		

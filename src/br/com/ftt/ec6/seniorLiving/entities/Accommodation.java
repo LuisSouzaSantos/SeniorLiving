@@ -23,7 +23,7 @@ public class Accommodation extends BaseConfig {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true, length = 50, nullable = false)
+	@Column(unique = false, length = 50, nullable = false)
 	private String name;
 	
 	@Column(unique = false, length = 100, nullable = false)

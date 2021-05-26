@@ -19,4 +19,6 @@ public interface UserService {
 	List<User> getAll();
 	
 	List<User> getUsersByRole(String roleName);
+	
+	List<User> getUserByFilter(String email, String nickname, String active);
 }

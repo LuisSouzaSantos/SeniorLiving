@@ -26,7 +26,16 @@ public class ProductDAOImpl extends DAOImpl<Product> implements ProductDAO {
 	@Override
 	public Product getProductByName(String name) {
 		try {
-			return this.entityManager.createQuery(findProductByNameQuery(), Product.class)
+			return super.entityManager.createQuery(findProductByNameQuery(), Product.class)
+						.setParameter("name", name)
+						.getSingleResult();
+		}catch(RuntimeException e) {return null;}
+	}
+	
+	@Override
+	public Product getProductByNameAndRestHome(String name, RestHome restHome) {
+		try {
+			return super.entityManager.createQuery(findProductByNameAndRestHomeQuery(), Product.class)
 						.setParameter("name", name)
 						.getSingleResult();
 		}catch(RuntimeException e) {return null;}
@@ -35,7 +44,7 @@ public class ProductDAOImpl extends DAOImpl<Product> implements ProductDAO {
 	@Override
 	public List<Product> getProductByRestHome(RestHome restHome) {
 		try {
-			return super.entityManager.createQuery(getProductByRestHomeQuery(), Product.class)
+			return super.entityManager.createQuery(findProductByRestHomeQuery(), Product.class)
 						.setParameter("restHome", restHome)
 						.getResultList();
 		}catch(RuntimeException e) {return null;}
@@ -51,7 +60,7 @@ public class ProductDAOImpl extends DAOImpl<Product> implements ProductDAO {
 		super.entityManager = null;
 	}
 	
-	private String getProductByRestHomeQuery() {
+	private String findProductByRestHomeQuery() {
 		return "SELECT p from Product p where p.restHome = :restHome";
 	}
 	
@@ -59,8 +68,12 @@ public class ProductDAOImpl extends DAOImpl<Product> implements ProductDAO {
 		return "SELECT p from Product p where p.name = :name";
 	}
 	
+	private String findProductByNameAndRestHomeQuery() {
+		return "SELECT p from Product p where p.name = :name AND p.restHome = :restHome";
+	}
+	
 	private void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
+		super.entityManager = entityManager;
 	}
 	
 }

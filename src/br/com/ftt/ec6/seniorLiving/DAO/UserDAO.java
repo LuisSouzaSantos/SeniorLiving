@@ -16,11 +16,15 @@ public interface UserDAO {
 	
 	User getUserByEmail(String email);
 	
+	User getUserByNickname(String nickname);
+	
 	User getById(Long id);
 	
 	List<User> getAll();
 	
 	List<User> getUsersByRole(String roleName);
+	
+	List<User> getUserByFilter(String email, String nickname, String active);
 	
 	void startConnection(EntityManager entityManager);
 	

@@ -8,15 +8,17 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import br.com.ftt.ec6.seniorLiving.entities.Product;
-import br.com.ftt.ec6.seniorLiving.exception.ProductException;
+import br.com.ftt.ec6.seniorLiving.entities.RestHome;
 import br.com.ftt.ec6.seniorLiving.service.ProductService;
 import br.com.ftt.ec6.seniorLiving.service.impl.ProductServiceImpl;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -47,13 +49,14 @@ public class ProductFormController extends Controller implements Initializable {
 	@FXML
 	private Button productFormCancelButton;
 	
+	@FXML
+	private Pane productFormProgressIndicator;
 	
 	private Stage me;
 	private boolean isCreatedForm;
 	private Product product;
 	private ProductController father;
 	
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		initializeNodes();
@@ -70,35 +73,82 @@ public class ProductFormController extends Controller implements Initializable {
 	
 	@FXML
 	private void createNewUserButtonAction() {
-		try{
-			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
+		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_CREATE)) == false) { return; }
 			
-			String name = formProductNameField.getText();
-			String description = formProductDescriptionFieldArea.getText();
+		String name = formProductNameField.getText();
+		String description = formProductDescriptionFieldArea.getText();
 			
-			productService.save(name, description, getRestHomeActived());
+		Task<Product> productTask = createNewProductTask(name, description, getRestHomeActived());
+			
+		new Thread(productTask).start();
+	}
+	
+	private Task<Product> createNewProductTask(String name, String description, RestHome restHome){
+		Task<Product> task = new Task<Product>() {
+			@Override
+			protected Product call() throws Exception {
+				initProgressIndicator();
+				return productService.save(name, description, restHome);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Product productCreated = task.getValue();
 			closeMe();
-		}catch(ProductException e) {
-			formProductErrorMessageText.setText(e.getMessage());
-		}
+			father.addNewProductOnTable(productCreated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formProductErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
 	}
 	
 	@FXML
 	private void updateProductButtonAction() {
-		try {
-			if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
+		if(isValidFields(Arrays.asList(FIELDS_TO_BE_VALIDATE_IN_UPDATE)) == false) { return; }
 			
-			String name = formProductNameField.getText();
-			String description = formProductDescriptionFieldArea.getText();
+		String name = formProductNameField.getText();
+		String description = formProductDescriptionFieldArea.getText();
 			
-			this.product.setName(name);
-			this.product.setDescription(description);
-			
-			productService.update(product);
+		Task<Product> productTask = updateProductTask(name, description);
+		
+		new Thread(productTask).start();
+	}
+	
+	private Task<Product> updateProductTask(String name, String description){
+		Task<Product> task = new Task<Product>() {
+			@Override
+			protected Product call() throws Exception {
+				initProgressIndicator();
+				
+				product.setName(name);
+				product.setDescription(description);
+				
+				return productService.update(product);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Product productUpdated = task.getValue();
 			closeMe();
-		}catch(ProductException e) {
-			formProductErrorMessageText.setText(e.getMessage());
-		}
+			father.updateProductOnTable(productUpdated);
+			stopProgressIndicator();
+		});
+		
+		task.setOnFailed(e -> {
+			if(task != null && task.getException() != null && task.getException().getMessage() != null) {
+				formProductErrorMessageText.setText(task.getException().getMessage());
+			}
+			stopProgressIndicator();
+		});
+		
+		return task;
 	}
 	
 	@FXML
@@ -205,6 +255,14 @@ public class ProductFormController extends Controller implements Initializable {
 	}
 	public void setFather(ProductController father) {
 		this.father = father;
+	}
+	
+	private void initProgressIndicator() {
+		productFormProgressIndicator.setVisible(true);
+	}
+	
+	private void stopProgressIndicator() {
+		productFormProgressIndicator.setVisible(false);
 	}
 		
 }

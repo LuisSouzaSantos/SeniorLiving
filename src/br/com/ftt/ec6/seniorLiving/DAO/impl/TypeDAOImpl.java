@@ -33,6 +33,17 @@ public class TypeDAOImpl extends DAOImpl<Type> implements TypeDAO {
 	}
 	
 	@Override
+	public Type getTypeByNameAndRestHome(String name, RestHome restHome) {
+		try {
+			return super.entityManager.createQuery(findTypeByNameAndRestHomeQuery(), Type.class)
+						.setParameter("name", name)
+						.setParameter("restHome", restHome)
+						.getSingleResult();
+		}catch(RuntimeException e) {return null;}
+	}
+
+	
+	@Override
 	public List<Type> getTypeByRestHome(RestHome restHome) {
 		try {
 			return super.entityManager.createQuery(getTypeByRestHomeQuery(), Type.class)
@@ -59,9 +70,12 @@ public class TypeDAOImpl extends DAOImpl<Type> implements TypeDAO {
 		return "SELECT t from Type t where t.name = :name";
 	}
 	
+	private String findTypeByNameAndRestHomeQuery() {
+		return "SELECT t from Type t where t.name = :name AND t.restHome = :restHome";
+	}
+	
 	private void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-
 
 }

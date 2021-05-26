@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import br.com.ftt.ec6.seniorLiving.entities.Accommodation;
-import br.com.ftt.ec6.seniorLiving.exception.UserException;
+import br.com.ftt.ec6.seniorLiving.exception.AccommodationException;
 import br.com.ftt.ec6.seniorLiving.service.AccommodationService;
 import br.com.ftt.ec6.seniorLiving.service.impl.AccommodationServiceImpl;
 import br.com.ftt.ec6.seniorLiving.utils.ViewUtils;
@@ -47,18 +47,13 @@ public class AccommodationController extends Controller implements Initializable
 	}
 	
 	private void initializeNodes() {
-		load();
+		load(accommodationService.getAccommodationByRestHome(getRestHomeActived()));
 	}
 
 	@Override
 	public FXMLLoader getFXMLLoader() {
 		return new FXMLLoader(getClass().getResource(UI_PATH));
 	}
-	
-    public void reloadMe() {
-    	accommodationTable.getItems().clear();
-    	load();
-    }
     
     public void addNewAccommodationOnTable(Accommodation accommodation) {
 	    if((accommodation == null) || (accommodation.getId() == null)) { return; }
@@ -66,6 +61,7 @@ public class AccommodationController extends Controller implements Initializable
 	    if(accommodationTable == null) { return; }
 
 	    accommodationTable.getItems().add(accommodation);
+	    accommodationTable.refresh();
     }
     
     public void removeAccommodationOnTable(Accommodation accommodation) {
@@ -74,11 +70,19 @@ public class AccommodationController extends Controller implements Initializable
     	if(accommodationTable == null) { return; }
     	
     	accommodationTable.getItems().remove(accommodation);
+    	accommodationTable.refresh();
+    }
+    
+    public void updateAccommodationOnTable(Accommodation accommodation) {
+    	if((accommodation == null) || (accommodation.getId() == null)) { return; }
+    	
+    	if(accommodationTable == null) { return; }
+    	
+    	accommodationTable.getItems().clear();
+    	load(accommodationService.getAccommodationByRestHome(getRestHomeActived()));
     }
 	
-	private void load() {
-		List<Accommodation> accommodations = accommodationService.getAccommodationByRestHome(getRestHomeActived());
-		
+	private void load(List<Accommodation> accommodations) {
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
 		accommodations.forEach(accommodation -> {
@@ -171,7 +175,7 @@ public class AccommodationController extends Controller implements Initializable
 					deleteAccommodation(accommodation);
 					JOptionPane.showMessageDialog(null, "Acomodação "+accommodation.getName()+" deletada com sucesso.");
 					removeAccommodationOnTable(accommodation);
-				}catch (UserException e) {
+				}catch (AccommodationException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				
@@ -179,9 +183,11 @@ public class AccommodationController extends Controller implements Initializable
 		};
 	}
 	
-	private void deleteAccommodation(Accommodation accommodation) throws UserException {
+	private void deleteAccommodation(Accommodation accommodation) throws AccommodationException {
 		String messageInfo = accommodationService.delete(accommodation.getId());
 		
-		if(messageInfo == "ERROR") { throw new UserException("Erro ao excluir a acomodação "+accommodation.getName()); }
+		if(messageInfo == "ERROR") { throw new AccommodationException("Erro ao excluir a acomodação "+accommodation.getName()); }
+		
+		if(messageInfo != "SUCCESS") { throw new AccommodationException(messageInfo);}
 	}
 }

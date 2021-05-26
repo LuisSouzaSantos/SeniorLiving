@@ -13,6 +13,7 @@ import br.com.ftt.ec6.seniorLiving.entities.Type;
 import br.com.ftt.ec6.seniorLiving.entities.User;
 import br.com.ftt.ec6.seniorLiving.exception.RestHomeException;
 import br.com.ftt.ec6.seniorLiving.service.RestHomeService;
+import br.com.ftt.ec6.seniorLiving.utils.Utils;
 
 public class RestHomeServiceImpl implements RestHomeService {
 
@@ -25,7 +26,6 @@ public class RestHomeServiceImpl implements RestHomeService {
 		if(instance == null) {
 			instance = new RestHomeServiceImpl();
 		}
-		
 		return instance;
 	}
 	
@@ -34,7 +34,9 @@ public class RestHomeServiceImpl implements RestHomeService {
 		EntityManager entityManagerConnection = Database.getConnection();
 		entityManagerConnection.getTransaction().begin();
 		restHomeDAO.startConnection(entityManagerConnection);
+		
 		List<RestHome> restHomeList = restHomeDAO.getAll();
+		
 		entityManagerConnection.close();
 		restHomeDAO.stopConnection();
 		
@@ -46,6 +48,12 @@ public class RestHomeServiceImpl implements RestHomeService {
 			String addressCep, String addressNeighborhood, User admin, List<Accommodation> accommodationList, List<User> userList, List<Type> typeList) throws RestHomeException {
 		
 		validateFields(socialReason, cnpj, addressStreet, addressNumber, addressState, addressCep, addressNeighborhood, admin, accommodationList, userList, typeList);
+		
+		if(Utils.isCNPJ(cnpj) == false) { throw new RestHomeException("CNPJ inválido"); }
+		
+		if(getRestHomeByCNPJ(cnpj) != null) { throw new RestHomeException("Já existe uma casa de repouso cadastrada com esse CNPJ"); }
+		
+		if(getRestHomeBySocialReason(socialReason) != null) { throw new RestHomeException("Já existe uma casa de repouso cadastrada com essa razão social"); }
 		
 		RestHome restHome = new RestHome();
 		restHome.setSocialReason(socialReason);
@@ -60,7 +68,9 @@ public class RestHomeServiceImpl implements RestHomeService {
 		EntityManager entityManagerConnection = Database.getConnection();
 		entityManagerConnection.getTransaction().begin();
 		restHomeDAO.startConnection(entityManagerConnection);
+		
 		RestHome newRestHome = restHomeDAO.save(restHome);
+		
 		entityManagerConnection.getTransaction().commit();
 		entityManagerConnection.close();
 		restHomeDAO.stopConnection();
@@ -73,7 +83,9 @@ public class RestHomeServiceImpl implements RestHomeService {
 		EntityManager entityManagerConnection = Database.getConnection();
 		restHomeDAO.startConnection(entityManagerConnection);
 		entityManagerConnection.getTransaction().begin();
+		
 		String messageInfo = restHomeDAO.delete(id);
+		
 		entityManagerConnection.getTransaction().commit();
 		entityManagerConnection.close();
 		restHomeDAO.stopConnection();
@@ -87,12 +99,24 @@ public class RestHomeServiceImpl implements RestHomeService {
 		
 		validateFields(restHome.getSocialReason(), restHome.getCnpj(), restHome.getAddressStreet(), restHome.getAddressNumber(), restHome.getAddressState(), restHome.getAddressCep(), restHome.getAddressNeighborhood(), restHome.getAdmin(), null, null, null);
 		
+		if(Utils.isCNPJ(restHome.getCnpj()) == false) { throw new RestHomeException("CNPJ inválido"); }
+		
+		RestHome restHomeRetrievedByCNPJ = getRestHomeByCNPJ(restHome.getCnpj());
+		
+		if((restHomeRetrievedByCNPJ != null) && (restHomeRetrievedByCNPJ.getId().equals(restHome.getId()) == false)) { throw new RestHomeException("Já existe uma casa de repouso cadastrada com esse CNPJ"); }
+		
+		RestHome restHomeRetrievedBySocialReason = getRestHomeBySocialReason(restHome.getSocialReason());
+		
+		if((restHomeRetrievedBySocialReason != null) && (restHomeRetrievedBySocialReason.getId().equals(restHome.getId()) == false)) { throw new RestHomeException("Já existe uma casa de repouso cadastrada com essa razão social"); }
+		
 		EntityManager entityManagerConnection = Database.getConnection();
 		restHomeDAO.startConnection(entityManagerConnection);
 		entityManagerConnection.getTransaction().begin();
 		
 		RestHome restHomeUpdated = restHomeDAO.update(restHome);
+		
 		entityManagerConnection.getTransaction().commit();
+		entityManagerConnection.close();
 		restHomeDAO.stopConnection();
 		
 		return restHomeUpdated;
@@ -106,7 +130,22 @@ public class RestHomeServiceImpl implements RestHomeService {
 		entityManagerConnection.getTransaction().begin();
 		
 		List<RestHome> restHomeList = restHomeDAO.getRestHomeByAdmin(user);
-		entityManagerConnection.getTransaction().commit();
+		
+		entityManagerConnection.close();;
+		restHomeDAO.stopConnection();
+		
+		return restHomeList;
+	}
+	
+	@Override
+	public List<RestHome> getRestHomeByFilter(String socialReason, String cnpj, String uf, String cep) {
+		EntityManager entityManagerConnection = Database.getConnection();
+		restHomeDAO.startConnection(entityManagerConnection);
+		entityManagerConnection.getTransaction().begin();
+		
+		List<RestHome> restHomeList = restHomeDAO.getRestHomeByFilter(socialReason, cnpj, uf, cep);
+		
+		entityManagerConnection.close();;
 		restHomeDAO.stopConnection();
 		
 		return restHomeList;
@@ -131,7 +170,31 @@ public class RestHomeServiceImpl implements RestHomeService {
 		
 		if(admin == null) { throw new RestHomeException("Admin inválido"); }
 	}
-
-
+	
+	private RestHome getRestHomeByCNPJ(String cnpj) {
+		EntityManager entityManagerConnection = Database.getConnection();
+		restHomeDAO.startConnection(entityManagerConnection);
+		entityManagerConnection.getTransaction().begin();
+		
+		RestHome restHome = restHomeDAO.getRestHomeByCNPJ(cnpj);
+		
+		entityManagerConnection.close();
+		restHomeDAO.stopConnection();
+		
+		return restHome;	
+	}
+	
+	private RestHome getRestHomeBySocialReason(String socialReason) {
+		EntityManager entityManagerConnection = Database.getConnection();
+		restHomeDAO.startConnection(entityManagerConnection);
+		entityManagerConnection.getTransaction().begin();
+		
+		RestHome restHome = restHomeDAO.getRestHomeBySocialReason(socialReason);
+		
+		entityManagerConnection.close();
+		restHomeDAO.stopConnection();
+		
+		return restHome;
+	}
 	
 }

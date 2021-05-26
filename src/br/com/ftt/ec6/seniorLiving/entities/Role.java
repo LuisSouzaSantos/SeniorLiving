@@ -7,10 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "role", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
+@Table(name = "role")
 public class Role extends BaseConfig {
 	
 	@Transient
@@ -20,7 +19,7 @@ public class Role extends BaseConfig {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true, length = 30, nullable = false)
+	@Column(unique = false, length = 30, nullable = false)
 	private String name;
 	
 	public Long getId() {

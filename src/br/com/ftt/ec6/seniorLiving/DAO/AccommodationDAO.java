@@ -13,6 +13,10 @@ public interface AccommodationDAO {
 	Accommodation update(Accommodation accommodation);
 	
 	Accommodation getAccommodationByName(String name);
+	
+	Accommodation getAccommodationByNameAndRestHome(String name, RestHome restHome);
+	
+	Accommodation getById(Long id);
 		
 	String delete(Long id);
 	

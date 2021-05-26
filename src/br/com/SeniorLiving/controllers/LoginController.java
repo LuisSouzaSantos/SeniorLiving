@@ -70,7 +70,6 @@ public class LoginController extends Controller implements Initializable {
 	}
 	
 	public void performLogin() throws LoginException {
-		this.initProgressIndicator();
 		performAudit(LoginAudit.PERFORM_LOGIN);
 		
 		if(validateFields() == false) { 
@@ -81,45 +80,7 @@ public class LoginController extends Controller implements Initializable {
 		String email = txtEmail.getText();
 		String password = txtPassword.getText();
 		
-		Task<User> task = new Task<User>() {
-			@Override
-			protected User call() throws Exception {
-				return loginService.performLogin(email, password);
-			}
-		};
-		
-		task.setOnSucceeded(e -> {
-			try {
-				userLogged = task.getValue();
-				
-				setUserLogged(userLogged);
-				
-				MenuController menuController = new MenuController();
-				FXMLLoader loader = menuController.getFXMLLoader();
-				AnchorPane anchorPane = loader.load();
-				Scene futureScene = new Scene(anchorPane);
-				
-				Stage newStage = Controller.getCurrentStage();		
-				newStage.setScene(futureScene);
-				Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
-				newStage.getIcons().add(anotherIcon);
-				
-				Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
-				stopProgressIndicator();
-			} catch (IOException IO) { }
-		});
-		
-		task.setOnFailed(e -> {
-			loginErrorSignInMessageText.setText(task.getException().getMessage());
-			stopProgressIndicator();
-		});
-		
-		new Thread(task).start();
-	}
-	
-	public void performLogout() {
-		performAudit(LoginAudit.PERFORM_LOGOUT);
-		setUserLogged(null);
+		new Thread(performLoginTask(email, password)).start();
 	}
 	
 	@Override
@@ -183,6 +144,44 @@ public class LoginController extends Controller implements Initializable {
 	
 	private void stopProgressIndicator() {
 		loginProgressIndicator.setVisible(false);
+	}
+	
+	private Task<User> performLoginTask(String email, String password) {
+		Task<User> task = new Task<User>() {
+			@Override
+			protected User call() throws Exception {
+				initProgressIndicator();
+				return loginService.performLogin(email, password);
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			try {
+				userLogged = task.getValue();
+				
+				setUserLogged(userLogged);
+				
+				MenuController menuController = new MenuController();
+				FXMLLoader loader = menuController.getFXMLLoader();
+				AnchorPane anchorPane = loader.load();
+				Scene futureScene = new Scene(anchorPane);
+				
+				Stage newStage = Controller.getCurrentStage();		
+				newStage.setScene(futureScene);
+				Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+				newStage.getIcons().add(anotherIcon);
+				
+				Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
+				stopProgressIndicator();
+			} catch (IOException IO) { }
+		});
+		
+		task.setOnFailed(e -> {
+			loginErrorSignInMessageText.setText(task.getException().getMessage());
+			stopProgressIndicator();
+		});
+		
+		return task;
 	}
 		
 	private void performAudit(LoginAudit loginAudit) {

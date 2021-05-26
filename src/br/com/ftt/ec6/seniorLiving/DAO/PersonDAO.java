@@ -15,11 +15,17 @@ public interface PersonDAO{
 	
 	Person getById(Long id);
 	
+	Person getPersonByRgAndRestHome(String rg, RestHome restHome);
+	
+	Person getPersonByCPFAndRestHome(String cpf, RestHome restHome);
+	
 	List<Person> getAll();
 	
 	List<Person> getPersonByRestHome(RestHome restHome);
 	
 	List<Person> getPersonByRestHomeAndType(RestHome restHome, Type type);
+	
+	List<Person> getPersonByType(Type type);
 	
 	String delete(Long id);
 	
