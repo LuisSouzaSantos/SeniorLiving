@@ -93,7 +93,7 @@ public class ElderlyServiceImpl implements ElderlyService {
 		
 		Elderly elderlyRetrievedByCPF = getElderlyByCPFAndRestHome(elderly.getCpf(), elderly.getRestHome());
 		
-		if((elderlyRetrievedByCPF != null) && (elderlyRetrievedByCPF.getId().equals(elderly.getId()))) { throw new ElderlyException("Já existe um idoso com esse CPF cadastrado"); }
+		if((elderlyRetrievedByCPF != null) && (elderlyRetrievedByCPF.getId().equals(elderly.getId()) == false)) { throw new ElderlyException("Já existe um idoso com esse CPF cadastrado"); }
 	
 		EntityManager entityManager = Database.getConnection();
 		entityManager.getTransaction().begin();

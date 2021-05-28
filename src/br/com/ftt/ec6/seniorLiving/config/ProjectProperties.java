@@ -20,53 +20,53 @@ public class ProjectProperties {
 	public static ProjectProperties getInstance() {
 		if(instance == null) {
 			instance = new ProjectProperties();
-			instance.readProperties();
+			//instance.readProperties();
 		}
 		return instance;
 	}
 	
-	private void readProperties() {
-		try {
-			File file = Utils.getFile(FILE_PATH);
-			FileInputStream fileInputStream = new FileInputStream(file);
-			config.load(fileInputStream);
-		}catch(IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-	}
+//	private void readProperties() {
+//		try {
+//			File file = Utils.getFile(FILE_PATH);
+//			FileInputStream fileInputStream = new FileInputStream(file);
+//			config.load(fileInputStream);
+//		}catch(IOException e) {
+//			e.printStackTrace();
+//		} catch (URISyntaxException e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	public Properties getProperties() {
 		return config;
 	}
 
 	public String getMailSmtpHost() {
-		return config.getProperty("mail.smtp.host") ;
+		return "smtp.gmail.com" ;
 	}
 
 	public String getMailSmtpSocketFactoryPort() {
-		return config.getProperty("mail.smtp.socketFactory.port");
+		return "587";
 	}
 
 	public String getMailSmtpSocketFactoryClass() {
-		return config.getProperty("mail.smtp.socketFactory.class");
+		return "javax.net.ssl.SSLSocketFactory";
 	}
 
 	public String getMailSmtpAuth() {
-		return config.getProperty("mail.smtp.auth");
+		return "false";
 	}
 
 	public Integer getMailSmtpPort() {
-		return Integer.parseInt(config.getProperty("mail.smtp.port"));
+		return 587;
 	}
 
 	public String getMailSmtpUsername() {
-		return config.getProperty("mail.smtp.username");
+		return "casaDeRepousoParaIdosos2021@gmail.com";
 	}
 
 	public String getMailSmtpPassword() {
-		return config.getProperty("mail.smtp.password");
+		return "sadfghjkl0urtghjkl856";
 	}
 
 }

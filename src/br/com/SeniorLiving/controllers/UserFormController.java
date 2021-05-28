@@ -135,6 +135,7 @@ public class UserFormController extends Controller implements Initializable {
 			closeMe();
 			father.addNewUserOnTable(userCreated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -142,6 +143,7 @@ public class UserFormController extends Controller implements Initializable {
 				formUserErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;
@@ -187,7 +189,8 @@ public class UserFormController extends Controller implements Initializable {
 			User userUpdated = task.getValue();
 			closeMe();
 			father.updateUserOnTable(userUpdated);
-			stopProgressIndicator();			
+			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -195,6 +198,7 @@ public class UserFormController extends Controller implements Initializable {
 				formUserErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;

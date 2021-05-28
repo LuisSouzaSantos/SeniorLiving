@@ -264,6 +264,7 @@ public class RestHomeFormController extends FormController<RestHomeController> i
 			closeMe();
 			father.addNewRestHomeOnTable(restHomeCreated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -271,6 +272,7 @@ public class RestHomeFormController extends FormController<RestHomeController> i
 				formRestHomeErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;
@@ -318,7 +320,8 @@ public class RestHomeFormController extends FormController<RestHomeController> i
 			RestHome restHomeUpdated = task.getValue();
 			closeMe();
 			father.updateRestHomeOnTable(restHomeUpdated);
-			stopProgressIndicator();			
+			stopProgressIndicator();	
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -326,6 +329,7 @@ public class RestHomeFormController extends FormController<RestHomeController> i
 				formRestHomeErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;

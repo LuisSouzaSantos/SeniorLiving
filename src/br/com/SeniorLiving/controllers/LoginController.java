@@ -168,17 +168,19 @@ public class LoginController extends Controller implements Initializable {
 				
 				Stage newStage = Controller.getCurrentStage();		
 				newStage.setScene(futureScene);
-				Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+				Image anotherIcon = new Image("/br/com/SeniorLiving/images/logos.png");
 				newStage.getIcons().add(anotherIcon);
 				
 				Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
 				stopProgressIndicator();
+				Thread.interrupted();
 			} catch (IOException IO) { }
 		});
 		
 		task.setOnFailed(e -> {
 			loginErrorSignInMessageText.setText(task.getException().getMessage());
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;

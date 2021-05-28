@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		Product similarProduct = getProductByNameAndRestHome(product.getName(), product.getRestHome());
 		
-		if((similarProduct != null) && (similarProduct.getId().equals(product.getId()))) { throw new ProductException("Produto já existe"); }
+		if((similarProduct != null) && (similarProduct.getId().equals(product.getId()) == false)) { throw new ProductException("Produto já existe"); }
 		
 		EntityManager entityManager = Database.getConnection();
 		entityManager.getTransaction().begin();

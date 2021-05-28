@@ -183,6 +183,7 @@ public class BillingController extends Controller implements Initializable {
 			
 			billingFormControllerLoaded.setMe(stage);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 	
 		new Thread(task).start();
@@ -207,6 +208,7 @@ public class BillingController extends Controller implements Initializable {
 			List<BillingSupport> billingSupportList = task.getValue();
 			load(billingSupportList);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		new Thread(task).start();
@@ -214,7 +216,9 @@ public class BillingController extends Controller implements Initializable {
 	
 	@FXML
 	private void cleanSearchButtonAction() {
-		System.out.println("Oi");
+		textMaxValue.setText("");
+		dataPicckerBeginDate.setValue(LocalDate.now());
+		dataPicckerFinalDate.setValue(LocalDate.now());
 	}
 	
 	private EventHandler<Event> editBillingButtonAction(BillingSupport billingSupport, BillingController father) {
@@ -255,6 +259,7 @@ public class BillingController extends Controller implements Initializable {
 					
 					billingFormControllerLoaded.setMe(stage);
 					stopProgressIndicator();
+					Thread.interrupted();
 				});
 			
 				new Thread(task).start();
@@ -266,8 +271,30 @@ public class BillingController extends Controller implements Initializable {
 		return new EventHandler<Event>() {
 			@Override
 			public void handle(Event arg0) {
-				BuildMail  buildMail = new BuildMail();
-				buildMail.buildElderlyBilling(billingSupport.getBilling());
+				Task<String> task = new Task<String>() {
+					@Override
+					protected String call() throws Exception {
+						initProgressIndicator();
+						BuildMail  buildMail = new BuildMail();
+						buildMail.buildElderlyBilling(billingSupport.getBilling());
+						return "SUCCESS";
+					}
+				};
+				
+				task.setOnSucceeded(e -> {
+					stopProgressIndicator();
+					JOptionPane.showMessageDialog(null, "Email enviado com sucesso");
+				});
+				
+				task.setOnFailed(e -> {
+					System.out.println(task.getException());
+					System.out.println("-------------------------");
+					System.out.println(task.getException().getStackTrace());
+					stopProgressIndicator();
+					JOptionPane.showMessageDialog(null, "Erro ao enviar o email");
+				});
+				
+				new Thread(task).start();
 			}
 		};
 	}

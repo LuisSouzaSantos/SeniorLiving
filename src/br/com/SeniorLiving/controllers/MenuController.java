@@ -142,6 +142,7 @@ public class MenuController extends Controller implements Initializable {
 					newStage.setScene(futureScene);
 					Controller.goToNextScene(Controller.getCurrentStage(), true, newStage, false);
 					stopProgressIndicator();
+					Thread.interrupted();
 				});
 				
 				new Thread(task).start();

@@ -148,10 +148,12 @@ public class MenuAdminController extends Controller implements Initializable {
 
 					contentContainer.getChildren().add(pane);
 					stopProgressIndicator();
+					Thread.interrupted();
 				});
 				
 				task.setOnFailed(e -> {
 					System.out.println(task.getException());
+					Thread.interrupted();
 				});
 				
 				new Thread(task).start();

@@ -179,6 +179,7 @@ public class RestHomeController extends Controller implements Initializable {
 			
 			restHomeFormControllerLoaded.setStageMe(stage);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		new Thread(task).start();
@@ -269,6 +270,8 @@ public class RestHomeController extends Controller implements Initializable {
 			load(restHomeList);
 
 			stopProgressIndicator();
+			
+			Thread.interrupted();
 		});
 		
 		new Thread(task).start();

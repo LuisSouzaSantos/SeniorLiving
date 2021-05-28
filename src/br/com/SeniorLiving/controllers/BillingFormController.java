@@ -149,6 +149,7 @@ public class BillingFormController extends Controller implements Initializable {
 			closeMe();
 			father.addNewBillingOnTable();
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -156,6 +157,7 @@ public class BillingFormController extends Controller implements Initializable {
 				formBillingErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;
@@ -207,6 +209,7 @@ public class BillingFormController extends Controller implements Initializable {
 			closeMe();
 			father.updateBillingSuppportOnTable();
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -214,6 +217,7 @@ public class BillingFormController extends Controller implements Initializable {
 				formBillingErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;

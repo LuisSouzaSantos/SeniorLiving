@@ -164,6 +164,7 @@ public class ElderlyController extends Controller implements Initializable {
 			
 			elderlyFormControllerLoaded.setMe(stage);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 	
 		new Thread(task).start();
@@ -207,6 +208,7 @@ public class ElderlyController extends Controller implements Initializable {
 					
 					elderlyFormControllerLoaded.setMe(stage);
 					stopProgressIndicator();
+					Thread.interrupted();
 				});
 			
 				new Thread(task).start();

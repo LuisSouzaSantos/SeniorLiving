@@ -190,6 +190,7 @@ public class PersonFormController extends Controller implements Initializable {
 			closeMe();
 			father.addNewPersonOnTable(personCreated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -197,6 +198,7 @@ public class PersonFormController extends Controller implements Initializable {
 				formPersonErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;
@@ -261,6 +263,7 @@ public class PersonFormController extends Controller implements Initializable {
 			closeMe();
 			father.updatePersonOnTable(personUpdated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -268,6 +271,7 @@ public class PersonFormController extends Controller implements Initializable {
 				formPersonErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;

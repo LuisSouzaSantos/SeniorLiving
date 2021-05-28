@@ -164,6 +164,7 @@ public class PersonController extends Controller implements Initializable {
 			
 			personFormControllerLoaded.setMe(stage);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 	
 		new Thread(task).start();
@@ -207,6 +208,7 @@ public class PersonController extends Controller implements Initializable {
 						
 					personFormControllerLoaded.setMe(stage);
 					stopProgressIndicator();
+					Thread.interrupted();
 				});
 					
 				new Thread(task).start();

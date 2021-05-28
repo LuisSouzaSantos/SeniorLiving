@@ -16,8 +16,8 @@ import br.com.ftt.ec6.seniorLiving.utils.Utils;
 
 public class BuildMail {
 	
-	private static final String FILE_PATH_INIT = "/Mail/newBillingBody.html";
-	private static final String FILE_PATH_END = "/Mail/newBillingFooter.html";
+	private static final String FILE_PATH_INIT = "Mail/newBillingBody.html";
+	private static final String FILE_PATH_END = "Mail/newBillingFooter.html";
 	
 	private static final String REST_HOME_NAME = "{{REST_HOME_NAME}}";
 	private static final String REST_HOME_ADDRESS = "{{REST_HOME_ADDRESS}}";
@@ -37,14 +37,20 @@ public class BuildMail {
 			+ "                            </tr>";
 
 	public void buildElderlyBilling(Billing billing) {
+		System.out.println("ENTROU NO BILLING");
 		try {
 			File file = Utils.getFile(FILE_PATH_INIT);
+			System.out.println("Encontrou o arquivo");
 			List<String> fileLine  = Files.readAllLines(file.toPath());
 			String htmlInit = "";
 			
 			for (String line : fileLine) {
 				htmlInit+=line;
 			}
+			
+			
+			System.out.println("-------------------");
+			System.out.println("Vai buildar o email");
 			
 			RestHome elderlyResthome = billing.getElderly().getRestHome();
 			Accommodation elderlyAccommodation = billing.getElderly().getAccommodation();
@@ -57,6 +63,9 @@ public class BuildMail {
 											.replace(ELDERLY_MONTHLY_PAYMENT, "R$"+billing.getElderly().getMonthlyPayment())
 											.replace(BILLING_DATE, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy")).toString())
 											.replace(BILLING_DATE_DUE, billing.getMonth().format(DateTimeFormatter.ofPattern("dd-MMM-yy")).toString());
+			
+			
+			System.out.println("Email foi buildado");
 			
 			Integer index = 1;
 			Double amountProduct = 0.0;
@@ -91,11 +100,14 @@ public class BuildMail {
 			
 			emailFormated+=htmlEndFormat;
 			
+			System.out.println("Vai enviar o email");
 			Mail mail = new Mail();
-			mail.sendEmail("luis345souza@gmail.com", billing.getElderly().getCurator().getEmail(), "Faturamento"+billing.getElderly().getName(), emailFormated);
+			mail.sendEmail("luis345souza@gmail.com", billing.getElderly().getCurator().getEmail(), "Faturamento "+billing.getElderly().getName(), emailFormated);
 		} catch (IOException e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 	}

@@ -102,6 +102,7 @@ public class AccommodationFormController extends Controller implements Initializ
 			closeMe();
 			father.addNewAccommodationOnTable(accommodationCreated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -109,6 +110,7 @@ public class AccommodationFormController extends Controller implements Initializ
 				formAccommodationErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;
@@ -143,6 +145,7 @@ public class AccommodationFormController extends Controller implements Initializ
 			closeMe();
 			father.updateAccommodationOnTable(accommodationUpdated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -150,6 +153,7 @@ public class AccommodationFormController extends Controller implements Initializ
 				formAccommodationErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;

@@ -97,6 +97,7 @@ public class ProductFormController extends Controller implements Initializable {
 			closeMe();
 			father.addNewProductOnTable(productCreated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -104,6 +105,7 @@ public class ProductFormController extends Controller implements Initializable {
 				formProductErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;
@@ -139,6 +141,7 @@ public class ProductFormController extends Controller implements Initializable {
 			closeMe();
 			father.updateProductOnTable(productUpdated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -146,6 +149,7 @@ public class ProductFormController extends Controller implements Initializable {
 				formProductErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;

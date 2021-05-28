@@ -161,6 +161,7 @@ public class ElderlyFormController extends Controller implements Initializable {
 			closeMe();
 			father.addNewElderlyOnTable(elderlyCreated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -168,6 +169,7 @@ public class ElderlyFormController extends Controller implements Initializable {
 				formElderlyErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;
@@ -222,6 +224,7 @@ public class ElderlyFormController extends Controller implements Initializable {
 			closeMe();
 			father.updateElderlyOnTable(elderlyUpdated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -229,6 +232,7 @@ public class ElderlyFormController extends Controller implements Initializable {
 				formElderlyErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;

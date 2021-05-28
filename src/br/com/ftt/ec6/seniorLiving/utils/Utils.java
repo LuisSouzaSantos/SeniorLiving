@@ -1,6 +1,9 @@
 package br.com.ftt.ec6.seniorLiving.utils;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -123,17 +126,40 @@ public class Utils {
     public static File getFile(String resource) throws URISyntaxException {
         ClassLoader classLoader = new Utils().getClass().getClassLoader();
         
-        URL is = null;
+//        URL is = null;
+//        
+//        is = classLoader.getResource(resource);
+//        if (is != null) { return new File(is.toURI()); }
+//        is = classLoader.getResource("/"+resource);
+//        if (is != null) { return new File(is.toURI()); }
+//        is = classLoader.getResource("resources/"+resource);
+//        if (is != null) { return new File(is.toURI()); }
+//        is = classLoader.getResource("/resources/"+resource);
+//        if(is!= null) { return new File(is.toURI());}
+//        is = classLoader.getResource("/br/com/resources/"+resource);
         
-        is = classLoader.getResource(resource);
-        if (is != null) { return new File(is.toURI()); }
-        is = classLoader.getResource("/"+resource);
-        if (is != null) { return new File(is.toURI()); }
-        is = classLoader.getResource("resources/"+resource);
-        if (is != null) { return new File(is.toURI()); }
-        is = classLoader.getResource("/resources/"+resource);
+        InputStream in = Utils.class.getResourceAsStream("/resources/"+resource);
+        File file = new File("file.html");
         
-        return new File(is.toURI());
+        try {
+			copyInputStreamToFile(in, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+            
+        return file;
+    }
+    
+    private static void copyInputStreamToFile(InputStream inputStream, File file)
+            throws IOException {
+
+        try (FileOutputStream outputStream = new FileOutputStream(file, false)) {
+            int read;
+            byte[] bytes = new byte[1024];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        }
     }
     
     public static boolean isCNPJ(String CNPJ) {

@@ -92,6 +92,7 @@ public class TypeFormController extends Controller implements Initializable {
 			closeMe();
 			father.addNewTypeOnTable(typeCreated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -99,6 +100,7 @@ public class TypeFormController extends Controller implements Initializable {
 				formTypeErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;
@@ -132,6 +134,7 @@ public class TypeFormController extends Controller implements Initializable {
 			closeMe();
 			father.updateTypeOnTable(typeUpdated);
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		task.setOnFailed(e -> {
@@ -139,6 +142,7 @@ public class TypeFormController extends Controller implements Initializable {
 				formTypeErrorMessageText.setText(task.getException().getMessage());
 			}
 			stopProgressIndicator();
+			Thread.interrupted();
 		});
 		
 		return task;

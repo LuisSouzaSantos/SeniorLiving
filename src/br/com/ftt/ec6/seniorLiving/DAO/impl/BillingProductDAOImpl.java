@@ -60,7 +60,7 @@ public class BillingProductDAOImpl extends DAOImpl<BillingProduct> implements Bi
 
 	@Override
 	public void stopConnection() {
-		super.entityManager = null;	
+		super.entityManager = null;
 	}
 	
 	private String findBillingProductByRestHomeQuery () {

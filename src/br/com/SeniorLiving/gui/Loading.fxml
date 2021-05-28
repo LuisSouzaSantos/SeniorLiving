@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="loginContainerAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1000.0" style="-fx-background-color: #4472c4;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ftt.ec6.seniorLiving.application.Main">
+   <children>
+      <ProgressIndicator layoutX="474.0" layoutY="258.0" styleClass="progressIndicator" stylesheets="@progressIndicator.css" />
+      <Text fill="WHITE" layoutX="722.0" layoutY="533.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carregando ....">
+         <font>
+            <Font name="System Bold" size="35.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

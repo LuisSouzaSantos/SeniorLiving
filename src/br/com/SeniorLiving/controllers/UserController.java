@@ -184,6 +184,8 @@ public class UserController extends Controller implements Initializable {
 			load(userList);
 
 			stopProgressIndicator();
+			
+			Thread.interrupted();
 		});
 		
 		new Thread(task).start();

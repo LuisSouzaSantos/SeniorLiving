@@ -104,7 +104,7 @@ public class UserDAOImpl extends DAOImpl<User> implements UserDAO{
 	
 	@Override
 	public void stopConnection() {
-		clearEntityManager();
+		super.entityManager = null;
 	}
 
 	private String findUserByEmailQuery() {
@@ -121,10 +121,6 @@ public class UserDAOImpl extends DAOImpl<User> implements UserDAO{
 	
 	private void setEntityManager(EntityManager entityManager) {
 		super.entityManager = entityManager;
-	}
-	
-	private void clearEntityManager() {
-		super.entityManager = null;
 	}
 	
 }

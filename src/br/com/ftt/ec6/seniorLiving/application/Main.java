@@ -2,11 +2,8 @@ package br.com.ftt.ec6.seniorLiving.application;
 	
 import java.io.IOException;
 
-import javax.persistence.EntityManager;
-
 import br.com.SeniorLiving.controllers.Controller;
 import br.com.SeniorLiving.controllers.LoginController;
-import br.com.ftt.ec6.seniorLiving.db.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,9 +17,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			EntityManager entityManager = Database.getConnection();
-			entityManager.getTransaction().begin();
-			
 			LoginController loginController = new LoginController();
 			
 			FXMLLoader loader = loginController.getFXMLLoader();
@@ -32,9 +26,8 @@ public class Main extends Application {
 			primaryStage.setTitle("Senior Living");
 			primaryStage.setMaxHeight(500);
 			primaryStage.setMaxWidth(800);
-			primaryStage.setResizable(false);
 			
-			Image anotherIcon = new Image("/br/com/SeniorLiving/images/icon.png");
+			Image anotherIcon = new Image("/br/com/SeniorLiving/images/logos.png");
 			primaryStage.getIcons().add(anotherIcon);
             Controller.goToNextScene(null, false, primaryStage, false);
 		}

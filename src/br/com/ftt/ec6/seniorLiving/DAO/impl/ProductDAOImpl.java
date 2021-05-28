@@ -37,6 +37,7 @@ public class ProductDAOImpl extends DAOImpl<Product> implements ProductDAO {
 		try {
 			return super.entityManager.createQuery(findProductByNameAndRestHomeQuery(), Product.class)
 						.setParameter("name", name)
+						.setParameter("restHome", restHome)
 						.getSingleResult();
 		}catch(RuntimeException e) {return null;}
 	}
