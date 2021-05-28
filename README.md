@@ -16,4 +16,6 @@
 ## :computer: Tecnologias
 - JavaFX
 - MySQL
-- IReport
+- JPA
+- Jackson
+- Mail
